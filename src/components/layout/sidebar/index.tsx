@@ -1,5 +1,3 @@
-"use client";
-
 import { Drawer, DrawerContent } from "@chakra-ui/react";
 import { SidebarList } from "./sidebar-list";
 

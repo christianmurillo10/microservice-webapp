@@ -74,7 +74,7 @@ export const SidebarList = ({ onClose, isOpen, ...rest }: SidebarListProps) => {
     >
       <HStack p="2.5" h="10vh" justify="space-between">
         <Heading as="h1" size="md">
-          Brand
+          Microservice
         </Heading>
         <IconButton
           onClick={onClose}
