@@ -1,5 +1,6 @@
 "use client";
 
+import NextLink from "next/link";
 import { Box, Heading, HStack, IconButton, List, Text } from "@chakra-ui/react";
 import { useColorModeValue } from "../../ui/color-mode";
 import { ClipboardList, FolderClosed, House, Settings, Users, X } from "lucide-react";
@@ -14,47 +15,55 @@ type SidebarListProps = {
 };
 
 type ListItem = {
-  text?: string;
+  text: string;
   icon: React.ElementType;
+  path: string;
 };
 
 const listItems: ListItem[] = [
   {
     text: "Home",
     icon: House,
+    path: "/dashboard"
   },
   {
     text: "Businesses",
     icon: ClipboardList,
+    path: "/dashboard/businesses"
   },
   {
     text: "Roles",
     icon: FolderClosed,
+    path: "/dashboard/roles"
   },
   {
     text: "Users",
     icon: Users,
+    path: "/dashboard/users"
   },
   {
     text: "Settings",
     icon: Settings,
+    path: "/dashboard/settings"
   },
 ];
 
-const ListElement = ({ icon, text }: ListItem) => {
+const ListElement = ({ text, icon, path }: ListItem) => {
   return (
-    <List.Item
-      as={HStack}
-      gap={0}
-      h="10"
-      pl="2.5"
-      cursor="pointer"
-      _hover={{ bg: useColorModeValue("gray.50", "gray.700") }}
-      rounded="md"
-    >
-      <List.Indicator as={icon} />
-      {text && <Text>{text}</Text>}
-    </List.Item>
+    <NextLink href={path} passHref>
+      <List.Item
+        as={HStack}
+        gap={0}
+        h="10"
+        pl="2.5"
+        cursor="pointer"
+        _hover={{ bg: useColorModeValue("gray.50", "gray.700") }}
+        rounded="md"
+      >
+        <List.Indicator as={icon} />
+        {text && <Text>{text}</Text>}
+      </List.Item>
+    </NextLink>
   );
 };
 
@@ -95,6 +104,7 @@ const SidebarList = ({ onClose, isOpen, ...rest }: SidebarListProps) => {
               key={index}
               icon={item.icon}
               text={item.text}
+              path={item.path}
             />
           ))}
         </List.Root>
