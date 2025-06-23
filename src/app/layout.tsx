@@ -1,5 +1,5 @@
-import type { Metadata } from "next"
-import { Provider } from "@/components/ui/provider"
+import type { Metadata } from "next";
+import { Provider } from "@/components/ui/provider";
 
 export const metadata: Metadata = {
   title: "Microservice Webapp",
@@ -17,5 +17,5 @@ export default function RootLayout({
         <Provider>{children}</Provider>
       </body>
     </html>
-  )
-}
+  );
+};
