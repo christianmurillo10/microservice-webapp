@@ -2,11 +2,11 @@ import { Flex, Heading, HStack, IconButton } from "@chakra-ui/react";
 import { useColorModeValue } from "../ui/color-mode";
 import { EarthIcon, Menu, User } from "lucide-react";
 
-type HeaderProps = {
+type HeaderLayoutProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const Header = ({ setOpen }: HeaderProps) => {
+const HeaderLayout = ({ setOpen }: HeaderLayoutProps) => {
   return (
     <Flex
       as="nav"
@@ -50,3 +50,5 @@ export const Header = ({ setOpen }: HeaderProps) => {
     </Flex>
   );
 };
+
+export default HeaderLayout;

@@ -56,7 +56,7 @@ const ListElement = ({ icon, text }: ListItem) => {
   );
 };
 
-export const SidebarList = ({ onClose, isOpen, ...rest }: SidebarListProps) => {
+const SidebarList = ({ onClose, isOpen, ...rest }: SidebarListProps) => {
   return (
     <Box
       as="aside"
@@ -100,3 +100,5 @@ export const SidebarList = ({ onClose, isOpen, ...rest }: SidebarListProps) => {
     </Box>
   );
 };
+
+export default SidebarList;

@@ -1,12 +1,12 @@
 import { Drawer, DrawerContent } from "@chakra-ui/react";
-import { SidebarList } from "./sidebar-list";
+import SidebarList from "./sidebar-list";
 
-type SidebarProps = {
+type SidebarLayoutProps = {
   onClose: () => void;
   isOpen?: boolean;
 };
 
-export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
+const SidebarLayout = ({ isOpen, onClose }: SidebarLayoutProps) => {
   return (
     <>
       <SidebarList
@@ -27,3 +27,5 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
     </>
   );
 };
+
+export default SidebarLayout;
