@@ -60,7 +60,7 @@ const SidebarList = ({ onClose, isOpen, ...rest }: SidebarListProps) => {
   return (
     <Box
       as="aside"
-      borderRight="2px"
+      borderRight="2px solid"
       borderColor={useColorModeValue("gray.200", "gray.900")}
       w={{ base: "100%", lg: 60 }}
       top="0"

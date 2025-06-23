@@ -4,7 +4,7 @@ import HeaderLayout from "@/components/layout/header";
 import MainLayout from "@/components/layout/main";
 import SidebarLayout from "@/components/layout/sidebar";
 import { useColorModeValue } from "@/components/ui/color-mode";
-import { ClientOnly, HStack, Skeleton, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
+import { HStack, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
 
 const Layout = ({
   children,
@@ -19,7 +19,7 @@ const Layout = ({
   };
 
   return (
-    <ClientOnly fallback={<Skeleton boxSize="8" />} >
+    <>
       <HeaderLayout setOpen={setOpen} />
       <HStack
         align="start"
@@ -30,7 +30,7 @@ const Layout = ({
         <SidebarLayout isOpen={open} onClose={onClose} />
         <MainLayout>{children}</MainLayout>
       </HStack >
-    </ ClientOnly>
+    </>
   );
 };
 
