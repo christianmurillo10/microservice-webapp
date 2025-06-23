@@ -1,3 +1,5 @@
+"use client";
+
 import { Flex } from "@chakra-ui/react";
 import { useColorModeValue } from "../ui/color-mode";
 

@@ -1,3 +1,5 @@
+"use client";
+
 import { Flex, Heading, HStack, IconButton } from "@chakra-ui/react";
 import { useColorMode, useColorModeValue } from "../ui/color-mode";
 import { Sun, Moon, Menu, User } from "lucide-react";

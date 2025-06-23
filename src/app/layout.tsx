@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Provider } from "@/components/ui/provider";
-import Layout from "@/components/layout";
 
 export const metadata: Metadata = {
   title: "Microservice Webapp",
@@ -15,11 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <Provider>
-          <Layout>
-            {children}
-          </Layout>
-        </Provider>
+        <Provider>{children}</Provider>
       </body>
     </html>
   );

@@ -1,3 +1,5 @@
+"use client";
+
 import { Box, Heading, HStack, IconButton, List, Text } from "@chakra-ui/react";
 import { useColorModeValue } from "../../ui/color-mode";
 import { ClipboardList, FolderClosed, House, Settings, Users, X } from "lucide-react";
