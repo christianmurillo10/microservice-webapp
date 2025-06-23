@@ -1,12 +1,14 @@
 import { Flex, Heading, HStack, IconButton } from "@chakra-ui/react";
-import { useColorModeValue } from "../ui/color-mode";
-import { EarthIcon, Menu, User } from "lucide-react";
+import { useColorMode, useColorModeValue } from "../ui/color-mode";
+import { Sun, Moon, Menu, User } from "lucide-react";
 
 type HeaderLayoutProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const HeaderLayout = ({ setOpen }: HeaderLayoutProps) => {
+  const { colorMode, setColorMode } = useColorMode();
+
   return (
     <Flex
       as="nav"
@@ -36,8 +38,9 @@ const HeaderLayout = ({ setOpen }: HeaderLayoutProps) => {
           rounded="full"
           size="md"
           aria-label="earth icon"
+          onClick={() => setColorMode(colorMode === "dark" ? "light" : "dark")}
         >
-          <EarthIcon size="20" />
+          {colorMode === "dark" ? <Moon size="20" /> : <Sun size="20" />}
         </IconButton>
         <IconButton
           rounded="full"

@@ -5,8 +5,8 @@ export default function Home() {
   return (
     <Layout>
       <Box textAlign="center">
-        <Heading as="h3">Main Heading</Heading>
-        <Text>Empty Main Content</Text>
+        <Heading as="h3">Home Page</Heading>
+        <Text>Home Page Content</Text>
       </Box>
     </Layout>
   );
