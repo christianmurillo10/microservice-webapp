@@ -16,8 +16,8 @@ const HeaderLayout = ({ setOpen }: HeaderLayoutProps) => {
       as="nav"
       alignItems="center"
       justifyContent={{ base: "space-between", lg: "flex-end" }}
-      h="10vh"
-      p="2.5"
+      h="6vh"
+      p="1.5"
       bg={useColorModeValue("gray.50", "gray.800")}
       color={useColorModeValue("gray.900", "gray.50")}
     >
@@ -39,12 +39,13 @@ const HeaderLayout = ({ setOpen }: HeaderLayoutProps) => {
           variant="ghost"
           rounded="full"
           size="md"
-          aria-label="earth icon"
+          aria-label="dark and light icon"
           onClick={() => setColorMode(colorMode === "dark" ? "light" : "dark")}
         >
           {colorMode === "dark" ? <Moon size="20" /> : <Sun size="20" />}
         </IconButton>
         <IconButton
+          variant="ghost"
           rounded="full"
           size="md"
           aria-label="user icon"
