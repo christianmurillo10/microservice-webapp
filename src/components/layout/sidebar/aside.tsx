@@ -5,7 +5,7 @@ import { Box, Heading, HStack, IconButton, List, Text } from "@chakra-ui/react";
 import { useColorModeValue } from "../../ui/color-mode";
 import { UserCog, BriefcaseBusiness, LayoutDashboard, Users, X } from "lucide-react";
 
-type SidebarListProps = {
+type AsideProps = {
   display?: {
     base: string;
     lg: string;
@@ -62,7 +62,7 @@ const ListElement = ({ text, icon, path }: ListItem) => {
   );
 };
 
-const SidebarList = ({ onClose, isOpen, ...rest }: SidebarListProps) => {
+const Aside = ({ onClose, isOpen, ...rest }: AsideProps) => {
   return (
     <Box
       as="aside"
@@ -108,4 +108,4 @@ const SidebarList = ({ onClose, isOpen, ...rest }: SidebarListProps) => {
   );
 };
 
-export default SidebarList;
+export default Aside;

@@ -1,7 +1,7 @@
 "use client";
 
 import { Drawer, DrawerContent } from "@chakra-ui/react";
-import SidebarList from "./sidebar-list";
+import Aside from "./aside";
 
 type SidebarLayoutProps = {
   onClose: () => void;
@@ -11,7 +11,7 @@ type SidebarLayoutProps = {
 const SidebarLayout = ({ isOpen, onClose }: SidebarLayoutProps) => {
   return (
     <>
-      <SidebarList
+      <Aside
         onClose={onClose}
         display={{ base: "none", lg: "block" }}
       />
@@ -23,7 +23,7 @@ const SidebarLayout = ({ isOpen, onClose }: SidebarLayoutProps) => {
         size="full"
       >
         <DrawerContent overflow="hidden">
-          <SidebarList onClose={onClose} isOpen={isOpen} />
+          <Aside onClose={onClose} isOpen={isOpen} />
         </DrawerContent>
       </Drawer.Root>
     </>
