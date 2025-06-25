@@ -3,7 +3,7 @@
 import NextLink from "next/link";
 import { Box, Heading, HStack, IconButton, List, Text } from "@chakra-ui/react";
 import { useColorModeValue } from "../../ui/color-mode";
-import { UserCog, BriefcaseBusiness, LayoutDashboard, Settings, Users, X } from "lucide-react";
+import { UserCog, BriefcaseBusiness, LayoutDashboard, Users, X } from "lucide-react";
 
 type SidebarListProps = {
   display?: {
@@ -40,11 +40,6 @@ const listItems: ListItem[] = [
     text: "Users",
     icon: Users,
     path: "/dashboard/users"
-  },
-  {
-    text: "Settings",
-    icon: Settings,
-    path: "/dashboard/settings"
   },
 ];
 
