@@ -78,8 +78,8 @@ const Aside = ({ onClose, isOpen, ...rest }: AsideProps) => {
       color={useColorModeValue("gray.900", "gray.50")}
       {...rest}
     >
-      <HStack p="2.5" h="10vh" justify="space-between">
-        <Heading as="h1" size="md">
+      <HStack p="2.5" h="6vh" justify="space-between">
+        <Heading as="h1" size="2xl">
           Microservice
         </Heading>
         <IconButton
@@ -92,7 +92,7 @@ const Aside = ({ onClose, isOpen, ...rest }: AsideProps) => {
           <X size="20" />
         </IconButton>
       </HStack>
-      <Box>
+      <Box pt="2.5">
         <List.Root gap={0} p="0.5">
           {listItems.map((item, index) => (
             <ListElement
