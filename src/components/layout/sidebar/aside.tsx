@@ -73,7 +73,7 @@ const Aside = ({ onClose, isOpen, currentPath, ...rest }: AsideProps) => {
     <Box
       as="aside"
       borderRight="2px solid"
-      borderColor={useColorModeValue("gray.200", "gray.900")}
+      borderColor={useColorModeValue("gray.200", "gray.800")}
       w={{ base: "100%", lg: 60 }}
       top="0"
       pos="fixed"
