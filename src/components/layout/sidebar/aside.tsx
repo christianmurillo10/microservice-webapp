@@ -12,12 +12,14 @@ type AsideProps = {
   };
   onClose: () => void;
   isOpen?: boolean;
+  currentPath?: string;
 };
 
 type ListItem = {
   text: string;
   icon: React.ElementType;
   path: string;
+  currentPath?: string;
 };
 
 const listItems: ListItem[] = [
@@ -43,7 +45,9 @@ const listItems: ListItem[] = [
   },
 ];
 
-const ListElement = ({ text, icon, path }: ListItem) => {
+const ListElement = ({ text, icon, path, currentPath }: ListItem) => {
+  const isActive = currentPath === path;
+
   return (
     <NextLink href={path} passHref>
       <List.Item
@@ -52,7 +56,9 @@ const ListElement = ({ text, icon, path }: ListItem) => {
         h="10"
         pl="2.5"
         cursor="pointer"
-        _hover={{ bg: useColorModeValue("gray.50", "gray.700") }}
+        bg={isActive ? "blue.500" : "transparent"}
+        color={isActive ? "white" : undefined}
+        _hover={{ bg: isActive ? "blue.600" : useColorModeValue("gray.50", "gray.700") }}
         rounded="md"
       >
         <List.Indicator as={icon} />
@@ -62,7 +68,7 @@ const ListElement = ({ text, icon, path }: ListItem) => {
   );
 };
 
-const Aside = ({ onClose, isOpen, ...rest }: AsideProps) => {
+const Aside = ({ onClose, isOpen, currentPath, ...rest }: AsideProps) => {
   return (
     <Box
       as="aside"
@@ -100,6 +106,7 @@ const Aside = ({ onClose, isOpen, ...rest }: AsideProps) => {
               icon={item.icon}
               text={item.text}
               path={item.path}
+              currentPath={currentPath}
             />
           ))}
         </List.Root>

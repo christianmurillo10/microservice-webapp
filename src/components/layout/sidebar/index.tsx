@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { Drawer, DrawerContent } from "@chakra-ui/react";
 import Aside from "./aside";
 
@@ -8,12 +9,15 @@ type SidebarLayoutProps = {
   isOpen?: boolean;
 };
 
-const SidebarLayout = ({ isOpen, onClose }: SidebarLayoutProps) => {
+const SidebarLayout = ({ onClose, isOpen }: SidebarLayoutProps) => {
+  const pathname = usePathname();
+
   return (
     <>
       <Aside
         onClose={onClose}
         display={{ base: "none", lg: "block" }}
+        currentPath={pathname}
       />
       <Drawer.Root
         open={isOpen}
@@ -23,7 +27,7 @@ const SidebarLayout = ({ isOpen, onClose }: SidebarLayoutProps) => {
         size="full"
       >
         <DrawerContent overflow="hidden">
-          <Aside onClose={onClose} isOpen={isOpen} />
+          <Aside onClose={onClose} isOpen={isOpen} currentPath={pathname} />
         </DrawerContent>
       </Drawer.Root>
     </>
