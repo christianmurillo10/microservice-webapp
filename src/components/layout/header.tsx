@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, Flex, Heading, HStack, IconButton, Menu as Menu, Portal } from "@chakra-ui/react";
+import { Flex, Heading, HStack, IconButton, Menu as Menu, Portal } from "@chakra-ui/react";
 import { useColorMode, useColorModeValue } from "../ui/color-mode";
 import { Sun, Moon, MenuIcon, User } from "lucide-react";
 
@@ -18,7 +18,7 @@ const HeaderLayout = ({ setOpen }: HeaderLayoutProps) => {
       justifyContent={{ base: "space-between", lg: "flex-end" }}
       h="6vh"
       p="1.5"
-      bg={useColorModeValue("gray.50", "gray.800")}
+      bg={useColorModeValue("white", "gray.900")}
       color={useColorModeValue("gray.900", "gray.50")}
     >
       <HStack gap={2} display={{ base: "flex", lg: "none" }}>

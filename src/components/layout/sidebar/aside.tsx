@@ -1,7 +1,7 @@
 "use client";
 
 import NextLink from "next/link";
-import { Box, Heading, HStack, IconButton, List, Text } from "@chakra-ui/react";
+import { Avatar, Box, Heading, HStack, IconButton, List, Separator, Stack, Text } from "@chakra-ui/react";
 import { useColorModeValue } from "../../ui/color-mode";
 import { UserCog, BriefcaseBusiness, LayoutDashboard, Users, X } from "lucide-react";
 
@@ -72,8 +72,6 @@ const Aside = ({ onClose, isOpen, currentPath, ...rest }: AsideProps) => {
   return (
     <Box
       as="aside"
-      borderRight="2px solid"
-      borderColor={useColorModeValue("gray.200", "gray.800")}
       w={{ base: "100%", lg: 60 }}
       top="0"
       pos="fixed"
@@ -98,8 +96,20 @@ const Aside = ({ onClose, isOpen, currentPath, ...rest }: AsideProps) => {
           <X size="20" />
         </IconButton>
       </HStack>
-      <Box pt="2.5">
-        <List.Root gap={0} p="0.5">
+      <HStack p="2.5" gap="2">
+        <Avatar.Root>
+          <Avatar.Fallback name="Christian Murillo" />
+        </Avatar.Root>
+        <Stack gap="0">
+          <Text fontWeight="medium">Christian Murillo</Text>
+          <Text color="fg.muted" textStyle="sm">
+            christianoroceomurillo@g...
+          </Text>
+        </Stack>
+      </HStack>
+      <Separator m="2" />
+      <Box>
+        <List.Root gap={1} p="1">
           {listItems.map((item, index) => (
             <ListElement
               key={index}

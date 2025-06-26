@@ -24,7 +24,7 @@ const Layout = ({
       <HStack
         align="start"
         gap={0}
-        bg={useColorModeValue("gray.50", "gray.800")}
+        bg={useColorModeValue("white", "gray.900")}
         color={useColorModeValue("gray.900", "gray.50")}
       >
         <SidebarLayout isOpen={open} onClose={onClose} />

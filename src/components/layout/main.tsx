@@ -16,7 +16,8 @@ const MainLayout = ({
       minH="94vh"
       align="center"
       justify="center"
-      bg={useColorModeValue("white", "gray.900")}
+      borderRadius="15px"
+      bg={useColorModeValue("gray.100", "gray.800")}
       color={useColorModeValue("gray.900", "gray.50")}
     >
       {children}
