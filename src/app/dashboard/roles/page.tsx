@@ -1,10 +1,20 @@
-import { Box, Heading, Text } from "@chakra-ui/react";
+import Link from "next/link";
+import { Box, Breadcrumb } from "@chakra-ui/react";
 
 export default function Roles() {
   return (
-    <Box textAlign="center">
-      <Heading as="h3">Roles Page</Heading>
-      <Text>Roles Page Content</Text>
+    <Box>
+      <Breadcrumb.Root>
+        <Breadcrumb.List>
+          <Breadcrumb.Item>
+            <Breadcrumb.Link as={Link} href="/dashboard">Dashboard</Breadcrumb.Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Separator />
+          <Breadcrumb.Item>
+            <Breadcrumb.CurrentLink>Roles</Breadcrumb.CurrentLink>
+          </Breadcrumb.Item>
+        </Breadcrumb.List>
+      </Breadcrumb.Root>
     </Box>
   );
 };

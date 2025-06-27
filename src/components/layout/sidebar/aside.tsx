@@ -108,8 +108,8 @@ const Aside = ({ onClose, isOpen, currentPath, ...rest }: AsideProps) => {
         </Stack>
       </HStack>
       <Separator m="2" />
-      <Box>
-        <List.Root gap={1} p="1">
+      <Box p="2.5">
+        <List.Root gap={1}>
           {listItems.map((item, index) => (
             <ListElement
               key={index}
