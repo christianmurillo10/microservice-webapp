@@ -26,9 +26,11 @@ const SidebarLayout = ({ onClose, isOpen }: SidebarLayoutProps) => {
         closeOnEscape={false}
         size="full"
       >
-        <DrawerContent overflow="hidden">
-          <Aside onClose={onClose} isOpen={isOpen} currentPath={pathname} />
-        </DrawerContent>
+        <Drawer.Positioner>
+          <DrawerContent overflow="hidden">
+            <Aside onClose={onClose} isOpen={isOpen} currentPath={pathname} />
+          </DrawerContent>
+        </Drawer.Positioner>
       </Drawer.Root>
     </>
   );

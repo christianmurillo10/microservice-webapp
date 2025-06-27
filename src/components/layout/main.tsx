@@ -12,10 +12,9 @@ const MainLayout = ({
     <Flex
       as="main"
       ml={{ base: 0, lg: "60" }}
+      p={{ base: "5", lg: "5" }}
       w="full"
       minH="94vh"
-      align="center"
-      justify="center"
       borderRadius="15px"
       bg={useColorModeValue("gray.100", "gray.800")}
       color={useColorModeValue("gray.900", "gray.50")}

@@ -103,7 +103,7 @@ const Aside = ({ onClose, isOpen, currentPath, ...rest }: AsideProps) => {
         <Stack gap="0">
           <Text fontWeight="medium">Christian Murillo</Text>
           <Text color="fg.muted" textStyle="sm">
-            christianoroceomurillo@g...
+            Welcome!
           </Text>
         </Stack>
       </HStack>
