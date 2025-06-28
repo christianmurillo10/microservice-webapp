@@ -15,22 +15,23 @@ const HeaderLayout = ({ setOpen }: HeaderLayoutProps) => {
     <Flex
       as="nav"
       alignItems="center"
-      justifyContent={{ base: "space-between", lg: "flex-end" }}
+      justifyContent="space-between"
       h="6vh"
       p="1.5"
       bg={useColorModeValue("white", "gray.900")}
       color={useColorModeValue("gray.900", "gray.50")}
     >
-      <HStack gap={2} display={{ base: "flex", lg: "none" }}>
+      <HStack p={{ base: undefined, lg: "2.5" }} gap={2}>
         <IconButton
           fontSize="18px"
           variant="ghost"
           aria-label="open menu"
+          display={{ base: undefined, lg: "none" }}
           onClick={() => setOpen(true)}
         >
           <MenuIcon size="20" />
         </IconButton>
-        <Heading as="h1" size="md">
+        <Heading as="h1" size={{ base: "md", lg: "2xl" }}>
           Microservice
         </Heading>
       </HStack>
