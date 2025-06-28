@@ -73,7 +73,7 @@ const Aside = ({ onClose, isOpen, currentPath, ...rest }: AsideProps) => {
     <Box
       as="aside"
       w={{ base: "100%", lg: 60 }}
-      // top="0"
+      top="0"
       pos="fixed"
       h="100%"
       minH="100vh"
@@ -82,7 +82,7 @@ const Aside = ({ onClose, isOpen, currentPath, ...rest }: AsideProps) => {
       color={useColorModeValue("gray.900", "gray.50")}
       {...rest}
     >
-      <HStack p="2.5" my="2.5" h="6vh" justify="space-between">
+      <HStack p="2.5" my="2.5" justify="space-between">
         <HStack gap="2">
           <Avatar.Root>
             <Avatar.Fallback name="Christian Murillo" />

@@ -17,7 +17,7 @@ export default function Home() {
       }}
       gap={6}
     >
-      {Array.from({ length: 4 }).map((_, i) => (
+      {Array.from({ length: 20 }).map((_, i) => (
         <GridItem
           key={i}
           colSpan={{ base: 1, sm: 1, md: 1, lg: 1 }}

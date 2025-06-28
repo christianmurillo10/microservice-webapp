@@ -14,9 +14,9 @@ const HeaderLayout = ({ setOpen }: HeaderLayoutProps) => {
   return (
     <Flex
       as="nav"
+      ml={{ base: 0, lg: "60" }}
       alignItems="center"
       justifyContent="space-between"
-      h="6vh"
       p="1.5"
       bg={useColorModeValue("white", "gray.900")}
       color={useColorModeValue("gray.900", "gray.50")}

@@ -4,7 +4,7 @@ import HeaderLayout from "@/components/layout/header";
 import MainLayout from "@/components/layout/main";
 import SidebarLayout from "@/components/layout/sidebar";
 import { useColorModeValue } from "@/components/ui/color-mode";
-import { ClientOnly, HStack, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
+import { Box, ClientOnly, HStack, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
 
 const Layout = ({
   children,
@@ -20,16 +20,20 @@ const Layout = ({
 
   return (
     <ClientOnly>
-      <HeaderLayout setOpen={setOpen} />
-      <HStack
-        align="start"
-        gap={0}
+      <Box
+        minH="100vh"
         bg={useColorModeValue("white", "gray.900")}
         color={useColorModeValue("gray.900", "gray.50")}
       >
-        <SidebarLayout isOpen={open} onClose={onClose} />
-        <MainLayout>{children}</MainLayout>
-      </HStack >
+        <HeaderLayout setOpen={setOpen} />
+        <HStack
+          align="start"
+          gap={0}
+        >
+          <SidebarLayout isOpen={open} onClose={onClose} />
+          <MainLayout>{children}</MainLayout>
+        </HStack >
+      </Box >
     </ClientOnly>
   );
 };
