@@ -1,7 +1,6 @@
 "use client";
 
 import { Flex } from "@chakra-ui/react";
-import { useColorModeValue } from "../ui/color-mode";
 
 const MainLayout = ({
   children,
@@ -12,13 +11,10 @@ const MainLayout = ({
     <Flex
       as="main"
       ml={{ base: 0, lg: "60" }}
-      p={{ base: "5", lg: "5" }}
+      p="5"
       w="full"
-      minH="93vh"
-      display="block"
+      mt="16"
       borderRadius="15px"
-      bg={useColorModeValue("gray.100", "gray.800")}
-      color={useColorModeValue("gray.900", "gray.50")}
     >
       {children}
     </Flex>

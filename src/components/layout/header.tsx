@@ -14,14 +14,21 @@ const HeaderLayout = ({ setOpen }: HeaderLayoutProps) => {
   return (
     <Flex
       as="nav"
-      ml={{ base: 0, lg: "60" }}
+      top="0"
+      pos="fixed"
       alignItems="center"
       justifyContent="space-between"
+      w="full"
       p="1.5"
+      zIndex={99}
       bg={useColorModeValue("white", "gray.900")}
       color={useColorModeValue("gray.900", "gray.50")}
     >
-      <HStack p={{ base: undefined, lg: "2.5" }} gap={2}>
+      <HStack
+        ml={{ base: 0, lg: "60" }}
+        p={{ base: undefined, lg: "2.5" }}
+        gap={2}
+      >
         <IconButton
           fontSize="18px"
           variant="ghost"

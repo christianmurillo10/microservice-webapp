@@ -22,7 +22,7 @@ const Layout = ({
     <ClientOnly>
       <Box
         minH="100vh"
-        bg={useColorModeValue("white", "gray.900")}
+        bg={useColorModeValue("gray.100", "gray.800")}
         color={useColorModeValue("gray.900", "gray.50")}
       >
         <HeaderLayout setOpen={setOpen} />
