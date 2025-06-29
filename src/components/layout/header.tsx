@@ -21,7 +21,10 @@ const HeaderLayout = ({ setOpen }: HeaderLayoutProps) => {
       w="full"
       p="1.5"
       zIndex={99}
-      bg={useColorModeValue("white", "gray.900")}
+      bg={{
+        base: useColorModeValue("white", "gray.900"),
+        lg: useColorModeValue("gray.100", "gray.800")
+      }}
       color={useColorModeValue("gray.900", "gray.50")}
     >
       <HStack

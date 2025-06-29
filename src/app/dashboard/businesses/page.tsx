@@ -4,7 +4,7 @@ import { Box, Breadcrumb } from "@chakra-ui/react";
 export default function Businesses() {
   return (
     <Box>
-      <Breadcrumb.Root>
+      <Breadcrumb.Root size="lg">
         <Breadcrumb.List>
           <Breadcrumb.Item>
             <Breadcrumb.Link as={Link} href="/dashboard">Dashboard</Breadcrumb.Link>
