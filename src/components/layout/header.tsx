@@ -55,7 +55,7 @@ const HeaderLayout = ({ setOpen }: HeaderLayoutProps) => {
           {colorMode === "dark" ? <Moon size="20" /> : <Sun size="20" />}
         </IconButton>
         <Menu.Root>
-          <Menu.Trigger asChild>
+          <Menu.Trigger focusRing="none" asChild>
             <IconButton
               variant="ghost"
               size="md"

@@ -7,7 +7,13 @@ export default function Roles() {
       <Breadcrumb.Root size="lg">
         <Breadcrumb.List>
           <Breadcrumb.Item>
-            <Breadcrumb.Link as={Link} href="/dashboard">Dashboard</Breadcrumb.Link>
+            <Breadcrumb.Link
+              as={Link}
+              href="/dashboard"
+              focusRing="none"
+            >
+              Dashboard
+            </Breadcrumb.Link>
           </Breadcrumb.Item>
           <Breadcrumb.Separator />
           <Breadcrumb.Item>
