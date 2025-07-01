@@ -1,9 +1,9 @@
 "use client";
 
 import NextLink from "next/link";
-import { Avatar, Box, HStack, IconButton, List, Separator, Stack, Text } from "@chakra-ui/react";
+import { Avatar, Box, HStack, IconButton, List, Separator, Stack, Text, useDisclosure } from "@chakra-ui/react";
+import { UserCog, BriefcaseBusiness, LayoutDashboard, Users, X, ChevronRightIcon, ChevronDownIcon } from "lucide-react";
 import { useColorModeValue } from "../../ui/color-mode";
-import { UserCog, BriefcaseBusiness, LayoutDashboard, Users, X } from "lucide-react";
 
 type AsideProps = {
   display?: {
@@ -12,13 +12,14 @@ type AsideProps = {
   };
   onClose: () => void;
   isOpen?: boolean;
-  currentPath?: string;
+  currentPath: string;
 };
 
 type ListItem = {
   text: string;
-  icon: React.ElementType;
-  path: string;
+  icon?: React.ElementType;
+  path?: string;
+  children?: ListItem[];
   currentPath?: string;
 };
 
@@ -41,30 +42,79 @@ const listItems: ListItem[] = [
   {
     text: "Users",
     icon: Users,
-    path: "/dashboard/users"
+    children: [
+      {
+        text: "Manage",
+        icon: Users,
+        path: "/dashboard/users",
+      }
+    ]
   },
 ];
 
-const ListElement = ({ text, icon, path, currentPath }: ListItem) => {
+const RecursiveListItem = ({ icon, text, children, path, currentPath }: ListItem) => {
+  const { open, onToggle } = useDisclosure();
   const isActive = currentPath === path;
+  const hasChildren = children && children.length > 0;
 
   return (
-    <NextLink href={path} passHref>
-      <List.Item
-        as={HStack}
-        gap={0}
-        h="10"
-        pl="2.5"
-        cursor="pointer"
-        bg={isActive ? "blue.500" : "transparent"}
-        color={isActive ? "white" : undefined}
-        _hover={{ bg: isActive ? "blue.600" : useColorModeValue("gray.50", "gray.700") }}
-        rounded="md"
-      >
-        <List.Indicator as={icon} />
-        {text && <Text>{text}</Text>}
-      </List.Item>
-    </NextLink>
+    <>
+      {path
+        ?
+        <NextLink href={path} passHref>
+          <List.Item gap={0}>
+            <Box
+              alignContent="center"
+              h="10"
+              pl="2.5"
+              cursor="pointer"
+              bg={isActive ? "blue.500" : "transparent"}
+              color={isActive ? "white" : undefined}
+              _hover={{ bg: isActive ? "blue.600" : useColorModeValue("gray.50", "gray.700") }}
+              rounded="md"
+              onClick={hasChildren ? onToggle : undefined}
+            >
+              <List.Indicator as={icon} />
+              {text}
+              {hasChildren && (<List.Indicator as={open ? ChevronDownIcon : ChevronRightIcon} />)}
+            </Box>
+          </List.Item>
+        </NextLink>
+        :
+        <List.Item gap={0}>
+          <Box
+            alignContent="center"
+            h="10"
+            pl="2.5"
+            cursor="pointer"
+            bg={isActive ? "blue.500" : "transparent"}
+            color={isActive ? "white" : undefined}
+            _hover={{ bg: isActive ? "blue.600" : useColorModeValue("gray.50", "gray.700") }}
+            rounded="md"
+            onClick={hasChildren ? onToggle : undefined}
+          >
+            <List.Indicator as={icon} />
+            {text}
+            {hasChildren && (<List.Indicator as={open ? ChevronDownIcon : ChevronRightIcon} />)}
+          </Box>
+        </List.Item>
+      }
+
+      {hasChildren && open &&
+        <List.Root gap={0}>
+          {children && children.map((child, index) => (
+            <RecursiveListItem
+              key={index}
+              icon={child.icon}
+              text={child.text}
+              children={child.children}
+              path={child.path}
+              currentPath={currentPath}
+            />
+          ))}
+        </List.Root>
+      }
+    </>
   );
 };
 
@@ -108,10 +158,11 @@ const Aside = ({ onClose, isOpen, currentPath, ...rest }: AsideProps) => {
       <Box p="2.5">
         <List.Root gap={1}>
           {listItems.map((item, index) => (
-            <ListElement
+            <RecursiveListItem
               key={index}
               icon={item.icon}
               text={item.text}
+              children={item.children}
               path={item.path}
               currentPath={currentPath}
             />
