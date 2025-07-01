@@ -15,12 +15,29 @@ type AsideProps = {
   currentPath: string;
 };
 
+type MenuListProps = {
+  listItems: ListItem[];
+  currentPath: string;
+};
+
+type MenuListItemProps = {
+  isActive: boolean;
+  hasChildren?: boolean;
+  open: boolean;
+  onToggle: () => void;
+  text: string;
+  icon?: React.ElementType;
+};
+
+type RecursiveMenuListItemProps = ListItem & {
+  currentPath?: string;
+};
+
 type ListItem = {
   text: string;
   icon?: React.ElementType;
   path?: string;
   children?: ListItem[];
-  currentPath?: string;
 };
 
 const listItems: ListItem[] = [
@@ -52,7 +69,42 @@ const listItems: ListItem[] = [
   },
 ];
 
-const RecursiveListItem = ({ icon, text, children, path, currentPath }: ListItem) => {
+const MenuList = ({ listItems, currentPath }: MenuListProps) => (
+  <List.Root gap={1}>
+    {listItems.map((item, index) => (
+      <RecursiveListItem
+        key={index}
+        icon={item.icon}
+        text={item.text}
+        children={item.children}
+        path={item.path}
+        currentPath={currentPath}
+      />
+    ))}
+  </List.Root>
+);
+
+const MenuListItem = ({ isActive, hasChildren, open, onToggle, text, icon }: MenuListItemProps) => (
+  <List.Item gap={0}>
+    <Box
+      alignContent="center"
+      h="10"
+      pl="2.5"
+      cursor="pointer"
+      bg={isActive ? "blue.500" : "transparent"}
+      color={isActive ? "white" : undefined}
+      _hover={{ bg: isActive ? "blue.600" : useColorModeValue("gray.50", "gray.700") }}
+      rounded="md"
+      onClick={hasChildren ? onToggle : undefined}
+    >
+      <List.Indicator as={icon} />
+      {text}
+      {hasChildren && (<List.Indicator as={open ? ChevronDownIcon : ChevronRightIcon} />)}
+    </Box>
+  </List.Item>
+);
+
+const RecursiveListItem = ({ icon, text, children, path, currentPath }: RecursiveMenuListItemProps) => {
   const { open, onToggle } = useDisclosure();
   const isActive = currentPath === path;
   const hasChildren = children && children.length > 0;
@@ -62,42 +114,24 @@ const RecursiveListItem = ({ icon, text, children, path, currentPath }: ListItem
       {path
         ?
         <NextLink href={path} passHref>
-          <List.Item gap={0}>
-            <Box
-              alignContent="center"
-              h="10"
-              pl="2.5"
-              cursor="pointer"
-              bg={isActive ? "blue.500" : "transparent"}
-              color={isActive ? "white" : undefined}
-              _hover={{ bg: isActive ? "blue.600" : useColorModeValue("gray.50", "gray.700") }}
-              rounded="md"
-              onClick={hasChildren ? onToggle : undefined}
-            >
-              <List.Indicator as={icon} />
-              {text}
-              {hasChildren && (<List.Indicator as={open ? ChevronDownIcon : ChevronRightIcon} />)}
-            </Box>
-          </List.Item>
+          <MenuListItem
+            isActive={isActive}
+            hasChildren={hasChildren}
+            open={open}
+            onToggle={onToggle}
+            text={text}
+            icon={icon}
+          />
         </NextLink>
         :
-        <List.Item gap={0}>
-          <Box
-            alignContent="center"
-            h="10"
-            pl="2.5"
-            cursor="pointer"
-            bg={isActive ? "blue.500" : "transparent"}
-            color={isActive ? "white" : undefined}
-            _hover={{ bg: isActive ? "blue.600" : useColorModeValue("gray.50", "gray.700") }}
-            rounded="md"
-            onClick={hasChildren ? onToggle : undefined}
-          >
-            <List.Indicator as={icon} />
-            {text}
-            {hasChildren && (<List.Indicator as={open ? ChevronDownIcon : ChevronRightIcon} />)}
-          </Box>
-        </List.Item>
+        <MenuListItem
+          isActive={isActive}
+          hasChildren={hasChildren}
+          open={open}
+          onToggle={onToggle}
+          text={text}
+          icon={icon}
+        />
       }
 
       {hasChildren && open &&
@@ -156,18 +190,7 @@ const Aside = ({ onClose, isOpen, currentPath, ...rest }: AsideProps) => {
       </HStack>
       <Separator m="2" />
       <Box p="2.5">
-        <List.Root gap={1}>
-          {listItems.map((item, index) => (
-            <RecursiveListItem
-              key={index}
-              icon={item.icon}
-              text={item.text}
-              children={item.children}
-              path={item.path}
-              currentPath={currentPath}
-            />
-          ))}
-        </List.Root>
+        <MenuList listItems={listItems} currentPath={currentPath} />
       </Box>
     </Box>
   );
