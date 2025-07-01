@@ -1,7 +1,7 @@
 "use client";
 
 import NextLink from "next/link";
-import { Avatar, Box, HStack, IconButton, List, Separator, Stack, Text, useDisclosure } from "@chakra-ui/react";
+import { Avatar, Box, Flex, HStack, IconButton, List, Separator, Stack, Text, useDisclosure } from "@chakra-ui/react";
 import { UserCog, BriefcaseBusiness, LayoutDashboard, Users, X, ChevronRightIcon, ChevronDownIcon } from "lucide-react";
 import { useColorModeValue } from "../../ui/color-mode";
 
@@ -62,7 +62,6 @@ const listItems: ListItem[] = [
     children: [
       {
         text: "Manage",
-        icon: Users,
         path: "/dashboard/users",
       }
     ]
@@ -86,10 +85,11 @@ const MenuList = ({ listItems, currentPath }: MenuListProps) => (
 
 const MenuListItem = ({ isActive, hasChildren, open, onToggle, text, icon }: MenuListItemProps) => (
   <List.Item gap={0}>
-    <Box
-      alignContent="center"
+    <Flex
+      alignItems="center"
+      justifyContent="space-between"
       h="10"
-      pl="2.5"
+      pl={icon ? "2.5" : "9"}
       cursor="pointer"
       bg={isActive ? "blue.500" : "transparent"}
       color={isActive ? "white" : undefined}
@@ -97,10 +97,12 @@ const MenuListItem = ({ isActive, hasChildren, open, onToggle, text, icon }: Men
       rounded="md"
       onClick={hasChildren ? onToggle : undefined}
     >
-      <List.Indicator as={icon} />
-      {text}
+      <Box>
+        <List.Indicator as={icon} />
+        {text}
+      </Box>
       {hasChildren && (<List.Indicator as={open ? ChevronDownIcon : ChevronRightIcon} />)}
-    </Box>
+    </Flex>
   </List.Item>
 );
 
