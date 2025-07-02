@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import NextLink from "next/link";
 import { Avatar, Box, Flex, HStack, IconButton, List, Separator, Stack, Text, useDisclosure } from "@chakra-ui/react";
 import { UserCog, BriefcaseBusiness, LayoutDashboard, Users, X, ChevronRightIcon, ChevronDownIcon } from "lucide-react";
@@ -107,9 +108,16 @@ const MenuListItem = ({ isActive, hasChildren, open, onToggle, text, icon }: Men
 );
 
 const RecursiveListItem = ({ icon, text, children, path, currentPath }: RecursiveMenuListItemProps) => {
-  const { open, onToggle } = useDisclosure();
+  const { open, onToggle, setOpen } = useDisclosure();
   const isActive = currentPath === path;
   const hasChildren = children && children.length > 0;
+
+  useEffect(() => {
+    if (hasChildren) {
+      const activeChildren = children.some(child => child.path === currentPath);
+      if (activeChildren) setOpen(true);
+    }
+  }, []);
 
   return (
     <>
