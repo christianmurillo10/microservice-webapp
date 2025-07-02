@@ -45,17 +45,17 @@ const listItems: ListItem[] = [
   {
     text: "Dashboard",
     icon: LayoutDashboard,
-    path: "/dashboard"
+    path: "/"
   },
   {
     text: "Businesses",
     icon: BriefcaseBusiness,
-    path: "/dashboard/businesses"
+    path: "/businesses"
   },
   {
     text: "Roles",
     icon: UserCog,
-    path: "/dashboard/roles"
+    path: "/roles"
   },
   {
     text: "Users",
@@ -63,7 +63,7 @@ const listItems: ListItem[] = [
     children: [
       {
         text: "Manage",
-        path: "/dashboard/users",
+        path: "/users",
       }
     ]
   },

@@ -9,7 +9,7 @@ export default function Businesses() {
           <Breadcrumb.Item>
             <Breadcrumb.Link
               as={Link}
-              href="/dashboard"
+              href="/"
               focusRing="none"
             >
               Dashboard

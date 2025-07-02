@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Box, Breadcrumb } from "@chakra-ui/react";
 
-export default function Settings() {
+export default function Roles() {
   return (
     <Box>
       <Breadcrumb.Root size="lg">
@@ -9,7 +9,7 @@ export default function Settings() {
           <Breadcrumb.Item>
             <Breadcrumb.Link
               as={Link}
-              href="/dashboard"
+              href="/"
               focusRing="none"
             >
               Dashboard
@@ -17,7 +17,7 @@ export default function Settings() {
           </Breadcrumb.Item>
           <Breadcrumb.Separator />
           <Breadcrumb.Item>
-            <Breadcrumb.CurrentLink>Settings</Breadcrumb.CurrentLink>
+            <Breadcrumb.CurrentLink>Roles</Breadcrumb.CurrentLink>
           </Breadcrumb.Item>
         </Breadcrumb.List>
       </Breadcrumb.Root>
