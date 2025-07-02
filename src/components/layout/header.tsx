@@ -49,6 +49,7 @@ const HeaderLayout = ({ setOpen }: HeaderLayoutProps) => {
         <IconButton
           variant="ghost"
           size="md"
+          focusRing="none"
           aria-label="dark and light icon"
           onClick={() => setColorMode(colorMode === "dark" ? "light" : "dark")}
         >
@@ -59,6 +60,7 @@ const HeaderLayout = ({ setOpen }: HeaderLayoutProps) => {
             <IconButton
               variant="ghost"
               size="md"
+              focusRing="none"
               aria-label="user icon"
             >
               <User size="20" />
