@@ -7,8 +7,13 @@ import {
   Breadcrumb,
   Button,
   ButtonGroup,
-  Card, CloseButton, Collapsible, Flex, Grid,
+  Card,
+  CloseButton,
+  Collapsible,
+  Flex,
+  Grid,
   GridItem,
+  Group,
   HStack,
   IconButton,
   Input,
@@ -18,7 +23,7 @@ import {
   Table,
   Text,
 } from "@chakra-ui/react";
-import { LucideChevronDown, LucideChevronLeft, LucideChevronRight, Plus, Search } from "lucide-react";
+import { Download, ListFilter, ListFilterIcon, LucideChevronDown, LucideChevronLeft, LucideChevronRight, Plus, Search } from "lucide-react";
 
 const items = [
   { id: 1, created_at: "June 1, 2023", name: "Company 1", domain: "www.company1.com" },
@@ -69,7 +74,7 @@ export default function Businesses() {
         </Breadcrumb.Root>
       </GridItem>
       <GridItem colSpan={1}>
-        <Flex gap="5" flexDirection={{ base: "column", sm: "row" }}>
+        <Flex gap="2" flexDirection={{ base: "column", sm: "row" }}>
           <Text
             flex="1 1 100%"
             alignContent="center"
@@ -80,34 +85,50 @@ export default function Businesses() {
           </Text>
           <Button variant="subtle" colorPalette="green">
             <Plus />
-            Create
+            New
+          </Button>
+          <Button variant="subtle" colorPalette="orange">
+            <Download />
+            Export
           </Button>
         </Flex>
       </GridItem>
       <GridItem colSpan={1}>
         <Card.Root variant="elevated" width="100%">
           <Card.Header>
-            <Card.Title>List</Card.Title>
+            <HStack
+              flexDirection={{ base: "column", md: "row" }}
+              justifyContent={{ base: "unset", md: "space-between" }}
+              alignItems={{ base: "start", md: "unset" }}
+            >
+              <Card.Title>List</Card.Title>
+              <Group
+                attached
+                width={{ base: "full", md: 400 }}
+              >
+                <IconButton
+                  variant="outline"
+                  size="md"
+                  aria-label="Filter button"
+                >
+                  <ListFilterIcon />
+                </IconButton>
+                <InputGroup endElement={endElement}>
+                  <Input
+                    ref={inputRef}
+                    focusRing="none"
+                    placeholder="Search..."
+                    value={value}
+                    onChange={(e) => {
+                      setValue(e.currentTarget.value)
+                    }}
+                  />
+                </InputGroup>
+              </Group>
+            </HStack>
           </Card.Header>
           <Card.Body color="fg.muted">
-            <HStack
-              gap="5"
-              pb="5"
-              width="full"
-            >
-              <InputGroup endElement={endElement} width={{ base: "full", md: 400 }}>
-                <Input
-                  ref={inputRef}
-                  focusRing="none"
-                  placeholder="Search..."
-                  value={value}
-                  onChange={(e) => {
-                    setValue(e.currentTarget.value)
-                  }}
-                />
-              </InputGroup>
-            </HStack>
-            <Stack gap="5">
+            <Stack>
               {/* MOBILE VIEW (Collapsible Cards) */}
               <Box display={{ base: 'block', md: 'none' }}>
                 {items.map((item) => (
@@ -122,7 +143,7 @@ export default function Businesses() {
                           <IconButton
                             variant="ghost"
                             size="sm"
-                            aria-label="Toggle details"
+                            aria-label="Collapse button"
                           >
                             <LucideChevronDown size="10" />
                           </IconButton>
