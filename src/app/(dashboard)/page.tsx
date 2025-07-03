@@ -1,7 +1,6 @@
 "use client"
 
 import {
-  Box,
   Breadcrumb,
   ButtonGroup,
   Card,
@@ -54,7 +53,7 @@ export default function Home() {
           width="100%"
         >
           <GridItem colSpan={1}>
-            <Card.Root size="lg" width="100%">
+            <Card.Root variant="elevated" size="lg" width="100%">
               <Card.Body color="fg.muted">
                 <HStack gap="5">
                   <BriefcaseBusiness size="40" color="#2563eb" />
@@ -67,7 +66,7 @@ export default function Home() {
             </Card.Root>
           </GridItem>
           <GridItem colSpan={{ base: 1, sm: 1, md: 1, lg: 1 }}>
-            <Card.Root size="lg" width="100%">
+            <Card.Root variant="elevated" size="lg" width="100%">
               <Card.Body color="fg.muted">
                 <HStack gap="5">
                   <Users size="40" color="#b98131" />
@@ -80,7 +79,7 @@ export default function Home() {
             </Card.Root>
           </GridItem>
           <GridItem colSpan={1}>
-            <Card.Root size="lg" width="100%">
+            <Card.Root variant="elevated" size="lg" width="100%">
               <Card.Body color="fg.muted">
                 <HStack gap="5">
                   <UserCheck size="40" color="#31b953" />
@@ -104,7 +103,7 @@ export default function Home() {
           width="100%"
         >
           <GridItem colSpan={{ base: 1, sm: 1, md: 2 }}>
-            <Card.Root size="lg" width="100%">
+            <Card.Root variant="elevated" width="100%">
               <Card.Header>
                 <Card.Title>Recent Users</Card.Title>
               </Card.Header>
@@ -161,7 +160,7 @@ export default function Home() {
             </Card.Root>
           </GridItem>
           <GridItem colSpan={1}>
-            <Card.Root size="lg" width="100%">
+            <Card.Root variant="elevated" size="lg" width="100%">
               <Card.Header>
                 <Card.Title>Recent Activity</Card.Title>
               </Card.Header>
