@@ -4,7 +4,7 @@ import { Box, Breadcrumb } from "@chakra-ui/react";
 export default function Roles() {
   return (
     <Box>
-      <Breadcrumb.Root size="lg">
+      <Breadcrumb.Root size="sm">
         <Breadcrumb.List>
           <Breadcrumb.Item>
             <Breadcrumb.Link

@@ -34,7 +34,7 @@ export default function Home() {
       width="100%"
     >
       <GridItem colSpan={1}>
-        <Breadcrumb.Root size="lg">
+        <Breadcrumb.Root size="sm">
           <Breadcrumb.List>
             <Breadcrumb.Item>
               <Breadcrumb.CurrentLink>Dashboard</Breadcrumb.CurrentLink>
