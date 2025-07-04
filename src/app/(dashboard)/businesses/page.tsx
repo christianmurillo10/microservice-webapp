@@ -5,7 +5,6 @@ import Link from "next/link";
 import {
   Box,
   Breadcrumb,
-  Button,
   ButtonGroup,
   Card,
   CloseButton,
@@ -23,7 +22,8 @@ import {
   Table,
   Text,
 } from "@chakra-ui/react";
-import { Download, ListFilter, ListFilterIcon, LucideChevronDown, LucideChevronLeft, LucideChevronRight, Plus, Search } from "lucide-react";
+import { ListFilterIcon, LucideChevronDown, LucideChevronLeft, LucideChevronRight, Search } from "lucide-react";
+import PageHeader from "@/components/common/page-header";
 
 const items = [
   { id: 1, created_at: "June 1, 2023", name: "Company 1", domain: "www.company1.com" },
@@ -32,6 +32,8 @@ const items = [
   { id: 4, created_at: "May 17, 2025", name: "Company 4", domain: "www.company4.com" },
   { id: 5, created_at: "December 7, 2025", name: "Company 5", domain: "www.company5.com" },
 ];
+
+const moduleName = "Businesses";
 
 export default function Businesses() {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -68,30 +70,13 @@ export default function Businesses() {
             </Breadcrumb.Item>
             <Breadcrumb.Separator />
             <Breadcrumb.Item>
-              <Breadcrumb.CurrentLink>Businesses</Breadcrumb.CurrentLink>
+              <Breadcrumb.CurrentLink>{moduleName}</Breadcrumb.CurrentLink>
             </Breadcrumb.Item>
           </Breadcrumb.List>
         </Breadcrumb.Root>
       </GridItem>
       <GridItem colSpan={1}>
-        <Flex gap="2" flexDirection={{ base: "column", sm: "row" }}>
-          <Text
-            flex="1 1 100%"
-            alignContent="center"
-            textStyle="2xl"
-            fontWeight="bold"
-          >
-            Businesses
-          </Text>
-          <Button variant="subtle" colorPalette="green">
-            <Plus />
-            New
-          </Button>
-          <Button variant="subtle" colorPalette="orange">
-            <Download />
-            Export
-          </Button>
-        </Flex>
+        <PageHeader title={moduleName} />
       </GridItem>
       <GridItem colSpan={1}>
         <Card.Root variant="elevated" width="100%">
