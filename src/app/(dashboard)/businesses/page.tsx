@@ -1,29 +1,27 @@
-"use client"
+"use client";
 
-import { useRef, useState } from "react";
 import Link from "next/link";
 import {
   Box,
   Breadcrumb,
   ButtonGroup,
   Card,
-  CloseButton,
   Collapsible,
   Flex,
   Grid,
   GridItem,
-  Group,
   HStack,
   IconButton,
-  Input,
-  InputGroup,
   Pagination,
   Stack,
   Table,
   Text,
 } from "@chakra-ui/react";
-import { ListFilterIcon, LucideChevronDown, LucideChevronLeft, LucideChevronRight, Search } from "lucide-react";
-import PageHeader from "@/components/common/page-header";
+import { LucideChevronDown, LucideChevronLeft, LucideChevronRight } from "lucide-react";
+import CustomPageHeader from "@/components/common/page-header";
+import CustomSearch from "@/components/common/search";
+
+const moduleName = "Businesses";
 
 const items = [
   { id: 1, created_at: "June 1, 2023", name: "Company 1", domain: "www.company1.com" },
@@ -33,23 +31,7 @@ const items = [
   { id: 5, created_at: "December 7, 2025", name: "Company 5", domain: "www.company5.com" },
 ];
 
-const moduleName = "Businesses";
-
 export default function Businesses() {
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const [value, setValue] = useState("");
-
-  const endElement = value ? (
-    <CloseButton
-      size="xs"
-      onClick={() => {
-        setValue("")
-        inputRef.current?.focus()
-      }}
-      me="-2"
-    />
-  ) : <Search />;
-
   return (
     <Grid
       templateColumns="repeat(1, 1fr)"
@@ -76,7 +58,7 @@ export default function Businesses() {
         </Breadcrumb.Root>
       </GridItem>
       <GridItem colSpan={1}>
-        <PageHeader title={moduleName} />
+        <CustomPageHeader title={moduleName} />
       </GridItem>
       <GridItem colSpan={1}>
         <Card.Root variant="elevated" width="100%">
@@ -87,29 +69,7 @@ export default function Businesses() {
               alignItems={{ base: "start", md: "unset" }}
             >
               <Card.Title>List</Card.Title>
-              <Group
-                attached
-                width={{ base: "full", md: 400 }}
-              >
-                <IconButton
-                  variant="outline"
-                  size="md"
-                  aria-label="Filter button"
-                >
-                  <ListFilterIcon />
-                </IconButton>
-                <InputGroup endElement={endElement}>
-                  <Input
-                    ref={inputRef}
-                    focusRing="none"
-                    placeholder="Search..."
-                    value={value}
-                    onChange={(e) => {
-                      setValue(e.currentTarget.value)
-                    }}
-                  />
-                </InputGroup>
-              </Group>
+              <CustomSearch />
             </HStack>
           </Card.Header>
           <Card.Body color="fg.muted">

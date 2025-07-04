@@ -3,13 +3,13 @@ import { Button, Flex, Text } from "@chakra-ui/react";
 import { Download, Plus } from "lucide-react";
 import { TableActionRef } from "@/types/common";
 
-type PageHeaderProps = {
+type CustomPageHeaderProps = {
   title: string;
   formRef?: React.RefObject<TableActionRef>;
   exportRef?: React.RefObject<TableActionRef>;
 };
 
-const PageHeader = ({ title, formRef, exportRef }: PageHeaderProps) => {
+const CustomPageHeader = ({ title, formRef, exportRef }: CustomPageHeaderProps) => {
   return (
     <Flex gap="2" flexDirection={{ base: "column", sm: "row" }}>
       <Text
@@ -40,4 +40,4 @@ const PageHeader = ({ title, formRef, exportRef }: PageHeaderProps) => {
   );
 };
 
-export default PageHeader;
+export default CustomPageHeader;
