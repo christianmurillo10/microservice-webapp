@@ -4,7 +4,7 @@ import * as React from "react";
 import { CloseButton, Group, IconButton, Input, InputGroup } from "@chakra-ui/react";
 import { ListFilterIcon, Search } from "lucide-react";
 
-const CustomSearch = () => {
+const BaseSearch = () => {
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const [value, setValue] = React.useState("");
 
@@ -46,4 +46,4 @@ const CustomSearch = () => {
   );
 };
 
-export default CustomSearch;
+export default BaseSearch;

@@ -6,12 +6,12 @@ import { DataListColumn } from "@/types/common";
 import MobileDataList from "./MobileDataList";
 import DesktopDataList from "./DesktopDataList";
 
-type DataListProps<T extends object> = {
+type BaseDataListProps<T extends object> = {
   columns: DataListColumn[];
   rows: T[];
 };
 
-const CustomDataList = <T extends object>({ columns, rows }: DataListProps<T>) => {
+const BaseDataList = <T extends object>({ columns, rows }: BaseDataListProps<T>) => {
   return (
     <Stack>
       <MobileDataList<T>
@@ -48,4 +48,4 @@ const CustomDataList = <T extends object>({ columns, rows }: DataListProps<T>) =
   );
 };
 
-export default CustomDataList;
+export default BaseDataList;

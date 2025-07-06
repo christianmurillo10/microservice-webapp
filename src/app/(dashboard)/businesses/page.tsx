@@ -6,11 +6,11 @@ import {
   GridItem,
   HStack,
 } from "@chakra-ui/react";
-import CustomPageHeader from "@/components/common/page-header";
-import CustomSearch from "@/components/common/search";
+import BasePageHeader from "@/components/common/page-header";
+import BaseSearch from "@/components/common/search";
 import { Businesses } from "@/entities/businesses";
 import { DataListColumn } from "@/types/common";
-import CustomDataList from "@/components/common/dataList";
+import BaseDataList from "@/components/common/dataList";
 
 const moduleName = "Businesses";
 
@@ -116,7 +116,7 @@ export default function BusinessePage() {
         </Breadcrumb.Root>
       </GridItem>
       <GridItem colSpan={1}>
-        <CustomPageHeader title={moduleName} />
+        <BasePageHeader title={moduleName} />
       </GridItem>
       <GridItem colSpan={1}>
         <Card.Root variant="elevated" width="100%">
@@ -127,11 +127,11 @@ export default function BusinessePage() {
               alignItems={{ base: "start", md: "unset" }}
             >
               <Card.Title>List</Card.Title>
-              <CustomSearch />
+              <BaseSearch />
             </HStack>
           </Card.Header>
           <Card.Body color="fg.muted">
-            <CustomDataList<Businesses> columns={columns} rows={items} />
+            <BaseDataList<Businesses> columns={columns} rows={items} />
           </Card.Body>
         </Card.Root>
       </GridItem>

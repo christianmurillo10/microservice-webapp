@@ -5,13 +5,13 @@ import { Button, Flex, Text } from "@chakra-ui/react";
 import { Download, Plus } from "lucide-react";
 import { TableActionRef } from "@/types/common";
 
-type CustomPageHeaderProps = {
+type BasePageHeaderProps = {
   title: string;
   formRef?: React.RefObject<TableActionRef>;
   exportRef?: React.RefObject<TableActionRef>;
 };
 
-const CustomPageHeader = ({ title, formRef, exportRef }: CustomPageHeaderProps) => {
+const BasePageHeader = ({ title, formRef, exportRef }: BasePageHeaderProps) => {
   return (
     <Flex gap="2" flexDirection={{ base: "column", sm: "row" }}>
       <Text
@@ -42,4 +42,4 @@ const CustomPageHeader = ({ title, formRef, exportRef }: CustomPageHeaderProps) 
   );
 };
 
-export default CustomPageHeader;
+export default BasePageHeader;
