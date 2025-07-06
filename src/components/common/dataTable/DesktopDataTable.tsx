@@ -1,11 +1,11 @@
 "use client";
 
 import { Box, Table } from "@chakra-ui/react";
-import { DataListColumn } from "@/types/common";
+import { DataTableColumn } from "@/types/common";
 import { getColumnDesktopHeaders } from "@/utils/common";
 
 type DesktopDataListProps<T extends object> = {
-  columns: DataListColumn[];
+  columns: DataTableColumn[];
   rows: T[];
 };
 

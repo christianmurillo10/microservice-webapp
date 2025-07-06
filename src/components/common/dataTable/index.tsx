@@ -2,23 +2,23 @@
 
 import { ButtonGroup, IconButton, Pagination, Stack } from "@chakra-ui/react";
 import { LucideChevronLeft, LucideChevronRight } from "lucide-react";
-import { DataListColumn } from "@/types/common";
-import MobileDataList from "./MobileDataList";
-import DesktopDataList from "./DesktopDataList";
+import { DataTableColumn } from "@/types/common";
+import MobileDataTable from "./MobileDataTable";
+import DesktopDataTable from "./DesktopDataTable";
 
-type BaseDataListProps<T extends object> = {
-  columns: DataListColumn[];
+type BaseDataTableProps<T extends object> = {
+  columns: DataTableColumn[];
   rows: T[];
 };
 
-const BaseDataList = <T extends object>({ columns, rows }: BaseDataListProps<T>) => {
+const BaseDataTable = <T extends object>({ columns, rows }: BaseDataTableProps<T>) => {
   return (
     <Stack>
-      <MobileDataList<T>
+      <MobileDataTable<T>
         columns={columns}
         rows={rows}
       />
-      <DesktopDataList<T>
+      <DesktopDataTable<T>
         columns={columns}
         rows={rows}
       />
@@ -48,4 +48,4 @@ const BaseDataList = <T extends object>({ columns, rows }: BaseDataListProps<T>)
   );
 };
 
-export default BaseDataList;
+export default BaseDataTable;

@@ -9,12 +9,12 @@ import {
 import BasePageHeader from "@/components/common/page-header";
 import BaseSearch from "@/components/common/search";
 import { Businesses } from "@/entities/businesses";
-import { DataListColumn } from "@/types/common";
-import BaseDataList from "@/components/common/dataList";
+import { DataTableColumn } from "@/types/common";
+import BaseDataTable from "@/components/common/dataTable";
 
 const moduleName = "Businesses";
 
-const columns: DataListColumn[] = [
+const columns: DataTableColumn[] = [
   {
     key: "name",
     label: "Name",
@@ -131,7 +131,7 @@ export default function BusinessePage() {
             </HStack>
           </Card.Header>
           <Card.Body color="fg.muted">
-            <BaseDataList<Businesses> columns={columns} rows={items} />
+            <BaseDataTable<Businesses> columns={columns} rows={items} />
           </Card.Body>
         </Card.Root>
       </GridItem>

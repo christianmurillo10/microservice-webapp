@@ -2,7 +2,7 @@ export type TableActionRef = {
   handleOpen: (id: string | number) => void;
 };
 
-export type DataListColumn = {
+export type DataTableColumn = {
   key: string;
   label: string;
   header: {

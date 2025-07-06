@@ -2,11 +2,11 @@
 
 import { Box, Collapsible, Flex, IconButton, Text } from "@chakra-ui/react";
 import { LucideChevronDown } from "lucide-react";
-import { DataListColumn } from "@/types/common";
+import { DataTableColumn } from "@/types/common";
 import { formattedKey, getColumnMobileHeaders } from "@/utils/common";
 
 type MobileDataListProps<T extends object> = {
-  columns: DataListColumn[];
+  columns: DataTableColumn[];
   rows: T[];
 };
 
