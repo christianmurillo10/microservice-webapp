@@ -3,8 +3,8 @@
 import { ButtonGroup, IconButton, Pagination, Stack } from "@chakra-ui/react";
 import { LucideChevronLeft, LucideChevronRight } from "lucide-react";
 import { DataTableColumn } from "@/types/common";
-import MobileDataTable from "./MobileDataTable";
-import DesktopDataTable from "./DesktopDataTable";
+import MobileDataTable from "./mobile";
+import DesktopDataTable from "./desktop";
 
 type BaseDataTableProps<T extends object> = {
   columns: DataTableColumn[];
