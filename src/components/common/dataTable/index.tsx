@@ -2,25 +2,42 @@
 
 import { ButtonGroup, IconButton, Pagination, Stack } from "@chakra-ui/react";
 import { LucideChevronLeft, LucideChevronRight } from "lucide-react";
-import { DataTableColumn } from "@/types/common";
+import { DataTableBaseItem, DataTableColumn, TableActionRef } from "@/types/common";
 import MobileDataTable from "./mobile";
 import DesktopDataTable from "./desktop";
 
-type BaseDataTableProps<T extends object> = {
+type BaseDataTableProps<T extends DataTableBaseItem> = {
   columns: DataTableColumn[];
   rows: T[];
+  viewRef?: React.RefObject<TableActionRef | null>;
 };
 
-const BaseDataTable = <T extends object>({ columns, rows }: BaseDataTableProps<T>) => {
+const BaseDataTable = <T extends DataTableBaseItem>({
+  columns,
+  rows,
+  viewRef
+}: BaseDataTableProps<T>) => {
+  const handleView = (e: React.MouseEvent<HTMLElement>, id: string | number) => {
+    e.preventDefault();
+
+    if (id && viewRef && viewRef.current) {
+      viewRef.current.handleOpen(id);
+    }
+  };
+
   return (
     <Stack>
       <MobileDataTable<T>
         columns={columns}
         rows={rows}
+        viewRef={viewRef}
+        handleView={handleView}
       />
       <DesktopDataTable<T>
         columns={columns}
         rows={rows}
+        viewRef={viewRef}
+        handleView={handleView}
       />
       <Pagination.Root count={rows.length * 5} pageSize={5} page={1}>
         <ButtonGroup variant="ghost" size="sm" wrap="wrap">

@@ -1,16 +1,23 @@
 "use client";
 
-import { Box, Collapsible, Flex, IconButton, Text } from "@chakra-ui/react";
+import { Box, Button, Collapsible, Flex, IconButton, Stack, Text } from "@chakra-ui/react";
 import { LucideChevronDown } from "lucide-react";
-import { DataTableColumn } from "@/types/common";
+import { DataTableBaseItem, DataTableColumn, TableActionRef } from "@/types/common";
 import { formattedKey, getColumnMobileHeaders } from "@/utils/common";
 
-type MobileDataListProps<T extends object> = {
+type MobileDataListProps<T extends DataTableBaseItem> = {
   columns: DataTableColumn[];
   rows: T[];
+  viewRef?: React.RefObject<TableActionRef | null>;
+  handleView: (e: React.MouseEvent<HTMLElement>, id: string | number) => void;
 };
 
-const MobileDataList = <T extends object>({ columns, rows }: MobileDataListProps<T>) => {
+const MobileDataList = <T extends DataTableBaseItem>({
+  columns,
+  rows,
+  viewRef,
+  handleView
+}: MobileDataListProps<T>) => {
   const comlumnHeaders = getColumnMobileHeaders(columns);
 
   return (
@@ -35,15 +42,28 @@ const MobileDataList = <T extends object>({ columns, rows }: MobileDataListProps
               </Collapsible.Trigger>
             </Flex>
             <Collapsible.Content mt={2}>
-              {
-                Object.entries(row)
-                  .filter(([key]) => !comlumnHeaders.map(val => val.key).includes(key))
-                  .map(([key, val], index) => (
-                    <Text key={index} fontSize="sm">
-                      <strong>{formattedKey(key)}:</strong> {String(val)}
-                    </Text>
-                  ))
-              }
+              <Stack>
+                {
+                  Object.entries(row)
+                    .filter(([key]) => !comlumnHeaders.map(val => val.key).includes(key))
+                    .map(([key, val], index) => (
+                      <Text key={index} fontSize="sm">
+                        <strong>{formattedKey(key)}:</strong> {String(val)}
+                      </Text>
+                    ))
+                }
+                {
+                  viewRef ?
+                    <Button
+                      color="blue"
+                      size="xs"
+                      onClick={e => handleView(e, row.id)}
+                    >
+                      Update
+                    </Button>
+                    : null
+                }
+              </Stack>
             </Collapsible.Content>
           </Box>
         </Collapsible.Root>

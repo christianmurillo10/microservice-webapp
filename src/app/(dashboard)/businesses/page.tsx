@@ -1,3 +1,6 @@
+"use client";
+
+import * as React from "react";
 import Link from "next/link";
 import {
   Breadcrumb,
@@ -9,8 +12,9 @@ import {
 import BasePageHeader from "@/components/common/page-header";
 import BaseSearch from "@/components/common/search";
 import { Businesses } from "@/entities/businesses";
-import { DataTableColumn } from "@/types/common";
+import { DataTableColumn, TableActionRef } from "@/types/common";
 import BaseDataTable from "@/components/common/dataTable";
+import BaseDialogView from "@/components/common/dialog/view";
 
 const moduleName = "Businesses";
 
@@ -90,6 +94,8 @@ const items: Businesses[] = [
 ];
 
 export default function BusinessePage() {
+  const viewRef = React.useRef<TableActionRef>(null);
+
   return (
     <Grid
       templateColumns="repeat(1, 1fr)"
@@ -131,9 +137,14 @@ export default function BusinessePage() {
             </HStack>
           </Card.Header>
           <Card.Body color="fg.muted">
-            <BaseDataTable<Businesses> columns={columns} rows={items} />
+            <BaseDataTable<Businesses>
+              columns={columns}
+              rows={items}
+              viewRef={viewRef}
+            />
           </Card.Body>
         </Card.Root>
+        <BaseDialogView ref={viewRef} />
       </GridItem>
     </Grid>
   );

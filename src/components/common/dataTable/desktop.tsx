@@ -1,15 +1,23 @@
 "use client";
 
-import { Box, Table } from "@chakra-ui/react";
-import { DataTableColumn } from "@/types/common";
+import { Box, IconButton, Table } from "@chakra-ui/react";
+import { DataTableBaseItem, DataTableColumn, TableActionRef } from "@/types/common";
 import { getColumnDesktopHeaders } from "@/utils/common";
+import { View } from "lucide-react";
 
-type DesktopDataListProps<T extends object> = {
+type DesktopDataListProps<T extends DataTableBaseItem> = {
   columns: DataTableColumn[];
   rows: T[];
+  viewRef?: React.RefObject<TableActionRef | null>;
+  handleView: (e: React.MouseEvent<HTMLElement>, id: string | number) => void;
 };
 
-const DesktopDataList = <T extends object>({ columns, rows }: DesktopDataListProps<T>) => {
+const DesktopDataList = <T extends DataTableBaseItem>({
+  columns,
+  rows,
+  viewRef,
+  handleView
+}: DesktopDataListProps<T>) => {
   const comlumnHeaders = getColumnDesktopHeaders(columns);
 
   return (
@@ -26,6 +34,12 @@ const DesktopDataList = <T extends object>({ columns, rows }: DesktopDataListPro
               {comlumnHeaders.map((column, columnIndex) => (
                 <Table.ColumnHeader key={columnIndex}>{column.label}</Table.ColumnHeader>
               ))}
+
+              {
+                viewRef ?
+                  <Table.ColumnHeader>Action</Table.ColumnHeader>
+                  : null
+              }
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -38,12 +52,25 @@ const DesktopDataList = <T extends object>({ columns, rows }: DesktopDataListPro
                       <Table.Cell key={key}>{val}</Table.Cell>
                     ))
                 }
+                {
+                  viewRef ?
+                    <Table.Cell >
+                      <IconButton
+                        variant="ghost"
+                        size="xs"
+                        onClick={e => handleView(e, row.id)}
+                      >
+                        <View size="10" />
+                      </IconButton>
+                    </Table.Cell>
+                    : null
+                }
               </Table.Row>
             ))}
           </Table.Body>
         </Table.Root>
       </Box>
-    </Table.ScrollArea>
+    </Table.ScrollArea >
   );
 };
 

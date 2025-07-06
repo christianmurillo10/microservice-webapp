@@ -1,31 +1,45 @@
 "use client";
 
+import * as React from "react";
 import {
   Avatar,
   Badge,
-  Button,
   CloseButton,
   DataList,
   Dialog,
   HStack,
   Portal,
   Textarea,
+  useDisclosure,
   VStack,
 } from "@chakra-ui/react";
+import { TableActionRef } from "@/types/common";
 
-const BaseDialogView = () => {
+const BaseDialogView = React.forwardRef<TableActionRef>((_props, ref) => {
+  const { open, onClose, setOpen } = useDisclosure();
+
+  React.useImperativeHandle(ref, () => ({
+    handleOpen(id: string | number) {
+      handleOpen(Number(id));
+    }
+  }));
+
+  const handleOpen = (id: number) => {
+    setOpen(true);
+  };
+
   return (
     <VStack alignItems="start">
-      <Dialog.Root>
-        <Dialog.Trigger asChild>
-          <Button variant="outline">Open Dialog</Button>
-        </Dialog.Trigger>
+      <Dialog.Root
+        open={open}
+        onOpenChange={onClose}
+      >
         <Portal>
           <Dialog.Backdrop />
           <Dialog.Positioner>
             <Dialog.Content>
               <Dialog.Header>
-                <Dialog.Title>Prepare Chakra V3</Dialog.Title>
+                <Dialog.Title>View Businesses</Dialog.Title>
               </Dialog.Header>
               <Dialog.Body pb="8">
                 <DataList.Root orientation="horizontal">
@@ -64,6 +78,6 @@ const BaseDialogView = () => {
       </Dialog.Root>
     </VStack>
   );
-};
+});
 
 export default BaseDialogView;
