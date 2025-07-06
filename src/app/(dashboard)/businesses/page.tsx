@@ -136,7 +136,7 @@ export default function BusinessePage() {
               <BaseSearch />
             </HStack>
           </Card.Header>
-          <Card.Body color="fg.muted">
+          <Card.Body>
             <BaseDataTable<Businesses>
               columns={columns}
               rows={items}

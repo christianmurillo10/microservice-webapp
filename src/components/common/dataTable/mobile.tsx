@@ -1,7 +1,7 @@
 "use client";
 
-import { Box, Button, Collapsible, Flex, IconButton, Stack, Text } from "@chakra-ui/react";
-import { LucideChevronDown } from "lucide-react";
+import { Box, Collapsible, Flex, For, HStack, IconButton, Stack, Text, VStack } from "@chakra-ui/react";
+import { View, LucideChevronDown, Edit, Trash } from "lucide-react";
 import { DataTableBaseItem, DataTableColumn, TableActionRef } from "@/types/common";
 import { formattedKey, getColumnMobileHeaders } from "@/utils/common";
 
@@ -27,9 +27,11 @@ const MobileDataList = <T extends DataTableBaseItem>({
           <Box borderWidth="1px" borderRadius="md" p={2} mb={2}>
             <Flex justify="space-between" align="center">
               <Box>
-                {comlumnHeaders.map((column, columnIndex) => (
-                  <Text key={columnIndex} fontWeight="bold">{String(row[column.key as keyof T])}</Text>
-                ))}
+                <For each={comlumnHeaders}>
+                  {(column, columnIndex) => (
+                    <Text key={columnIndex} fontWeight="bold">{String(row[column.key as keyof T])}</Text>
+                  )}
+                </For>
               </Box>
               <Collapsible.Trigger as={Box}>
                 <IconButton
@@ -52,17 +54,43 @@ const MobileDataList = <T extends DataTableBaseItem>({
                       </Text>
                     ))
                 }
-                {
-                  viewRef ?
-                    <Button
-                      color="blue"
-                      size="xs"
-                      onClick={e => handleView(e, row.id)}
+                <HStack justify="center" wrap="wrap" gap="5">
+                  {
+                    viewRef ?
+                      <VStack>
+                        <IconButton
+                          aria-label="view"
+                          variant="subtle"
+                          colorPalette="blue"
+                          onClick={e => handleView(e, row.id)}
+                        >
+                          <View />
+                        </IconButton>
+                        <Text textStyle="sm">View</Text>
+                      </VStack>
+                      : null
+                  }
+                  <VStack>
+                    <IconButton
+                      aria-label="update"
+                      variant="subtle"
+                      colorPalette="orange"
                     >
-                      Update
-                    </Button>
-                    : null
-                }
+                      <Edit />
+                    </IconButton>
+                    <Text textStyle="sm">Update</Text>
+                  </VStack>
+                  <VStack>
+                    <IconButton
+                      aria-label="delete"
+                      variant="subtle"
+                      colorPalette="red"
+                    >
+                      <Trash />
+                    </IconButton>
+                    <Text textStyle="sm">Delete</Text>
+                  </VStack>
+                </HStack>
               </Stack>
             </Collapsible.Content>
           </Box>

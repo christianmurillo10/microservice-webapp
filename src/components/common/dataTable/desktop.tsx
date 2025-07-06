@@ -1,9 +1,10 @@
 "use client";
 
-import { Box, IconButton, Table } from "@chakra-ui/react";
+import { Box, HStack, IconButton, Table } from "@chakra-ui/react";
 import { DataTableBaseItem, DataTableColumn, TableActionRef } from "@/types/common";
 import { getColumnDesktopHeaders } from "@/utils/common";
-import { View } from "lucide-react";
+import { Edit, Trash, View } from "lucide-react";
+import { Tooltip } from "@/components/ui/tooltip";
 
 type DesktopDataListProps<T extends DataTableBaseItem> = {
   columns: DataTableColumn[];
@@ -34,10 +35,9 @@ const DesktopDataList = <T extends DataTableBaseItem>({
               {comlumnHeaders.map((column, columnIndex) => (
                 <Table.ColumnHeader key={columnIndex}>{column.label}</Table.ColumnHeader>
               ))}
-
               {
                 viewRef ?
-                  <Table.ColumnHeader>Action</Table.ColumnHeader>
+                  <Table.ColumnHeader textAlign="center">Action</Table.ColumnHeader>
                   : null
               }
             </Table.Row>
@@ -54,14 +54,37 @@ const DesktopDataList = <T extends DataTableBaseItem>({
                 }
                 {
                   viewRef ?
-                    <Table.Cell >
-                      <IconButton
-                        variant="ghost"
-                        size="xs"
-                        onClick={e => handleView(e, row.id)}
-                      >
-                        <View size="10" />
-                      </IconButton>
+                    <Table.Cell>
+                      <HStack justify="center" wrap="wrap" gap="1">
+                        <Tooltip content="View">
+                          <IconButton
+                            variant="subtle"
+                            colorPalette="blue"
+                            size="2xs"
+                            onClick={e => handleView(e, row.id)}
+                          >
+                            <View />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip content="Update">
+                          <IconButton
+                            variant="subtle"
+                            colorPalette="orange"
+                            size="2xs"
+                          >
+                            <Edit />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip content="Delete">
+                          <IconButton
+                            variant="subtle"
+                            colorPalette="red"
+                            size="2xs"
+                          >
+                            <Trash />
+                          </IconButton>
+                        </Tooltip>
+                      </HStack>
                     </Table.Cell>
                     : null
                 }
