@@ -9,7 +9,6 @@ import {
   Dialog,
   HStack,
   Portal,
-  Textarea,
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
@@ -39,35 +38,46 @@ const BaseDialogView = React.forwardRef<TableActionRef>((_props, ref) => {
           <Dialog.Positioner>
             <Dialog.Content>
               <Dialog.Header>
-                <Dialog.Title>View Businesses</Dialog.Title>
+                <Dialog.Title>View</Dialog.Title>
               </Dialog.Header>
               <Dialog.Body pb="8">
                 <DataList.Root orientation="horizontal">
                   <DataList.Item>
-                    <DataList.ItemLabel>Status</DataList.ItemLabel>
-                    <DataList.ItemValue>
-                      <Badge colorPalette="green">Completed</Badge>
-                    </DataList.ItemValue>
-                  </DataList.Item>
-                  <DataList.Item>
-                    <DataList.ItemLabel>Assigned to</DataList.ItemLabel>
+                    <DataList.ItemLabel>Name</DataList.ItemLabel>
                     <DataList.ItemValue>
                       <HStack>
                         <Avatar.Root size="xs">
-                          <Avatar.Image src="https://bit.ly/sage-adebayo" />
-                          <Avatar.Fallback name="Segun Adebayo" />
+                          <Avatar.Fallback name="Company 1" />
                         </Avatar.Root>
-                        Segun Adebayo
+                        Company 1
                       </HStack>
                     </DataList.ItemValue>
                   </DataList.Item>
                   <DataList.Item>
-                    <DataList.ItemLabel>Due date</DataList.ItemLabel>
-                    <DataList.ItemValue>12th August 2024</DataList.ItemValue>
+                    <DataList.ItemLabel>Domain</DataList.ItemLabel>
+                    <DataList.ItemValue>www.domain1.com</DataList.ItemValue>
+                  </DataList.Item>
+                  <DataList.Item>
+                    <DataList.ItemLabel>API Key</DataList.ItemLabel>
+                    <DataList.ItemValue>key-domain1-1234567890</DataList.ItemValue>
+                  </DataList.Item>
+                  <DataList.Item>
+                    <DataList.ItemLabel>Timezone</DataList.ItemLabel>
+                    <DataList.ItemValue>Asia/Hong Kong</DataList.ItemValue>
+                  </DataList.Item>
+                  <DataList.Item>
+                    <DataList.ItemLabel>Currency</DataList.ItemLabel>
+                    <DataList.ItemValue>PHP</DataList.ItemValue>
+                  </DataList.Item>
+                  <DataList.Item>
+                    <DataList.ItemLabel>Date Created</DataList.ItemLabel>
+                    <DataList.ItemValue>12th June 2025</DataList.ItemValue>
+                  </DataList.Item>
+                  <DataList.Item>
+                    <DataList.ItemLabel>Date Modified</DataList.ItemLabel>
+                    <DataList.ItemValue>12th June 2025</DataList.ItemValue>
                   </DataList.Item>
                 </DataList.Root>
-
-                <Textarea placeholder="Add a note" mt="8" />
               </Dialog.Body>
               <Dialog.CloseTrigger asChild>
                 <CloseButton size="sm" />

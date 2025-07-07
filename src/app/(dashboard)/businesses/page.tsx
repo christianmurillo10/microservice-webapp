@@ -43,7 +43,7 @@ const columns: DataTableColumn[] = [
       mobile: true
     }
   }
-]
+];
 
 const items: Businesses[] = [
   {
