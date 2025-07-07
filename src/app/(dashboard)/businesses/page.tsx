@@ -15,6 +15,7 @@ import { Businesses } from "@/entities/businesses";
 import { DataTableColumn, TableActionRef } from "@/types/common";
 import BaseDataTable from "@/components/common/dataTable";
 import BaseDialogView from "@/components/common/dialog/view";
+import businessesData from "../../../../mockData/businesses.json";
 
 const moduleName = "Businesses";
 
@@ -45,55 +46,8 @@ const columns: DataTableColumn[] = [
   }
 ];
 
-const items: Businesses[] = [
-  {
-    id: 1,
-    created_at: "June 1, 2023",
-    name: "Company 1",
-    api_key: "key-company1",
-    domain: "www.company1.com",
-    preferred_timezone: "Asia/Hong Kong",
-    currency: "PHP"
-  },
-  {
-    id: 2,
-    created_at: "January 12, 2023",
-    name: "Company 2",
-    api_key: "key-company2",
-    domain: "www.company2.com",
-    preferred_timezone: "Asia/Hong Kong",
-    currency: "PHP"
-  },
-  {
-    id: 3,
-    created_at: "August 27, 2024",
-    name: "Company 3",
-    api_key: "key-company3",
-    domain: "www.company3.com",
-    preferred_timezone: "Asia/Hong Kong",
-    currency: "PHP"
-  },
-  {
-    id: 4,
-    created_at: "May 17, 2025",
-    name: "Company 4",
-    api_key: "key-company4",
-    domain: "www.company4.com",
-    preferred_timezone: "Asia/Hong Kong",
-    currency: "PHP"
-  },
-  {
-    id: 5,
-    created_at: "December 7, 2025",
-    name: "Company 5",
-    api_key: "key-company5",
-    domain: "www.company5.com",
-    preferred_timezone: "Asia/Hong Kong",
-    currency: "PHP"
-  },
-];
-
 export default function BusinessePage() {
+  const [businesses, _setBusinesses] = React.useState<Businesses[]>(businessesData);
   const viewRef = React.useRef<TableActionRef>(null);
 
   return (
@@ -139,7 +93,7 @@ export default function BusinessePage() {
           <Card.Body>
             <BaseDataTable<Businesses>
               columns={columns}
-              rows={items}
+              rows={businesses}
               viewRef={viewRef}
             />
           </Card.Body>
