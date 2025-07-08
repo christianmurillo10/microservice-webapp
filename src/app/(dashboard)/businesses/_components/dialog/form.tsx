@@ -38,9 +38,6 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
       open={open}
       onOpenChange={onClose}
     >
-      <Dialog.Trigger asChild>
-        <Button variant="outline">Open</Button>
-      </Dialog.Trigger>
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
