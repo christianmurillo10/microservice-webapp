@@ -25,6 +25,8 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
     handleOpen(id?: string | number) {
       if (id) {
         setFormId(Number(id));
+      } else {
+        setFormId(Number(null));
       }
 
       onOpen();

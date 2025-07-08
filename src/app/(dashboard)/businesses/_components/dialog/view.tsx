@@ -23,8 +23,13 @@ const DialogBusinessView = React.forwardRef<TableActionRef>((_props, ref) => {
   const { data, isLoading, isError } = useFetchBusinessesById(viewId ?? undefined);
 
   React.useImperativeHandle(ref, () => ({
-    handleOpen(id: string | number) {
-      setViewId(Number(id));
+    handleOpen(id?: string | number) {
+      if (id) {
+        setViewId(Number(id));
+      } else {
+        setViewId(Number(null));
+      }
+
       onOpen();
     }
   }));
