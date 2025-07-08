@@ -15,7 +15,7 @@ import { Businesses } from "@/entities/businesses";
 import { DataTableColumn, TableActionRef } from "@/types/common";
 import BaseDataTable from "@/components/common/dataTable";
 import BaseDialogView from "@/components/common/dialog/view";
-import businessesData from "../../../../mockData/businesses.json";
+import { useFetchAllBusinesses } from "@/hooks/useFetchAllBusinesses";
 
 const moduleName = "Businesses";
 
@@ -47,8 +47,8 @@ const columns: DataTableColumn[] = [
 ];
 
 export default function BusinessePage() {
-  const [businesses, _setBusinesses] = React.useState<Businesses[]>(businessesData);
   const viewRef = React.useRef<TableActionRef>(null);
+  const { data } = useFetchAllBusinesses();
 
   return (
     <Grid
@@ -93,7 +93,7 @@ export default function BusinessePage() {
           <Card.Body>
             <BaseDataTable<Businesses>
               columns={columns}
-              rows={businesses}
+              rows={data}
               viewRef={viewRef}
             />
           </Card.Body>
