@@ -14,7 +14,7 @@ import BaseSearch from "@/components/common/search";
 import { Businesses } from "@/entities/businesses";
 import { DataTableColumn, TableActionRef } from "@/types/common";
 import BaseDataTable from "@/components/common/dataTable";
-import BaseDialogView from "@/components/common/dialog/view";
+import DialogBusinessView from "./_components/dialog/view";
 import { useFetchAllBusinesses } from "@/hooks/useFetchAllBusinesses";
 
 const moduleName = "Businesses";
@@ -98,7 +98,7 @@ export default function BusinessePage() {
             />
           </Card.Body>
         </Card.Root>
-        <BaseDialogView ref={viewRef} />
+        <DialogBusinessView ref={viewRef} />
       </GridItem>
     </Grid>
   );
