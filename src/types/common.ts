@@ -1,5 +1,5 @@
 export type TableActionRef = {
-  handleOpen: (id: string | number) => void;
+  handleOpen: (id?: string | number) => void;
 };
 
 export type DataTableBaseItem = {

@@ -10,12 +10,14 @@ type BaseDataTableProps<T extends DataTableBaseItem> = {
   columns: DataTableColumn[];
   rows: T[];
   viewRef?: React.RefObject<TableActionRef | null>;
+  formRef?: React.RefObject<TableActionRef | null>;
 };
 
 const BaseDataTable = <T extends DataTableBaseItem>({
   columns,
   rows,
-  viewRef
+  viewRef,
+  formRef
 }: BaseDataTableProps<T>) => {
   const handleView = (e: React.MouseEvent<HTMLElement>, id: string | number) => {
     e.preventDefault();
@@ -25,19 +27,31 @@ const BaseDataTable = <T extends DataTableBaseItem>({
     }
   };
 
+  const handleForm = (e: React.MouseEvent<HTMLElement>, id: string | number) => {
+    e.preventDefault();
+
+    if (id && formRef && formRef.current) {
+      formRef.current.handleOpen(id);
+    }
+  };
+
   return (
     <Stack>
       <MobileDataTable<T>
         columns={columns}
         rows={rows}
         viewRef={viewRef}
+        formRef={formRef}
         handleView={handleView}
+        handleForm={handleForm}
       />
       <DesktopDataTable<T>
         columns={columns}
         rows={rows}
         viewRef={viewRef}
+        formRef={formRef}
         handleView={handleView}
+        handleForm={handleForm}
       />
       <Pagination.Root count={rows.length * 5} pageSize={5} page={1}>
         <ButtonGroup variant="ghost" size="sm" wrap="wrap">

@@ -10,14 +10,18 @@ type DesktopDataListProps<T extends DataTableBaseItem> = {
   columns: DataTableColumn[];
   rows: T[];
   viewRef?: React.RefObject<TableActionRef | null>;
+  formRef?: React.RefObject<TableActionRef | null>;
   handleView: (e: React.MouseEvent<HTMLElement>, id: string | number) => void;
+  handleForm: (e: React.MouseEvent<HTMLElement>, id: string | number) => void;
 };
 
 const DesktopDataList = <T extends DataTableBaseItem>({
   columns,
   rows,
   viewRef,
-  handleView
+  formRef,
+  handleView,
+  handleForm
 }: DesktopDataListProps<T>) => {
   const comlumnHeaders = getColumnDesktopHeaders(columns);
 
@@ -53,7 +57,7 @@ const DesktopDataList = <T extends DataTableBaseItem>({
                     ))
                 }
                 {
-                  viewRef ?
+                  viewRef || formRef ?
                     <Table.Cell>
                       <HStack justify="center" wrap="wrap" gap="1">
                         <Tooltip content="View">
@@ -71,6 +75,7 @@ const DesktopDataList = <T extends DataTableBaseItem>({
                             variant="subtle"
                             colorPalette="orange"
                             size="2xs"
+                            onClick={e => handleForm(e, row.id)}
                           >
                             <Edit />
                           </IconButton>

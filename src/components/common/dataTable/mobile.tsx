@@ -9,14 +9,18 @@ type MobileDataListProps<T extends DataTableBaseItem> = {
   columns: DataTableColumn[];
   rows: T[];
   viewRef?: React.RefObject<TableActionRef | null>;
+  formRef?: React.RefObject<TableActionRef | null>;
   handleView: (e: React.MouseEvent<HTMLElement>, id: string | number) => void;
+  handleForm: (e: React.MouseEvent<HTMLElement>, id: string | number) => void;
 };
 
 const MobileDataList = <T extends DataTableBaseItem>({
   columns,
   rows,
   viewRef,
-  handleView
+  formRef,
+  handleView,
+  handleForm
 }: MobileDataListProps<T>) => {
   const comlumnHeaders = getColumnMobileHeaders(columns);
 
@@ -70,16 +74,21 @@ const MobileDataList = <T extends DataTableBaseItem>({
                       </VStack>
                       : null
                   }
-                  <VStack>
-                    <IconButton
-                      aria-label="update"
-                      variant="subtle"
-                      colorPalette="orange"
-                    >
-                      <Edit />
-                    </IconButton>
-                    <Text textStyle="sm">Update</Text>
-                  </VStack>
+                  {
+                    viewRef ?
+                      <VStack>
+                        <IconButton
+                          aria-label="update"
+                          variant="subtle"
+                          colorPalette="orange"
+                          onClick={e => handleForm(e, row.id)}
+                        >
+                          <Edit />
+                        </IconButton>
+                        <Text textStyle="sm">Update</Text>
+                      </VStack>
+                      : null
+                  }
                   <VStack>
                     <IconButton
                       aria-label="delete"

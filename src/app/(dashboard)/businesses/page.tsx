@@ -16,6 +16,7 @@ import { DataTableColumn, TableActionRef } from "@/types/common";
 import BaseDataTable from "@/components/common/dataTable";
 import DialogBusinessView from "./_components/dialog/view";
 import { useFetchAllBusinesses } from "@/hooks/useFetchAllBusinesses";
+import DialogBusinessForm from "./_components/dialog/form";
 
 const moduleName = "Businesses";
 
@@ -48,6 +49,7 @@ const columns: DataTableColumn[] = [
 
 export default function BusinessePage() {
   const viewRef = React.useRef<TableActionRef>(null);
+  const formRef = React.useRef<TableActionRef>(null);
   const { data } = useFetchAllBusinesses();
 
   return (
@@ -76,7 +78,7 @@ export default function BusinessePage() {
         </Breadcrumb.Root>
       </GridItem>
       <GridItem colSpan={1}>
-        <BasePageHeader title={moduleName} />
+        <BasePageHeader title={moduleName} formRef={formRef} />
       </GridItem>
       <GridItem colSpan={1}>
         <Card.Root variant="elevated" width="100%">
@@ -95,10 +97,12 @@ export default function BusinessePage() {
               columns={columns}
               rows={data}
               viewRef={viewRef}
+              formRef={formRef}
             />
           </Card.Body>
         </Card.Root>
         <DialogBusinessView ref={viewRef} />
+        <DialogBusinessForm ref={formRef} />
       </GridItem>
     </Grid>
   );

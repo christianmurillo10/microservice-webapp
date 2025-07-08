@@ -7,11 +7,19 @@ import { TableActionRef } from "@/types/common";
 
 type BasePageHeaderProps = {
   title: string;
-  formRef?: React.RefObject<TableActionRef>;
-  exportRef?: React.RefObject<TableActionRef>;
+  formRef?: React.RefObject<TableActionRef | null>;
+  exportRef?: React.RefObject<TableActionRef | null>;
 };
 
 const BasePageHeader = ({ title, formRef, exportRef }: BasePageHeaderProps) => {
+  const handleCreate = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+
+    if (formRef && formRef.current) {
+      formRef.current.handleOpen();
+    }
+  };
+
   return (
     <Flex gap="2" flexDirection={{ base: "column", sm: "row" }}>
       <Text
@@ -24,7 +32,11 @@ const BasePageHeader = ({ title, formRef, exportRef }: BasePageHeaderProps) => {
       </Text>
       {
         formRef ?
-          <Button variant="subtle" colorPalette="green">
+          <Button
+            variant="subtle"
+            colorPalette="green"
+            onClick={e => handleCreate(e)}
+          >
             <Plus />
             New
           </Button>
