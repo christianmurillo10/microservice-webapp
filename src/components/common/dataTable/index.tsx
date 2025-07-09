@@ -11,13 +11,15 @@ type BaseDataTableProps<T extends DataTableBaseItem> = {
   rows: T[];
   viewRef?: React.RefObject<TableActionRef | null>;
   formRef?: React.RefObject<TableActionRef | null>;
+  deleteRef?: React.RefObject<TableActionRef | null>;
 };
 
 const BaseDataTable = <T extends DataTableBaseItem>({
   columns,
   rows,
   viewRef,
-  formRef
+  formRef,
+  deleteRef
 }: BaseDataTableProps<T>) => {
   const handleView = (e: React.MouseEvent<HTMLElement>, id: string | number) => {
     e.preventDefault();
@@ -35,6 +37,14 @@ const BaseDataTable = <T extends DataTableBaseItem>({
     }
   };
 
+  const handleDelete = (e: React.MouseEvent<HTMLElement>, id: string | number) => {
+    e.preventDefault();
+
+    if (id && deleteRef && deleteRef.current) {
+      deleteRef.current.handleOpen(id);
+    }
+  };
+
   return (
     <Stack>
       <MobileDataTable<T>
@@ -42,16 +52,20 @@ const BaseDataTable = <T extends DataTableBaseItem>({
         rows={rows}
         viewRef={viewRef}
         formRef={formRef}
+        deleteRef={deleteRef}
         handleView={handleView}
         handleForm={handleForm}
+        handleDelete={handleDelete}
       />
       <DesktopDataTable<T>
         columns={columns}
         rows={rows}
         viewRef={viewRef}
         formRef={formRef}
+        deleteRef={deleteRef}
         handleView={handleView}
         handleForm={handleForm}
+        handleDelete={handleDelete}
       />
       <Pagination.Root count={rows.length * 5} pageSize={5} page={1}>
         <ButtonGroup variant="ghost" size="sm" wrap="wrap">

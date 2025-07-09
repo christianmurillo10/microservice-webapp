@@ -15,8 +15,9 @@ import { Businesses } from "@/entities/businesses";
 import { DataTableColumn, TableActionRef } from "@/types/common";
 import BaseDataTable from "@/components/common/dataTable";
 import DialogBusinessView from "./_components/dialog/view";
-import { useFetchAllBusinesses } from "@/hooks/useFetchAllBusinesses";
 import DialogBusinessForm from "./_components/dialog/form";
+import DialogBusinessDelete from "./_components/dialog/delete";
+import { useFetchAllBusinesses } from "@/hooks/useFetchAllBusinesses";
 
 const moduleName = "Businesses";
 
@@ -50,6 +51,7 @@ const columns: DataTableColumn[] = [
 export default function BusinessePage() {
   const viewRef = React.useRef<TableActionRef>(null);
   const formRef = React.useRef<TableActionRef>(null);
+  const deleteRef = React.useRef<TableActionRef>(null);
   const { data } = useFetchAllBusinesses();
 
   return (
@@ -98,11 +100,13 @@ export default function BusinessePage() {
               rows={data}
               viewRef={viewRef}
               formRef={formRef}
+              deleteRef={deleteRef}
             />
           </Card.Body>
         </Card.Root>
         <DialogBusinessView ref={viewRef} />
         <DialogBusinessForm ref={formRef} />
+        <DialogBusinessDelete ref={deleteRef} />
       </GridItem>
     </Grid>
   );

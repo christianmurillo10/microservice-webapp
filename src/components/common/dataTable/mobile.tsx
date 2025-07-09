@@ -10,8 +10,10 @@ type MobileDataListProps<T extends DataTableBaseItem> = {
   rows: T[];
   viewRef?: React.RefObject<TableActionRef | null>;
   formRef?: React.RefObject<TableActionRef | null>;
+  deleteRef?: React.RefObject<TableActionRef | null>;
   handleView: (e: React.MouseEvent<HTMLElement>, id: string | number) => void;
   handleForm: (e: React.MouseEvent<HTMLElement>, id: string | number) => void;
+  handleDelete: (e: React.MouseEvent<HTMLElement>, id: string | number) => void;
 };
 
 const MobileDataList = <T extends DataTableBaseItem>({
@@ -19,8 +21,10 @@ const MobileDataList = <T extends DataTableBaseItem>({
   rows,
   viewRef,
   formRef,
+  deleteRef,
   handleView,
-  handleForm
+  handleForm,
+  handleDelete
 }: MobileDataListProps<T>) => {
   const comlumnHeaders = getColumnMobileHeaders(columns);
 
@@ -75,7 +79,7 @@ const MobileDataList = <T extends DataTableBaseItem>({
                       : null
                   }
                   {
-                    viewRef ?
+                    formRef ?
                       <VStack>
                         <IconButton
                           aria-label="update"
@@ -89,16 +93,21 @@ const MobileDataList = <T extends DataTableBaseItem>({
                       </VStack>
                       : null
                   }
-                  <VStack>
-                    <IconButton
-                      aria-label="delete"
-                      variant="subtle"
-                      colorPalette="red"
-                    >
-                      <Trash />
-                    </IconButton>
-                    <Text textStyle="sm">Delete</Text>
-                  </VStack>
+                  {
+                    deleteRef ?
+                      <VStack>
+                        <IconButton
+                          aria-label="delete"
+                          variant="subtle"
+                          colorPalette="red"
+                          onClick={e => handleDelete(e, row.id)}
+                        >
+                          <Trash />
+                        </IconButton>
+                        <Text textStyle="sm">Delete</Text>
+                      </VStack>
+                      : null
+                  }
                 </HStack>
               </Stack>
             </Collapsible.Content>
