@@ -1,9 +1,9 @@
 "use client";
 
-import { Box, HStack, IconButton, Table } from "@chakra-ui/react";
+import { Box, EmptyState, HStack, IconButton, Table, VStack } from "@chakra-ui/react";
 import { DataTableBaseItem, DataTableColumn, TableActionRef } from "@/types/common";
 import { getColumnDesktopHeaders } from "@/utils/common";
-import { Edit, Trash, View } from "lucide-react";
+import { Edit, SearchX, Trash, View } from "lucide-react";
 import { Tooltip } from "@/components/ui/tooltip";
 
 type DesktopDataListProps<T extends DataTableBaseItem> = {
@@ -47,54 +47,71 @@ const DesktopDataList = <T extends DataTableBaseItem>({
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {rows.map((row, rowIndex) => (
-              <Table.Row key={rowIndex}>
-                {
-                  Object.entries(row)
-                    .filter(([key]) => comlumnHeaders.map(val => val.key).includes(key))
-                    .map(([key, val]) => (
-                      <Table.Cell key={key}>{val}</Table.Cell>
-                    ))
-                }
-                {
-                  viewRef || formRef ?
-                    <Table.Cell>
-                      <HStack justify="center" wrap="wrap" gap="1">
-                        <Tooltip content="View">
-                          <IconButton
-                            variant="subtle"
-                            colorPalette="blue"
-                            size="2xs"
-                            onClick={e => handleView(e, row.id)}
-                          >
-                            <View />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip content="Update">
-                          <IconButton
-                            variant="subtle"
-                            colorPalette="orange"
-                            size="2xs"
-                            onClick={e => handleForm(e, row.id)}
-                          >
-                            <Edit />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip content="Delete">
-                          <IconButton
-                            variant="subtle"
-                            colorPalette="red"
-                            size="2xs"
-                          >
-                            <Trash />
-                          </IconButton>
-                        </Tooltip>
-                      </HStack>
-                    </Table.Cell>
-                    : null
-                }
+            {rows.length > 0 ?
+              rows.map((row, rowIndex) => (
+                <Table.Row key={rowIndex}>
+                  {
+                    Object.entries(row)
+                      .filter(([key]) => comlumnHeaders.map(val => val.key).includes(key))
+                      .map(([key, val]) => (
+                        <Table.Cell key={key}>{val}</Table.Cell>
+                      ))
+                  }
+                  {
+                    viewRef || formRef ?
+                      <Table.Cell>
+                        <HStack justify="center" wrap="wrap" gap="1">
+                          <Tooltip content="View">
+                            <IconButton
+                              variant="subtle"
+                              colorPalette="blue"
+                              size="2xs"
+                              onClick={e => handleView(e, row.id)}
+                            >
+                              <View />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip content="Update">
+                            <IconButton
+                              variant="subtle"
+                              colorPalette="orange"
+                              size="2xs"
+                              onClick={e => handleForm(e, row.id)}
+                            >
+                              <Edit />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip content="Delete">
+                            <IconButton
+                              variant="subtle"
+                              colorPalette="red"
+                              size="2xs"
+                            >
+                              <Trash />
+                            </IconButton>
+                          </Tooltip>
+                        </HStack>
+                      </Table.Cell>
+                      : null
+                  }
+                </Table.Row>
+              ))
+              :
+              <Table.Row>
+                <Table.Cell colSpan={comlumnHeaders.length + 1}>
+                  <EmptyState.Root>
+                    <EmptyState.Content>
+                      <EmptyState.Indicator>
+                        <SearchX />
+                      </EmptyState.Indicator>
+                      <VStack textAlign="center">
+                        <EmptyState.Title>No results found</EmptyState.Title>
+                      </VStack>
+                    </EmptyState.Content>
+                  </EmptyState.Root>
+                </Table.Cell>
               </Table.Row>
-            ))}
+            }
           </Table.Body>
         </Table.Root>
       </Box>
