@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import NextLink from "next/link";
-import { Avatar, Box, Flex, HStack, IconButton, List, Separator, Stack, Text, useDisclosure } from "@chakra-ui/react";
+import { Avatar, Box, Flex, For, HStack, IconButton, List, Separator, Stack, Text, useDisclosure } from "@chakra-ui/react";
 import { UserCog, BriefcaseBusiness, LayoutDashboard, Users, X, ChevronRightIcon, ChevronDownIcon } from "lucide-react";
 import { useColorModeValue } from "../../ui/color-mode";
 
@@ -71,16 +71,18 @@ const listItems: ListItem[] = [
 
 const MenuList = ({ listItems, currentPath }: MenuListProps) => (
   <List.Root gap={1}>
-    {listItems.map((item, index) => (
-      <RecursiveListItem
-        key={index}
-        icon={item.icon}
-        text={item.text}
-        children={item.children}
-        path={item.path}
-        currentPath={currentPath}
-      />
-    ))}
+    <For each={listItems}>
+      {(item, index) => (
+        <RecursiveListItem
+          key={index}
+          icon={item.icon}
+          text={item.text}
+          children={item.children}
+          path={item.path}
+          currentPath={currentPath}
+        />
+      )}
+    </For>
   </List.Root>
 );
 
@@ -146,16 +148,20 @@ const RecursiveListItem = ({ icon, text, children, path, currentPath }: Recursiv
 
       {hasChildren && open &&
         <List.Root gap={0}>
-          {children && children.map((child, index) => (
-            <RecursiveListItem
-              key={index}
-              icon={child.icon}
-              text={child.text}
-              children={child.children}
-              path={child.path}
-              currentPath={currentPath}
-            />
-          ))}
+          {children &&
+            <For each={children}>
+              {(child, index) => (
+                <RecursiveListItem
+                  key={index}
+                  icon={child.icon}
+                  text={child.text}
+                  children={child.children}
+                  path={child.path}
+                  currentPath={currentPath}
+                />
+              )}
+            </For>
+          }
         </List.Root>
       }
     </>

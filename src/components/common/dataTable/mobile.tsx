@@ -27,93 +27,87 @@ const MobileDataList = <T extends DataTableBaseItem>({
   handleDelete
 }: MobileDataListProps<T>) => {
   const comlumnHeaders = getColumnMobileHeaders(columns);
+  const columnKey = comlumnHeaders.map(val => val.key);
 
   return (
     <Box display={{ base: 'block', md: 'none' }}>
-      {rows.map((row, rowIndex) => (
-        <Collapsible.Root key={rowIndex}>
-          <Box borderWidth="1px" borderRadius="md" p={2} mb={2}>
-            <Flex justify="space-between" align="center">
-              <Box>
-                <For each={comlumnHeaders}>
-                  {(column, columnIndex) => (
-                    <Text key={columnIndex} fontWeight="bold">{String(row[column.key as keyof T])}</Text>
-                  )}
-                </For>
-              </Box>
-              <Collapsible.Trigger as={Box}>
-                <IconButton
-                  variant="ghost"
-                  size="sm"
-                  aria-label="Collapse button"
-                >
-                  <LucideChevronDown size="10" />
-                </IconButton>
-              </Collapsible.Trigger>
-            </Flex>
-            <Collapsible.Content mt={2}>
-              <Stack>
-                {
-                  Object.entries(row)
-                    .filter(([key]) => !comlumnHeaders.map(val => val.key).includes(key))
-                    .map(([key, val], index) => (
-                      <Text key={index} fontSize="sm">
-                        <strong>{formattedKey(key)}:</strong> {String(val)}
-                      </Text>
-                    ))
-                }
-                <HStack justify="center" wrap="wrap" gap="5">
-                  {
-                    viewRef ?
-                      <VStack>
-                        <IconButton
-                          aria-label="view"
-                          variant="subtle"
-                          colorPalette="blue"
-                          onClick={e => handleView(e, row.id)}
-                        >
-                          <View />
-                        </IconButton>
-                        <Text textStyle="sm">View</Text>
-                      </VStack>
-                      : null
-                  }
-                  {
-                    formRef ?
-                      <VStack>
-                        <IconButton
-                          aria-label="update"
-                          variant="subtle"
-                          colorPalette="orange"
-                          onClick={e => handleForm(e, row.id)}
-                        >
-                          <Edit />
-                        </IconButton>
-                        <Text textStyle="sm">Update</Text>
-                      </VStack>
-                      : null
-                  }
-                  {
-                    deleteRef ?
-                      <VStack>
-                        <IconButton
-                          aria-label="delete"
-                          variant="subtle"
-                          colorPalette="red"
-                          onClick={e => handleDelete(e, row.id)}
-                        >
-                          <Trash />
-                        </IconButton>
-                        <Text textStyle="sm">Delete</Text>
-                      </VStack>
-                      : null
-                  }
-                </HStack>
-              </Stack>
-            </Collapsible.Content>
-          </Box>
-        </Collapsible.Root>
-      ))}
+      <For each={rows}>
+        {(row, rowIndex) => (
+          <Collapsible.Root key={rowIndex}>
+            <Box borderWidth="1px" borderRadius="md" p={2} mb={2}>
+              <Flex justify="space-between" align="center">
+                <Box>
+                  <For each={columnKey}>
+                    {(key, keyIndex) => (
+                      <Text key={keyIndex} fontWeight="bold">{String(row[key])}</Text>
+                    )}
+                  </For>
+                </Box>
+                <Collapsible.Trigger as={Box}>
+                  <IconButton
+                    variant="ghost"
+                    size="sm"
+                    aria-label="Collapse button"
+                  >
+                    <LucideChevronDown size="10" />
+                  </IconButton>
+                </Collapsible.Trigger>
+              </Flex>
+              <Collapsible.Content mt={2}>
+                <Stack>
+                  <HStack justify="center" wrap="wrap" gap="5">
+                    {
+                      viewRef ?
+                        <VStack>
+                          <IconButton
+                            aria-label="view"
+                            variant="subtle"
+                            colorPalette="blue"
+                            onClick={e => handleView(e, row.id)}
+                          >
+                            <View />
+                          </IconButton>
+                          <Text textStyle="sm">View</Text>
+                        </VStack>
+                        : null
+                    }
+                    {
+                      formRef ?
+                        <VStack>
+                          <IconButton
+                            aria-label="update"
+                            variant="subtle"
+                            colorPalette="orange"
+                            onClick={e => handleForm(e, row.id)}
+                          >
+                            <Edit />
+                          </IconButton>
+                          <Text textStyle="sm">Update</Text>
+                        </VStack>
+                        : null
+                    }
+                    {
+                      deleteRef ?
+                        <VStack>
+                          <IconButton
+                            aria-label="delete"
+                            variant="subtle"
+                            colorPalette="red"
+                            onClick={e => handleDelete(e, row.id)}
+                          >
+                            <Trash />
+                          </IconButton>
+                          <Text textStyle="sm">Delete</Text>
+                        </VStack>
+                        : null
+                    }
+                  </HStack>
+                </Stack>
+              </Collapsible.Content>
+            </Box>
+          </Collapsible.Root>
+        )}
+      </For>
     </Box>
   );
 };

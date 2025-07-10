@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, EmptyState, HStack, IconButton, Table, VStack } from "@chakra-ui/react";
+import { Box, EmptyState, For, HStack, IconButton, Table, VStack } from "@chakra-ui/react";
 import { DataTableBaseItem, DataTableColumn, TableActionRef } from "@/types/common";
 import { getColumnDesktopHeaders } from "@/utils/common";
 import { Edit, SearchX, Trash, View } from "lucide-react";
@@ -28,6 +28,8 @@ const DesktopDataList = <T extends DataTableBaseItem>({
   handleDelete
 }: DesktopDataListProps<T>) => {
   const comlumnHeaders = getColumnDesktopHeaders(columns);
+  const columnLabel = comlumnHeaders.map(val => val.label);
+  const columnKey = comlumnHeaders.map(val => val.key);
 
   return (
     <Table.ScrollArea
@@ -40,9 +42,11 @@ const DesktopDataList = <T extends DataTableBaseItem>({
         <Table.Root size="sm" variant="line" interactive>
           <Table.Header>
             <Table.Row>
-              {comlumnHeaders.map((column, columnIndex) => (
-                <Table.ColumnHeader key={columnIndex}>{column.label}</Table.ColumnHeader>
-              ))}
+              <For each={columnLabel}>
+                {(label, labelIndex) => (
+                  <Table.ColumnHeader key={labelIndex}>{label}</Table.ColumnHeader>
+                )}
+              </For>
               {
                 viewRef ?
                   <Table.ColumnHeader textAlign="center">Action</Table.ColumnHeader>
@@ -52,55 +56,67 @@ const DesktopDataList = <T extends DataTableBaseItem>({
           </Table.Header>
           <Table.Body>
             {rows.length > 0 ?
-              rows.map((row, rowIndex) => (
-                <Table.Row key={rowIndex}>
-                  {
-                    Object.entries(row)
-                      .filter(([key]) => comlumnHeaders.map(val => val.key).includes(key))
-                      .map(([key, val]) => (
-                        <Table.Cell key={key}>{val}</Table.Cell>
-                      ))
-                  }
-                  {
-                    viewRef || formRef || deleteRef ?
-                      <Table.Cell>
-                        <HStack justify="center" wrap="wrap" gap="1">
-                          <Tooltip content="View">
-                            <IconButton
-                              variant="subtle"
-                              colorPalette="blue"
-                              size="2xs"
-                              onClick={e => handleView(e, row.id)}
-                            >
-                              <View />
-                            </IconButton>
-                          </Tooltip>
-                          <Tooltip content="Update">
-                            <IconButton
-                              variant="subtle"
-                              colorPalette="orange"
-                              size="2xs"
-                              onClick={e => handleForm(e, row.id)}
-                            >
-                              <Edit />
-                            </IconButton>
-                          </Tooltip>
-                          <Tooltip content="Delete">
-                            <IconButton
-                              variant="subtle"
-                              colorPalette="red"
-                              size="2xs"
-                              onClick={e => handleDelete(e, row.id)}
-                            >
-                              <Trash />
-                            </IconButton>
-                          </Tooltip>
-                        </HStack>
-                      </Table.Cell>
-                      : null
-                  }
-                </Table.Row>
-              ))
+              <For each={rows}>
+                {(row, rowIndex) => (
+                  <Table.Row key={rowIndex}>
+                    <For each={columnKey}>
+                      {(val, index) => (
+                        <Table.Cell key={index}>{row[val]}</Table.Cell>
+                      )}
+                    </For>
+                    {
+                      viewRef || formRef || deleteRef ?
+                        <Table.Cell>
+                          <HStack justify="center" wrap="wrap" gap="1">
+                            {
+                              viewRef ?
+                                <Tooltip content="View">
+                                  <IconButton
+                                    variant="subtle"
+                                    colorPalette="blue"
+                                    size="2xs"
+                                    onClick={e => handleView(e, row.id)}
+                                  >
+                                    <View />
+                                  </IconButton>
+                                </Tooltip>
+                                : null
+                            }
+                            {
+                              formRef ?
+                                <Tooltip content="Update">
+                                  <IconButton
+                                    variant="subtle"
+                                    colorPalette="orange"
+                                    size="2xs"
+                                    onClick={e => handleForm(e, row.id)}
+                                  >
+                                    <Edit />
+                                  </IconButton>
+                                </Tooltip>
+                                : null
+                            }
+                            {
+                              deleteRef ?
+                                <Tooltip content="Delete">
+                                  <IconButton
+                                    variant="subtle"
+                                    colorPalette="red"
+                                    size="2xs"
+                                    onClick={e => handleDelete(e, row.id)}
+                                  >
+                                    <Trash />
+                                  </IconButton>
+                                </Tooltip>
+                                : null
+                            }
+                          </HStack>
+                        </Table.Cell>
+                        : null
+                    }
+                  </Table.Row>
+                )}
+              </For>
               :
               <Table.Row>
                 <Table.Cell colSpan={comlumnHeaders.length + 1}>

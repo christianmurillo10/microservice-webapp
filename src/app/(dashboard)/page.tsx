@@ -4,6 +4,7 @@ import {
   Breadcrumb,
   ButtonGroup,
   Card,
+  For,
   Grid,
   GridItem,
   HStack,
@@ -118,17 +119,19 @@ export default function Home() {
                       </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                      {items.map((item) => (
-                        <Table.Row key={item.id}>
-                          <Table.Cell>{item.name}</Table.Cell>
-                          <Table.Cell>{item.created_at}</Table.Cell>
-                          <Table.Cell textAlign="center">
-                            <Tag.Root size="sm" colorPalette={item.is_active ? "green" : "red"}>
-                              <Tag.Label>{item.is_active ? "Yes" : "No"}</Tag.Label>
-                            </Tag.Root>
-                          </Table.Cell>
-                        </Table.Row>
-                      ))}
+                      <For each={items}>
+                        {(item, index) => (
+                          <Table.Row key={index}>
+                            <Table.Cell>{item.name}</Table.Cell>
+                            <Table.Cell>{item.created_at}</Table.Cell>
+                            <Table.Cell textAlign="center">
+                              <Tag.Root size="sm" colorPalette={item.is_active ? "green" : "red"}>
+                                <Tag.Label>{item.is_active ? "Yes" : "No"}</Tag.Label>
+                              </Tag.Root>
+                            </Table.Cell>
+                          </Table.Row>
+                        )}
+                      </For>
                     </Table.Body>
                   </Table.Root>
 
