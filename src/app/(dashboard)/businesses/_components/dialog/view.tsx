@@ -55,6 +55,10 @@ const DialogBusinessView = React.forwardRef<TableActionRef>((_props, ref) => {
                 ) : (
                   <DataList.Root orientation="horizontal">
                     <DataList.Item>
+                      <DataList.ItemLabel>ID</DataList.ItemLabel>
+                      <DataList.ItemValue>{data?.id}</DataList.ItemValue>
+                    </DataList.Item>
+                    <DataList.Item>
                       <DataList.ItemLabel>Name</DataList.ItemLabel>
                       <DataList.ItemValue>
                         <HStack>

@@ -56,51 +56,45 @@ const MobileDataList = <T extends DataTableBaseItem>({
               <Collapsible.Content mt={2}>
                 <Stack>
                   <HStack justify="center" wrap="wrap" gap="5">
-                    {
-                      viewRef ?
-                        <VStack>
-                          <IconButton
-                            aria-label="view"
-                            variant="subtle"
-                            colorPalette="blue"
-                            onClick={e => handleView(e, row.id)}
-                          >
-                            <View />
-                          </IconButton>
-                          <Text textStyle="sm">View</Text>
-                        </VStack>
-                        : null
-                    }
-                    {
-                      formRef ?
-                        <VStack>
-                          <IconButton
-                            aria-label="update"
-                            variant="subtle"
-                            colorPalette="orange"
-                            onClick={e => handleForm(e, row.id)}
-                          >
-                            <Edit />
-                          </IconButton>
-                          <Text textStyle="sm">Update</Text>
-                        </VStack>
-                        : null
-                    }
-                    {
-                      deleteRef ?
-                        <VStack>
-                          <IconButton
-                            aria-label="delete"
-                            variant="subtle"
-                            colorPalette="red"
-                            onClick={e => handleDelete(e, row.id)}
-                          >
-                            <Trash />
-                          </IconButton>
-                          <Text textStyle="sm">Delete</Text>
-                        </VStack>
-                        : null
-                    }
+                    {viewRef && (
+                      <VStack>
+                        <IconButton
+                          aria-label="view"
+                          variant="subtle"
+                          colorPalette="blue"
+                          onClick={e => handleView(e, row.id)}
+                        >
+                          <View />
+                        </IconButton>
+                        <Text textStyle="sm">View</Text>
+                      </VStack>
+                    )}
+                    {formRef && (
+                      <VStack>
+                        <IconButton
+                          aria-label="update"
+                          variant="subtle"
+                          colorPalette="orange"
+                          onClick={e => handleForm(e, row.id)}
+                        >
+                          <Edit />
+                        </IconButton>
+                        <Text textStyle="sm">Update</Text>
+                      </VStack>
+                    )}
+                    {deleteRef && (
+                      <VStack>
+                        <IconButton
+                          aria-label="delete"
+                          variant="subtle"
+                          colorPalette="red"
+                          onClick={e => handleDelete(e, row.id)}
+                        >
+                          <Trash />
+                        </IconButton>
+                        <Text textStyle="sm">Delete</Text>
+                      </VStack>
+                    )}
                   </HStack>
                 </Stack>
               </Collapsible.Content>

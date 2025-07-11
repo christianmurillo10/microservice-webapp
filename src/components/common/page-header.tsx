@@ -30,26 +30,22 @@ const BasePageHeader = ({ title, formRef, exportRef }: BasePageHeaderProps) => {
       >
         {title}
       </Text>
-      {
-        formRef ?
-          <Button
-            variant="subtle"
-            colorPalette="green"
-            onClick={e => handleCreate(e)}
-          >
-            <Plus />
-            New
-          </Button>
-          : null
-      }
-      {
-        exportRef ?
-          <Button variant="subtle" colorPalette="orange">
-            <Download />
-            Export
-          </Button>
-          : null
-      }
+      {formRef && (
+        <Button
+          variant="subtle"
+          colorPalette="green"
+          onClick={e => handleCreate(e)}
+        >
+          <Plus />
+          New
+        </Button>
+      )}
+      {exportRef && (
+        <Button variant="subtle" colorPalette="orange">
+          <Download />
+          Export
+        </Button>
+      )}
     </Flex>
   );
 };

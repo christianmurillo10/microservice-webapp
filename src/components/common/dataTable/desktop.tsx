@@ -47,11 +47,9 @@ const DesktopDataList = <T extends DataTableBaseItem>({
                   <Table.ColumnHeader key={labelIndex}>{label}</Table.ColumnHeader>
                 )}
               </For>
-              {
-                viewRef ?
-                  <Table.ColumnHeader textAlign="center">Action</Table.ColumnHeader>
-                  : null
-              }
+              {viewRef && (
+                <Table.ColumnHeader textAlign="center">Action</Table.ColumnHeader>
+              )}
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -65,55 +63,48 @@ const DesktopDataList = <T extends DataTableBaseItem>({
                       )}
                     </For>
                     {
-                      viewRef || formRef || deleteRef ?
+                      (viewRef || formRef || deleteRef) && (
                         <Table.Cell>
                           <HStack justify="center" wrap="wrap" gap="1">
-                            {
-                              viewRef ?
-                                <Tooltip content="View">
-                                  <IconButton
-                                    variant="subtle"
-                                    colorPalette="blue"
-                                    size="2xs"
-                                    onClick={e => handleView(e, row.id)}
-                                  >
-                                    <View />
-                                  </IconButton>
-                                </Tooltip>
-                                : null
-                            }
-                            {
-                              formRef ?
-                                <Tooltip content="Update">
-                                  <IconButton
-                                    variant="subtle"
-                                    colorPalette="orange"
-                                    size="2xs"
-                                    onClick={e => handleForm(e, row.id)}
-                                  >
-                                    <Edit />
-                                  </IconButton>
-                                </Tooltip>
-                                : null
-                            }
-                            {
-                              deleteRef ?
-                                <Tooltip content="Delete">
-                                  <IconButton
-                                    variant="subtle"
-                                    colorPalette="red"
-                                    size="2xs"
-                                    onClick={e => handleDelete(e, row.id)}
-                                  >
-                                    <Trash />
-                                  </IconButton>
-                                </Tooltip>
-                                : null
-                            }
+                            {viewRef && (
+                              <Tooltip content="View">
+                                <IconButton
+                                  variant="subtle"
+                                  colorPalette="blue"
+                                  size="2xs"
+                                  onClick={e => handleView(e, row.id)}
+                                >
+                                  <View />
+                                </IconButton>
+                              </Tooltip>
+                            )}
+                            {formRef && (
+                              <Tooltip content="Update">
+                                <IconButton
+                                  variant="subtle"
+                                  colorPalette="orange"
+                                  size="2xs"
+                                  onClick={e => handleForm(e, row.id)}
+                                >
+                                  <Edit />
+                                </IconButton>
+                              </Tooltip>
+                            )}
+                            {deleteRef && (
+                              <Tooltip content="Delete">
+                                <IconButton
+                                  variant="subtle"
+                                  colorPalette="red"
+                                  size="2xs"
+                                  onClick={e => handleDelete(e, row.id)}
+                                >
+                                  <Trash />
+                                </IconButton>
+                              </Tooltip>
+                            )}
                           </HStack>
                         </Table.Cell>
-                        : null
-                    }
+                      )}
                   </Table.Row>
                 )}
               </For>
