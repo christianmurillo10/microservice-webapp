@@ -1,7 +1,6 @@
 "use client";
 
 import { Field, Input } from "@chakra-ui/react";
-import * as React from "react";
 
 type CustomInputProps = {
   label: string;
@@ -19,7 +18,7 @@ const CustomInput = ({
       <Field.Label>{label}</Field.Label>
       <Input placeholder={placeholder ?? ""} />
       {error && (
-        <Field.ErrorText>This is an error text</Field.ErrorText>
+        <Field.ErrorText>{error}</Field.ErrorText>
       )}
     </Field.Root>
   );
