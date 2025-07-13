@@ -10,9 +10,19 @@ import {
   useDisclosure
 } from "@chakra-ui/react";
 import { useForm } from "@tanstack/react-form";
+import { z } from "zod";
 import { TableActionRef } from "@/types/common";
 import { useFetchBusinessesById } from "@/hooks/useFetchBusinessesById";
 import CustomInput from "@/components/forms/input";
+
+const schema = z.object({
+  name: z
+    .string()
+    .min(3, 'You must have a length of at least 3'),
+  domain: z.string().min(3, 'You must have a length of at least 3'),
+  preferred_timezone: z.string().min(3, 'You must have a length of at least 3'),
+  currency: z.string().min(3, 'You must have a length of at least 3'),
+});
 
 const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
   // State
@@ -27,6 +37,9 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
       domain: data?.domain ?? "",
       preferred_timezone: data?.preferred_timezone ?? "",
       currency: data?.currency ?? ""
+    },
+    validators: {
+      onChange: schema
     },
     onSubmit: async ({ value }) => {
       // Do something with form data
@@ -70,21 +83,6 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                   <Fieldset.Content>
                     <form.Field
                       name="name"
-                      validators={{
-                        onChange: ({ value }) =>
-                          !value
-                            ? 'A name is required'
-                            : value.length < 3
-                              ? 'Name must be at least 3 characters'
-                              : undefined,
-                        onChangeAsyncDebounceMs: 500,
-                        onChangeAsync: async ({ value }) => {
-                          await new Promise((resolve) => setTimeout(resolve, 1000))
-                          return (
-                            value.includes('error') && 'No "error" allowed in name'
-                          )
-                        },
-                      }}
                       children={({ state, handleChange, handleBlur }) => {
                         return (
                           <CustomInput
@@ -93,7 +91,7 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                             value={state.value}
                             required={true}
                             isError={state.meta.isTouched && !state.meta.isValid}
-                            errorMessage={state.meta.errors.join(',')}
+                            errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
                             handleChange={handleChange}
                             handleBlur={handleBlur}
                           />
@@ -102,19 +100,6 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                     />
                     <form.Field
                       name="domain"
-                      validators={{
-                        onChange: ({ value }) =>
-                          value.length < 3
-                            ? 'Domain must be at least 3 characters'
-                            : undefined,
-                        onChangeAsyncDebounceMs: 500,
-                        onChangeAsync: async ({ value }) => {
-                          await new Promise((resolve) => setTimeout(resolve, 1000))
-                          return (
-                            value.includes('error') && 'No "error" allowed in domain'
-                          )
-                        },
-                      }}
                       children={({ state, handleChange, handleBlur }) => {
                         return (
                           <CustomInput
@@ -122,7 +107,7 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                             placeholder="Domain"
                             value={state.value}
                             isError={state.meta.isTouched && !state.meta.isValid}
-                            errorMessage={state.meta.errors.join(',')}
+                            errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
                             handleChange={handleChange}
                             handleBlur={handleBlur}
                           />
@@ -131,19 +116,6 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                     />
                     <form.Field
                       name="preferred_timezone"
-                      validators={{
-                        onChange: ({ value }) =>
-                          value.length < 3
-                            ? 'Timezone must be at least 3 characters'
-                            : undefined,
-                        onChangeAsyncDebounceMs: 500,
-                        onChangeAsync: async ({ value }) => {
-                          await new Promise((resolve) => setTimeout(resolve, 1000))
-                          return (
-                            value.includes('error') && 'No "error" allowed in timezone'
-                          )
-                        },
-                      }}
                       children={({ state, handleChange, handleBlur }) => {
                         return (
                           <CustomInput
@@ -151,7 +123,7 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                             placeholder="Timezone"
                             value={state.value}
                             isError={state.meta.isTouched && !state.meta.isValid}
-                            errorMessage={state.meta.errors.join(',')}
+                            errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
                             handleChange={handleChange}
                             handleBlur={handleBlur}
                           />
@@ -160,19 +132,6 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                     />
                     <form.Field
                       name="currency"
-                      validators={{
-                        onChange: ({ value }) =>
-                          value.length < 3
-                            ? 'Currency must be at least 3 characters'
-                            : undefined,
-                        onChangeAsyncDebounceMs: 500,
-                        onChangeAsync: async ({ value }) => {
-                          await new Promise((resolve) => setTimeout(resolve, 1000))
-                          return (
-                            value.includes('error') && 'No "error" allowed in currency'
-                          )
-                        },
-                      }}
                       children={({ state, handleChange, handleBlur }) => {
                         return (
                           <CustomInput
@@ -180,7 +139,7 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                             placeholder="Currency"
                             value={state.value}
                             isError={state.meta.isTouched && !state.meta.isValid}
-                            errorMessage={state.meta.errors.join(',')}
+                            errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
                             handleChange={handleChange}
                             handleBlur={handleBlur}
                           />
