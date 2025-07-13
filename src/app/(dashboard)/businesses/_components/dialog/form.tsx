@@ -3,18 +3,15 @@
 import * as React from "react";
 import {
   Button,
+  CloseButton,
   Dialog,
-  Field,
   Fieldset,
-  Input,
   Portal,
-  Stack,
   useDisclosure
 } from "@chakra-ui/react";
 import { useForm } from "@tanstack/react-form";
 import { TableActionRef } from "@/types/common";
 import { useFetchBusinessesById } from "@/hooks/useFetchBusinessesById";
-import { error } from "console";
 import CustomInput from "@/components/forms/input";
 
 const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
@@ -58,7 +55,6 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
         <Dialog.Backdrop />
         <Dialog.Positioner>
           <Dialog.Content>
-
             <form
               onSubmit={(e) => {
                 e.preventDefault()
@@ -71,13 +67,6 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
               </Dialog.Header>
               <Dialog.Body pb="4">
                 <Fieldset.Root size="lg" maxW="md">
-                  <Stack>
-                    <Fieldset.Legend>Contact details</Fieldset.Legend>
-                    <Fieldset.HelperText>
-                      Please provide your contact details below.
-                    </Fieldset.HelperText>
-                  </Stack>
-
                   <Fieldset.Content>
                     <form.Field
                       name="name"
@@ -102,6 +91,94 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                             label="Name"
                             placeholder="Name"
                             value={state.value}
+                            required={true}
+                            isError={state.meta.isTouched && !state.meta.isValid}
+                            errorMessage={state.meta.errors.join(',')}
+                            handleChange={handleChange}
+                            handleBlur={handleBlur}
+                          />
+                        )
+                      }}
+                    />
+                    <form.Field
+                      name="domain"
+                      validators={{
+                        onChange: ({ value }) =>
+                          value.length < 3
+                            ? 'Domain must be at least 3 characters'
+                            : undefined,
+                        onChangeAsyncDebounceMs: 500,
+                        onChangeAsync: async ({ value }) => {
+                          await new Promise((resolve) => setTimeout(resolve, 1000))
+                          return (
+                            value.includes('error') && 'No "error" allowed in domain'
+                          )
+                        },
+                      }}
+                      children={({ state, handleChange, handleBlur }) => {
+                        return (
+                          <CustomInput
+                            label="Domain"
+                            placeholder="Domain"
+                            value={state.value}
+                            isError={state.meta.isTouched && !state.meta.isValid}
+                            errorMessage={state.meta.errors.join(',')}
+                            handleChange={handleChange}
+                            handleBlur={handleBlur}
+                          />
+                        )
+                      }}
+                    />
+                    <form.Field
+                      name="preferred_timezone"
+                      validators={{
+                        onChange: ({ value }) =>
+                          value.length < 3
+                            ? 'Timezone must be at least 3 characters'
+                            : undefined,
+                        onChangeAsyncDebounceMs: 500,
+                        onChangeAsync: async ({ value }) => {
+                          await new Promise((resolve) => setTimeout(resolve, 1000))
+                          return (
+                            value.includes('error') && 'No "error" allowed in timezone'
+                          )
+                        },
+                      }}
+                      children={({ state, handleChange, handleBlur }) => {
+                        return (
+                          <CustomInput
+                            label="Timezone"
+                            placeholder="Timezone"
+                            value={state.value}
+                            isError={state.meta.isTouched && !state.meta.isValid}
+                            errorMessage={state.meta.errors.join(',')}
+                            handleChange={handleChange}
+                            handleBlur={handleBlur}
+                          />
+                        )
+                      }}
+                    />
+                    <form.Field
+                      name="currency"
+                      validators={{
+                        onChange: ({ value }) =>
+                          value.length < 3
+                            ? 'Currency must be at least 3 characters'
+                            : undefined,
+                        onChangeAsyncDebounceMs: 500,
+                        onChangeAsync: async ({ value }) => {
+                          await new Promise((resolve) => setTimeout(resolve, 1000))
+                          return (
+                            value.includes('error') && 'No "error" allowed in currency'
+                          )
+                        },
+                      }}
+                      children={({ state, handleChange, handleBlur }) => {
+                        return (
+                          <CustomInput
+                            label="Currency"
+                            placeholder="Currency"
+                            value={state.value}
                             isError={state.meta.isTouched && !state.meta.isValid}
                             errorMessage={state.meta.errors.join(',')}
                             handleChange={handleChange}
@@ -112,33 +189,12 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                     />
                   </Fieldset.Content>
                 </Fieldset.Root>
-                {/* <Stack gap="4">
-                <Field.Root>
-                  <Field.Label>Name</Field.Label>
-                  <Input placeholder="Name" />
-                </Field.Root>
-                <Field.Root>
-                  <Field.Label>Domain</Field.Label>
-                  <Input placeholder="Domain" />
-                </Field.Root>
-                <Field.Root>
-                  <Field.Label>Timezone</Field.Label>
-                  <Input placeholder="Timezone" />
-                </Field.Root>
-                <Field.Root>
-                  <Field.Label>Currency</Field.Label>
-                  <Input placeholder="Currency" />
-                </Field.Root>
-              </Stack> */}
               </Dialog.Body>
               <Dialog.Footer>
                 <form.Subscribe
                   selector={(state) => [state.canSubmit, state.isSubmitting]}
                   children={([canSubmit, isSubmitting]) => (
                     <>
-                      <Dialog.ActionTrigger asChild>
-                        <Button variant="outline">Cancel</Button>
-                      </Dialog.ActionTrigger>
                       <Button
                         type="reset"
                         variant="subtle"
@@ -160,6 +216,9 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                 />
               </Dialog.Footer>
             </form>
+            <Dialog.CloseTrigger asChild>
+              <CloseButton size="sm" />
+            </Dialog.CloseTrigger>
           </Dialog.Content>
         </Dialog.Positioner>
       </Portal>
