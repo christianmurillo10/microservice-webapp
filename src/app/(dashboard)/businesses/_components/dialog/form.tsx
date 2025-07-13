@@ -14,6 +14,8 @@ import {
 import { useForm } from "@tanstack/react-form";
 import { TableActionRef } from "@/types/common";
 import { useFetchBusinessesById } from "@/hooks/useFetchBusinessesById";
+import { error } from "console";
+import CustomInput from "@/components/forms/input";
 
 const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
   // State
@@ -82,34 +84,29 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                       validators={{
                         onChange: ({ value }) =>
                           !value
-                            ? 'A first name is required'
+                            ? 'A name is required'
                             : value.length < 3
-                              ? 'First name must be at least 3 characters'
+                              ? 'Name must be at least 3 characters'
                               : undefined,
                         onChangeAsyncDebounceMs: 500,
                         onChangeAsync: async ({ value }) => {
                           await new Promise((resolve) => setTimeout(resolve, 1000))
                           return (
-                            value.includes('error') && 'No "error" allowed in first name'
+                            value.includes('error') && 'No "error" allowed in name'
                           )
                         },
                       }}
                       children={({ state, handleChange, handleBlur }) => {
                         return (
-                          <>
-                            <Field.Root invalid>
-                              <Field.Label>Name</Field.Label>
-                              <Input
-                                placeholder="Name"
-                                value={state.value}
-                                onChange={e => handleChange(e.target.value)}
-                                onBlur={handleBlur}
-                              />
-                              {(state.meta.isTouched && !state.meta.isValid) && (
-                                <Field.ErrorText>{state.meta.errors.join(',')}</Field.ErrorText>
-                              )}
-                            </Field.Root>
-                          </>
+                          <CustomInput
+                            label="Name"
+                            placeholder="Name"
+                            value={state.value}
+                            isError={state.meta.isTouched && !state.meta.isValid}
+                            errorMessage={state.meta.errors.join(',')}
+                            handleChange={handleChange}
+                            handleBlur={handleBlur}
+                          />
                         )
                       }}
                     />
