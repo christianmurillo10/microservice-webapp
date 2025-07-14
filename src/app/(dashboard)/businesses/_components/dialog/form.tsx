@@ -16,12 +16,10 @@ import { useFetchBusinessesById } from "@/hooks/useFetchBusinessesById";
 import CustomInput from "@/components/forms/input";
 
 const schema = z.object({
-  name: z
-    .string()
-    .min(3, 'You must have a length of at least 3'),
-  domain: z.string().min(3, 'You must have a length of at least 3'),
-  preferred_timezone: z.string().min(3, 'You must have a length of at least 3'),
-  currency: z.string().min(3, 'You must have a length of at least 3'),
+  name: z.string().nonempty("This field is required"),
+  domain: z.string(),
+  preferred_timezone: z.string(),
+  currency: z.string(),
 });
 
 const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {

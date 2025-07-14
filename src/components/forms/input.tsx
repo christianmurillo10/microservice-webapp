@@ -1,6 +1,6 @@
 "use client";
 
-import { Field, Input } from "@chakra-ui/react";
+import { Badge, Field, Input } from "@chakra-ui/react";
 
 type CustomInputProps = {
   label: string;
@@ -24,10 +24,16 @@ const CustomInput = ({
   handleBlur
 }: CustomInputProps) => {
   return (
-    <Field.Root invalid={isError} required={required}>
+    <Field.Root invalid={isError}>
       <Field.Label>
         {label}
-        {required && (<Field.RequiredIndicator />)}
+        {!required && (<Field.RequiredIndicator
+          fallback={
+            <Badge size="xs" variant="surface">
+              optional
+            </Badge>
+          }
+        />)}
       </Field.Label>
       <Input
         placeholder={placeholder ?? ""}
