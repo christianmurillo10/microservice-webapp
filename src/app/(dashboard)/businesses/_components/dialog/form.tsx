@@ -14,6 +14,9 @@ import { z } from "zod";
 import { TableActionRef } from "@/types/common";
 import { useFetchBusinessesById } from "@/hooks/useFetchBusinessesById";
 import CustomInput from "@/components/forms/input";
+import CustomSelect from "@/components/forms/select";
+import mockTimezones from "@/mockData/mockTimezones.json";
+import mockCurrencies from "@/mockData/mockCurrencies.json";
 
 const schema = z.object({
   name: z.string().nonempty("This field is required"),
@@ -29,12 +32,13 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
 
   // Hooks
   const { data, isLoading, isError } = useFetchBusinessesById(formId ?? undefined);
+
   const form = useForm({
     defaultValues: {
-      name: data?.name ?? "",
-      domain: data?.domain ?? "",
-      preferred_timezone: data?.preferred_timezone ?? "",
-      currency: data?.currency ?? ""
+      name: "",
+      domain: "",
+      preferred_timezone: "",
+      currency: ""
     },
     validators: {
       onChange: schema
@@ -47,15 +51,33 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
 
   React.useImperativeHandle(ref, () => ({
     handleOpen(id?: string | number) {
+      handleReset();
+
       if (id) {
         setFormId(Number(id));
       } else {
-        setFormId(Number(null));
+        setFormId(null);
       }
 
       onOpen();
     }
   }));
+
+  React.useEffect(() => {
+    console.log("formId", formId)
+    console.log("data", data)
+    if (data) {
+      form.setFieldValue("name", data.name);
+      form.setFieldValue("domain", data.domain ?? "");
+      form.setFieldValue("preferred_timezone", data.preferred_timezone ?? "");
+      form.setFieldValue("currency", data.currency ?? "");
+    }
+  }, [formId, data, form]);
+
+  const handleReset = () => {
+    form.reset();
+    setFormId(null);
+  };
 
   return (
     <Dialog.Root
@@ -116,14 +138,14 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                       name="preferred_timezone"
                       children={({ state, handleChange, handleBlur }) => {
                         return (
-                          <CustomInput
+                          <CustomSelect
                             label="Timezone"
-                            placeholder="Timezone"
+                            placeholder="Select one"
                             value={state.value}
+                            options={mockTimezones}
                             isError={state.meta.isTouched && !state.meta.isValid}
                             errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
                             handleChange={handleChange}
-                            handleBlur={handleBlur}
                           />
                         )
                       }}
@@ -132,14 +154,14 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                       name="currency"
                       children={({ state, handleChange, handleBlur }) => {
                         return (
-                          <CustomInput
+                          <CustomSelect
                             label="Currency"
-                            placeholder="Currency"
+                            placeholder="Select one"
                             value={state.value}
+                            options={mockCurrencies}
                             isError={state.meta.isTouched && !state.meta.isValid}
                             errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
                             handleChange={handleChange}
-                            handleBlur={handleBlur}
                           />
                         )
                       }}

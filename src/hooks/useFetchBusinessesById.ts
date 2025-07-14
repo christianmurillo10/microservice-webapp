@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Businesses } from "@/entities/businesses";
-import businessesData from "../../mockData/businesses.json";
+import mockBusinesses from "@/mockData/mockBusinesses.json";
 
 export const useFetchBusinessesById = (id?: number) => {
   const [data, setData] = useState<Businesses>();
@@ -14,7 +14,7 @@ export const useFetchBusinessesById = (id?: number) => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const business = businessesData.find(val => val.id === id);
+        const business = mockBusinesses.find(val => val.id === id);
         setData(business);
       } catch (err) {
         setIsError(true);

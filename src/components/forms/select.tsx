@@ -1,41 +1,58 @@
 "use client";
 
-import { Field, ListCollection, Portal, Select } from "@chakra-ui/react";
+import { Badge, Field, For, NativeSelect } from "@chakra-ui/react";
 
 type CustomSelectProps = {
-  options: ListCollection;
-  error: string;
+  label: string;
+  placeholder?: string;
+  value: string | number;
+  required?: boolean;
+  options: Record<string, any>[];
+  isError: boolean;
+  handleChange: (value: string) => void;
+  errorMessage: string;
 };
 
-const CustomSelect = ({ options, error }: CustomSelectProps) => {
+const CustomSelect = ({
+  label,
+  placeholder,
+  value,
+  required = false,
+  options,
+  isError,
+  errorMessage,
+  handleChange
+}: CustomSelectProps) => {
   return (
-    <Field.Root invalid>
-      <Select.Root collection={options} size="sm" width="320px">
-        <Select.HiddenSelect />
-        <Select.Label>Select one</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select one" />
-          </Select.Trigger>
-          <Select.IndicatorGroup>
-            <Select.Indicator />
-          </Select.IndicatorGroup>
-        </Select.Control>
-        <Portal>
-          <Select.Positioner>
-            <Select.Content>
-              {options.items.map((option) => (
-                <Select.Item item={option} key={option.value}>
-                  {option.label}
-                  <Select.ItemIndicator />
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select.Positioner>
-        </Portal>
-      </Select.Root>
-      {error && (
-        <Field.ErrorText>{error}</Field.ErrorText>
+    <Field.Root invalid={isError}>
+      <Field.Label>
+        {label}
+        {!required && (<Field.RequiredIndicator
+          fallback={
+            <Badge size="xs" variant="surface">
+              optional
+            </Badge>
+          }
+        />)}
+      </Field.Label>
+      <NativeSelect.Root>
+        <NativeSelect.Field
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => handleChange(e.currentTarget.value)}
+        >
+          <For each={options}>
+            {(item) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            )}
+          </For>
+        </NativeSelect.Field>
+        <NativeSelect.Indicator />
+      </NativeSelect.Root>
+      {isError && (
+        <Field.ErrorText>{errorMessage}</Field.ErrorText>
       )}
     </Field.Root>
   );
