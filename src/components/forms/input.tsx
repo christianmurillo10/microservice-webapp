@@ -10,7 +10,6 @@ type CustomInputProps = {
   isError: boolean;
   errorMessage: string;
   handleChange: (value: string) => void;
-  handleBlur: () => void;
 };
 
 const CustomInput = ({
@@ -20,8 +19,7 @@ const CustomInput = ({
   required = false,
   isError,
   errorMessage,
-  handleChange,
-  handleBlur
+  handleChange
 }: CustomInputProps) => {
   return (
     <Field.Root invalid={isError}>
@@ -39,7 +37,6 @@ const CustomInput = ({
         placeholder={placeholder ?? ""}
         value={value}
         onChange={e => handleChange(e.target.value)}
-        onBlur={handleBlur}
       />
       {isError && (
         <Field.ErrorText>{errorMessage}</Field.ErrorText>

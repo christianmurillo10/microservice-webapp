@@ -31,28 +31,10 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
   const [formId, setFormId] = React.useState<number | null>(null);
 
   // Hooks
-  const { data, isLoading, isError } = useFetchBusinessesById(formId ?? undefined);
-
-  const form = useForm({
-    defaultValues: {
-      name: "",
-      domain: "",
-      preferred_timezone: "",
-      currency: ""
-    },
-    validators: {
-      onChange: schema
-    },
-    onSubmit: async ({ value }) => {
-      // Do something with form data
-      console.log(value)
-    },
-  })
+  const { data } = useFetchBusinessesById(formId ?? undefined);
 
   React.useImperativeHandle(ref, () => ({
     handleOpen(id?: string | number) {
-      handleReset();
-
       if (id) {
         setFormId(Number(id));
       } else {
@@ -63,26 +45,38 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
     }
   }));
 
-  React.useEffect(() => {
-    console.log("formId", formId)
-    console.log("data", data)
-    if (data) {
-      form.setFieldValue("name", data.name);
-      form.setFieldValue("domain", data.domain ?? "");
-      form.setFieldValue("preferred_timezone", data.preferred_timezone ?? "");
-      form.setFieldValue("currency", data.currency ?? "");
-    }
-  }, [formId, data, form]);
+  const defaultValues = formId && data ? {
+    name: data.name ?? "",
+    domain: data.domain ?? "",
+    preferred_timezone: data.preferred_timezone ?? "",
+    currency: data.currency ?? "",
+  } : {
+    name: "",
+    domain: "",
+    preferred_timezone: "",
+    currency: "",
+  };
 
-  const handleReset = () => {
+  const form = useForm({
+    defaultValues,
+    validators: {
+      onChange: schema
+    },
+    onSubmit: async ({ value }) => {
+      // Do something with form data
+      console.log(value)
+    },
+  });
+
+  const handleClose = () => {
     form.reset();
-    setFormId(null);
+    onClose();
   };
 
   return (
     <Dialog.Root
       open={open}
-      onOpenChange={onClose}
+      onOpenChange={handleClose}
     >
       <Portal>
         <Dialog.Backdrop />
@@ -103,7 +97,7 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                   <Fieldset.Content>
                     <form.Field
                       name="name"
-                      children={({ state, handleChange, handleBlur }) => {
+                      children={({ state, handleChange }) => {
                         return (
                           <CustomInput
                             label="Name"
@@ -113,14 +107,13 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                             isError={state.meta.isTouched && !state.meta.isValid}
                             errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
                             handleChange={handleChange}
-                            handleBlur={handleBlur}
                           />
                         )
                       }}
                     />
                     <form.Field
                       name="domain"
-                      children={({ state, handleChange, handleBlur }) => {
+                      children={({ state, handleChange }) => {
                         return (
                           <CustomInput
                             label="Domain"
@@ -129,14 +122,13 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                             isError={state.meta.isTouched && !state.meta.isValid}
                             errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
                             handleChange={handleChange}
-                            handleBlur={handleBlur}
                           />
                         )
                       }}
                     />
                     <form.Field
                       name="preferred_timezone"
-                      children={({ state, handleChange, handleBlur }) => {
+                      children={({ state, handleChange }) => {
                         return (
                           <CustomSelect
                             label="Timezone"
@@ -152,7 +144,7 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                     />
                     <form.Field
                       name="currency"
-                      children={({ state, handleChange, handleBlur }) => {
+                      children={({ state, handleChange }) => {
                         return (
                           <CustomSelect
                             label="Currency"
