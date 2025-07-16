@@ -15,6 +15,7 @@ import { TableActionRef } from "@/types/common";
 import { useFetchBusinessesById } from "@/hooks/useFetchBusinessesById";
 import CustomInput from "@/components/forms/input";
 import CustomSelect from "@/components/forms/select";
+import CustomCombobox from "@/components/forms/combobox";
 import mockTimezones from "@/mockData/mockTimezones.json";
 import mockCurrencies from "@/mockData/mockCurrencies.json";
 
@@ -130,7 +131,7 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                       name="preferred_timezone"
                       children={({ state, handleChange }) => {
                         return (
-                          <CustomSelect
+                          <CustomCombobox
                             label="Timezone"
                             placeholder="Select one"
                             value={state.value}
