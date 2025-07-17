@@ -27,6 +27,12 @@ const DialogBusinessDelete = React.forwardRef<TableActionRef>((_props, ref) => {
     }
   }));
 
+  const handleDelete = () => {
+    // Logic to handle deletion of the business
+    console.log(`Deleting business with ID: ${deleteId}`);
+    onClose();
+  };
+
   return (
     <VStack alignItems="start">
       <Dialog.Root
@@ -49,7 +55,7 @@ const DialogBusinessDelete = React.forwardRef<TableActionRef>((_props, ref) => {
                 <Dialog.ActionTrigger asChild>
                   <Button variant="outline">Cancel</Button>
                 </Dialog.ActionTrigger>
-                <Button colorPalette="red">Delete</Button>
+                <Button colorPalette="red" onClick={handleDelete}>Delete</Button>
               </Dialog.Footer>
               <Dialog.CloseTrigger asChild>
                 <CloseButton size="sm" />
