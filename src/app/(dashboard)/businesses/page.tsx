@@ -52,7 +52,19 @@ export default function BusinessePage() {
   const viewRef = React.useRef<TableActionRef>(null);
   const formRef = React.useRef<TableActionRef>(null);
   const deleteRef = React.useRef<TableActionRef>(null);
+  const [search, setSearch] = React.useState<string>("");
   const { data } = useFetchAllBusinesses();
+
+  const filteredData = React.useMemo(() => {
+    if (!search) return data;
+
+    return data?.filter((item: Businesses) => {
+      return (
+        item.name?.toLowerCase().includes(search.toLowerCase()) ||
+        item.domain?.toLowerCase().includes(search.toLowerCase())
+      );
+    });
+  }, [data, search]);
 
   return (
     <Grid
@@ -91,13 +103,13 @@ export default function BusinessePage() {
               alignItems={{ base: "start", md: "unset" }}
             >
               <Card.Title>List</Card.Title>
-              <BaseSearch />
+              <BaseSearch value={search} setValue={setSearch} />
             </HStack>
           </Card.Header>
           <Card.Body>
             <BaseDataTable<Businesses>
               columns={columns}
-              rows={data}
+              rows={filteredData}
               viewRef={viewRef}
               formRef={formRef}
               deleteRef={deleteRef}
