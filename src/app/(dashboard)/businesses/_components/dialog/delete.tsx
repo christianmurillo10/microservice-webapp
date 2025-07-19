@@ -55,7 +55,7 @@ const DialogBusinessDelete = React.forwardRef<TableActionRef>((_props, ref) => {
                 <Dialog.ActionTrigger asChild>
                   <Button variant="outline">Cancel</Button>
                 </Dialog.ActionTrigger>
-                <Button colorPalette="red" onClick={handleDelete}>Delete</Button>
+                <Button variant="subtle" colorPalette="red" onClick={handleDelete}>Delete</Button>
               </Dialog.Footer>
               <Dialog.CloseTrigger asChild>
                 <CloseButton size="sm" />

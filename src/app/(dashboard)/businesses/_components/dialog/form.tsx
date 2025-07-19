@@ -168,7 +168,7 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                     <>
                       <Button
                         type="reset"
-                        variant="subtle"
+                        variant="outline"
                         onClick={(e) => {
                           e.preventDefault()
                           form.reset()
@@ -178,6 +178,8 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                       </Button>
                       <Button
                         type="submit"
+                        variant="subtle"
+                        colorPalette="blue"
                         disabled={!canSubmit}
                       >
                         {isSubmitting ? '...' : 'Save'}

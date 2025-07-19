@@ -5,17 +5,15 @@ import { CloseButton, Group, IconButton, Input, InputGroup, useDisclosure } from
 import { ListFilterIcon, Search } from "lucide-react";
 import DrawerSearchFilter from "@/app/(dashboard)/businesses/_components/search/filters";
 
-type BaseSearchProps = {
+type BusinessesSearchProps = {
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
-  filters?: React.ReactNode;
 };
 
-const BaseSearch = ({
+const BusinessesSearch = ({
   value,
-  setValue,
-  filters
-}: BaseSearchProps) => {
+  setValue
+}: BusinessesSearchProps) => {
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const { open, setOpen, onClose } = useDisclosure();
 
@@ -54,12 +52,12 @@ const BaseSearch = ({
           }}
         />
       </InputGroup>
-      {filters && (<DrawerSearchFilter
+      <DrawerSearchFilter
         isOpen={open}
         onClose={onClose}
-      />)}
+      />
     </Group>
   );
 };
 
-export default BaseSearch;
+export default BusinessesSearch;

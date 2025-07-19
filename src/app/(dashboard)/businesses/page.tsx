@@ -9,11 +9,11 @@ import {
   GridItem,
   HStack,
 } from "@chakra-ui/react";
-import BasePageHeader from "@/components/common/page-header";
-import BaseSearch from "@/components/common/search";
 import { Businesses } from "@/entities/businesses";
 import { DataTableColumn, TableActionRef } from "@/types/common";
+import BasePageHeader from "@/components/common/page-header";
 import BaseDataTable from "@/components/common/dataTable";
+import BusinessesSearch from "./_components/search";
 import DialogBusinessView from "./_components/dialog/view";
 import DialogBusinessForm from "./_components/dialog/form";
 import DialogBusinessDelete from "./_components/dialog/delete";
@@ -48,7 +48,7 @@ const columns: DataTableColumn[] = [
   }
 ];
 
-export default function BusinessePage() {
+export default function BusinessesPage() {
   const viewRef = React.useRef<TableActionRef>(null);
   const formRef = React.useRef<TableActionRef>(null);
   const deleteRef = React.useRef<TableActionRef>(null);
@@ -103,7 +103,7 @@ export default function BusinessePage() {
               alignItems={{ base: "start", md: "unset" }}
             >
               <Card.Title>List</Card.Title>
-              <BaseSearch value={search} setValue={setSearch} />
+              <BusinessesSearch value={search} setValue={setSearch} />
             </HStack>
           </Card.Header>
           <Card.Body>
