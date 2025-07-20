@@ -4,25 +4,42 @@ import * as React from "react";
 import { CloseButton, Group, IconButton, Input, InputGroup, useDisclosure } from "@chakra-ui/react";
 import { ListFilterIcon, Search } from "lucide-react";
 import DrawerSearchFilter from "@/app/(dashboard)/businesses/_components/search/filters";
+import useDebounce from "@/hooks/useDebounce";
+
+export type SearchFiltersData = {
+  name?: string,
+  preferred_timezone?: string,
+  currency?: string,
+};
 
 type BusinessesSearchProps = {
-  value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  searchFilters: SearchFiltersData;
+  setSearchFilters: React.Dispatch<React.SetStateAction<SearchFiltersData>>;
+};
+
+export const defaultSearchData: SearchFiltersData = {
+  name: "",
+  preferred_timezone: "",
+  currency: "",
 };
 
 const BusinessesSearch = ({
-  value,
-  setValue
+  searchFilters,
+  setSearchFilters
 }: BusinessesSearchProps) => {
-  const inputRef = React.useRef<HTMLInputElement | null>(null);
   const { open, setOpen, onClose } = useDisclosure();
+  const [value, setValue] = React.useState(searchFilters?.name || "");
+  const debouncedValue = useDebounce(value, 500);
 
-  const endElement = value ? (
+  React.useEffect(() => {
+    setSearchFilters({ ...searchFilters, name: debouncedValue });
+  }, [debouncedValue]);
+
+  const endElement = searchFilters && searchFilters.name ? (
     <CloseButton
       size="xs"
       onClick={() => {
-        setValue("")
-        inputRef.current?.focus()
+        setValue("");
       }}
       me="-2"
     />
@@ -43,18 +60,19 @@ const BusinessesSearch = ({
       </IconButton>
       <InputGroup endElement={endElement}>
         <Input
-          ref={inputRef}
           focusRing="none"
           placeholder="Search..."
           value={value}
           onChange={(e) => {
-            setValue(e.currentTarget.value)
+            setValue(e.currentTarget.value);
           }}
         />
       </InputGroup>
       <DrawerSearchFilter
         isOpen={open}
         onClose={onClose}
+        defaultValues={defaultSearchData}
+        setSearchFilters={setSearchFilters}
       />
     </Group>
   );

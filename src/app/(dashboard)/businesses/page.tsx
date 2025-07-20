@@ -13,11 +13,12 @@ import { Businesses } from "@/entities/businesses";
 import { DataTableColumn, TableActionRef } from "@/types/common";
 import BasePageHeader from "@/components/common/page-header";
 import BaseDataTable from "@/components/common/dataTable";
-import BusinessesSearch from "./_components/search";
+import BusinessesSearch, { defaultSearchData, SearchFiltersData } from "./_components/search";
 import DialogBusinessView from "./_components/dialog/view";
 import DialogBusinessForm from "./_components/dialog/form";
 import DialogBusinessDelete from "./_components/dialog/delete";
-import { useFetchAllBusinesses } from "@/hooks/useFetchAllBusinesses";
+import useFetchAllBusinesses from "@/hooks/useFetchAllBusinesses";
+import useFilterData from "@/hooks/useFilterData";
 
 const moduleName = "Businesses";
 
@@ -52,19 +53,8 @@ export default function BusinessesPage() {
   const viewRef = React.useRef<TableActionRef>(null);
   const formRef = React.useRef<TableActionRef>(null);
   const deleteRef = React.useRef<TableActionRef>(null);
-  const [search, setSearch] = React.useState<string>("");
   const { data } = useFetchAllBusinesses();
-
-  const filteredData = React.useMemo(() => {
-    if (!search) return data;
-
-    return data?.filter((item: Businesses) => {
-      return (
-        item.name?.toLowerCase().includes(search.toLowerCase()) ||
-        item.domain?.toLowerCase().includes(search.toLowerCase())
-      );
-    });
-  }, [data, search]);
+  const { filteredData, searchFilters, setSearchFilters } = useFilterData<Businesses, SearchFiltersData>(data, defaultSearchData);
 
   return (
     <Grid
@@ -103,7 +93,7 @@ export default function BusinessesPage() {
               alignItems={{ base: "start", md: "unset" }}
             >
               <Card.Title>List</Card.Title>
-              <BusinessesSearch value={search} setValue={setSearch} />
+              <BusinessesSearch searchFilters={searchFilters} setSearchFilters={setSearchFilters} />
             </HStack>
           </Card.Header>
           <Card.Body>

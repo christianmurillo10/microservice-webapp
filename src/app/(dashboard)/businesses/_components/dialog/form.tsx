@@ -12,7 +12,7 @@ import {
 import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
 import { TableActionRef } from "@/types/common";
-import { useFetchBusinessesById } from "@/hooks/useFetchBusinessesById";
+import useFetchBusinessesById from "@/hooks/useFetchBusinessesById";
 import CustomInput from "@/components/forms/input";
 import CustomSelect from "@/components/forms/select";
 import mockTimezones from "@/mockData/mockTimezones.json";

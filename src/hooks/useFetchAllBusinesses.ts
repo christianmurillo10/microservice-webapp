@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Businesses } from "@/entities/businesses";
 import mockBusinesses from "@/mockData/mockBusinesses.json";
 
-export const useFetchAllBusinesses = () => {
+const useFetchAllBusinesses = () => {
   const [data, setData] = useState<Businesses[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -26,3 +26,5 @@ export const useFetchAllBusinesses = () => {
 
   return { data, isLoading, isError, error };
 };
+
+export default useFetchAllBusinesses;

@@ -5,10 +5,13 @@ import CustomInput from "@/components/forms/input";
 import CustomSelect from "@/components/forms/select";
 import mockTimezones from "@/mockData/mockTimezones.json";
 import mockCurrencies from "@/mockData/mockCurrencies.json";
+import { SearchFiltersData } from ".";
 
 type BusinessesSearchFiltersProps = {
   onClose: () => void;
   isOpen?: boolean;
+  defaultValues: SearchFiltersData;
+  setSearchFilters: React.Dispatch<React.SetStateAction<SearchFiltersData>>;
 };
 
 const schema = z.object({
@@ -19,32 +22,24 @@ const schema = z.object({
 
 const BusinessesSearchFilters = ({
   onClose,
-  isOpen
+  isOpen,
+  defaultValues,
+  setSearchFilters
 }: BusinessesSearchFiltersProps) => {
   const form = useForm({
-    defaultValues: {
-      name: "",
-      preferred_timezone: "",
-      currency: "",
-    },
+    defaultValues,
     validators: {
       onChange: schema
     },
     onSubmit: async ({ value }) => {
-      // Do something with form data
-      console.log(value)
+      setSearchFilters(value);
     },
   });
-
-  const handleClose = () => {
-    form.reset();
-    onClose();
-  };
 
   return (
     <Drawer.Root
       open={isOpen}
-      onOpenChange={handleClose}
+      onOpenChange={onClose}
       closeOnEscape={false}
     >
       <Portal>
@@ -71,7 +66,7 @@ const BusinessesSearchFilters = ({
                           <CustomInput
                             label="Name"
                             placeholder="Name"
-                            value={state.value}
+                            value={state.value ?? ""}
                             isError={state.meta.isTouched && !state.meta.isValid}
                             errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
                             handleChange={handleChange}
@@ -86,7 +81,7 @@ const BusinessesSearchFilters = ({
                           <CustomSelect
                             label="Timezone"
                             placeholder="Select one"
-                            value={state.value}
+                            value={state.value ?? ""}
                             options={mockTimezones}
                             isError={state.meta.isTouched && !state.meta.isValid}
                             errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
@@ -102,7 +97,7 @@ const BusinessesSearchFilters = ({
                           <CustomSelect
                             label="Currency"
                             placeholder="Select one"
-                            value={state.value}
+                            value={state.value ?? ""}
                             options={mockCurrencies}
                             isError={state.meta.isTouched && !state.meta.isValid}
                             errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
@@ -126,7 +121,7 @@ const BusinessesSearchFilters = ({
                           form.reset()
                         }}
                       >
-                        Reset
+                        Clear
                       </Button>
                       <Button
                         type="submit"

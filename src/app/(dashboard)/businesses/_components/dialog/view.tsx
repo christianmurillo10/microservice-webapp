@@ -12,7 +12,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { TableActionRef } from "@/types/common";
-import { useFetchBusinessesById } from "@/hooks/useFetchBusinessesById";
+import useFetchBusinessesById from "@/hooks/useFetchBusinessesById";
 
 const DialogBusinessView = React.forwardRef<TableActionRef>((_props, ref) => {
   // State
