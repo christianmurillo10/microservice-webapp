@@ -1,11 +1,11 @@
 import { useMemo, useState } from "react";
 
-const useFilterData = <Model, SearchFilters extends Record<string, unknown>>(data: Model[], defaultSearchData: SearchFilters) => {
-  const [searchFilters, setSearchFilters] = useState<SearchFilters>(defaultSearchData);
+const useFilterData = <Model, FiltersData extends Record<string, unknown>>(data: Model[], filterData: FiltersData) => {
+  const [filter, setFilter] = useState<FiltersData>(filterData);
 
   const filteredData = useMemo(() => {
     return data.filter((item: Model) => {
-      return Object.entries(searchFilters).every(([key, value]) => {
+      return Object.entries(filter).every(([key, value]) => {
         if (!value) return true;
 
         if (typeof value === "string" && typeof item[key as keyof Model] === "string") {
@@ -15,9 +15,9 @@ const useFilterData = <Model, SearchFilters extends Record<string, unknown>>(dat
         return item[key as keyof Model] === value;
       });
     });
-  }, [data, searchFilters]);
+  }, [data, filter]);
 
-  return { filteredData, searchFilters, setSearchFilters };
+  return { filteredData, filter, setFilter };
 };
 
 export default useFilterData;

@@ -54,7 +54,7 @@ export default function BusinessesPage() {
   const formRef = React.useRef<TableActionRef>(null);
   const deleteRef = React.useRef<TableActionRef>(null);
   const { data } = useFetchAllBusinesses();
-  const { filteredData, searchFilters, setSearchFilters } = useFilterData<Businesses, SearchFiltersData>(data, defaultSearchData);
+  const { filteredData, filter, setFilter } = useFilterData<Businesses, SearchFiltersData>(data, defaultSearchData);
 
   return (
     <Grid
@@ -93,7 +93,7 @@ export default function BusinessesPage() {
               alignItems={{ base: "start", md: "unset" }}
             >
               <Card.Title>List</Card.Title>
-              <BusinessesSearch searchFilters={searchFilters} setSearchFilters={setSearchFilters} />
+              <BusinessesSearch searchFilters={filter} setSearchFilters={setFilter} />
             </HStack>
           </Card.Header>
           <Card.Body>
