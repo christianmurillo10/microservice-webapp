@@ -3,9 +3,9 @@
 import { Box, Collapsible, Flex, For, HStack, IconButton, Stack, Text, VStack } from "@chakra-ui/react";
 import { View, LucideChevronDown, Edit, Trash } from "lucide-react";
 import { DataTableBaseItem, DataTableColumn, TableActionRef } from "@/types/common";
-import { formattedKey, getColumnMobileHeaders } from "@/utils/common";
+import { getColumnMobileHeaders } from "@/utils/common";
 
-type MobileDataListProps<T extends DataTableBaseItem> = {
+type MobileDataTableProps<T extends DataTableBaseItem> = {
   columns: DataTableColumn[];
   rows: T[];
   viewRef?: React.RefObject<TableActionRef | null>;
@@ -16,7 +16,7 @@ type MobileDataListProps<T extends DataTableBaseItem> = {
   handleDelete: (e: React.MouseEvent<HTMLElement>, id: string | number) => void;
 };
 
-const MobileDataList = <T extends DataTableBaseItem>({
+const MobileDataTable = <T extends DataTableBaseItem>({
   columns,
   rows,
   viewRef,
@@ -25,7 +25,7 @@ const MobileDataList = <T extends DataTableBaseItem>({
   handleView,
   handleForm,
   handleDelete
-}: MobileDataListProps<T>) => {
+}: MobileDataTableProps<T>) => {
   const comlumnHeaders = getColumnMobileHeaders(columns);
   const columnKey = comlumnHeaders.map(val => val.key);
 
@@ -106,4 +106,4 @@ const MobileDataList = <T extends DataTableBaseItem>({
   );
 };
 
-export default MobileDataList;
+export default MobileDataTable;

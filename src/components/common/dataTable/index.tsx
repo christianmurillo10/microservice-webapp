@@ -1,14 +1,18 @@
 "use client";
 
-import { ButtonGroup, IconButton, Pagination, Stack } from "@chakra-ui/react";
-import { LucideChevronLeft, LucideChevronRight } from "lucide-react";
+import { Stack } from "@chakra-ui/react";
 import { DataTableBaseItem, DataTableColumn, TableActionRef } from "@/types/common";
 import MobileDataTable from "./mobile";
 import DesktopDataTable from "./desktop";
+import PaginationDataTable from "./pagination";
 
 type BaseDataTableProps<T extends DataTableBaseItem> = {
   columns: DataTableColumn[];
   rows: T[];
+  rowCount: number;
+  page: number;
+  pageSize: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
   viewRef?: React.RefObject<TableActionRef | null>;
   formRef?: React.RefObject<TableActionRef | null>;
   deleteRef?: React.RefObject<TableActionRef | null>;
@@ -17,6 +21,10 @@ type BaseDataTableProps<T extends DataTableBaseItem> = {
 const BaseDataTable = <T extends DataTableBaseItem>({
   columns,
   rows,
+  rowCount,
+  page,
+  pageSize,
+  setPage,
   viewRef,
   formRef,
   deleteRef
@@ -67,28 +75,12 @@ const BaseDataTable = <T extends DataTableBaseItem>({
         handleForm={handleForm}
         handleDelete={handleDelete}
       />
-      <Pagination.Root count={rows.length * 5} pageSize={5} page={1}>
-        <ButtonGroup variant="ghost" size="sm" wrap="wrap">
-          <Pagination.PrevTrigger asChild>
-            <IconButton>
-              <LucideChevronLeft />
-            </IconButton>
-          </Pagination.PrevTrigger>
-
-          <Pagination.Items
-            render={(page) => (
-              <IconButton variant={{ base: "ghost", _selected: "outline" }}>
-                {page.value}
-              </IconButton>
-            )}
-          />
-          <Pagination.NextTrigger asChild>
-            <IconButton>
-              <LucideChevronRight />
-            </IconButton>
-          </Pagination.NextTrigger>
-        </ButtonGroup>
-      </Pagination.Root>
+      <PaginationDataTable
+        rowCount={rowCount}
+        pageSize={pageSize}
+        page={page}
+        setPage={setPage}
+      />
     </Stack>
   );
 };

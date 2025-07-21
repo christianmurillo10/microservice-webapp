@@ -6,7 +6,7 @@ import { getColumnDesktopHeaders } from "@/utils/common";
 import { Edit, SearchX, Trash, View } from "lucide-react";
 import { Tooltip } from "@/components/ui/tooltip";
 
-type DesktopDataListProps<T extends DataTableBaseItem> = {
+type DesktopDataTableProps<T extends DataTableBaseItem> = {
   columns: DataTableColumn[];
   rows: T[];
   viewRef?: React.RefObject<TableActionRef | null>;
@@ -17,7 +17,7 @@ type DesktopDataListProps<T extends DataTableBaseItem> = {
   handleDelete: (e: React.MouseEvent<HTMLElement>, id: string | number) => void;
 };
 
-const DesktopDataList = <T extends DataTableBaseItem>({
+const DesktopDataTable = <T extends DataTableBaseItem>({
   columns,
   rows,
   viewRef,
@@ -26,7 +26,7 @@ const DesktopDataList = <T extends DataTableBaseItem>({
   handleView,
   handleForm,
   handleDelete
-}: DesktopDataListProps<T>) => {
+}: DesktopDataTableProps<T>) => {
   const comlumnHeaders = getColumnDesktopHeaders(columns);
   const columnLabel = comlumnHeaders.map(val => val.label);
   const columnKey = comlumnHeaders.map(val => val.key);
@@ -131,4 +131,4 @@ const DesktopDataList = <T extends DataTableBaseItem>({
   );
 };
 
-export default DesktopDataList;
+export default DesktopDataTable;

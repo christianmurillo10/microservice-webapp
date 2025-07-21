@@ -24,7 +24,7 @@ const useFetchAllBusinesses = () => {
     fetchData();
   }, []);
 
-  return { data, isLoading, isError, error };
+  return { data, dataCount: data.length, isLoading, isError, error };
 };
 
 export default useFetchAllBusinesses;
