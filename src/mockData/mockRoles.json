@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "created_at": "June 1, 2023",
+    "updated_at": "June 1, 2023",
+    "name": "Super Admin",
+    "description": "Super Admin role with all permissions and access"
+  },
+  {
+    "id": 2,
+    "created_at": "June 1, 2023",
+    "updated_at": "June 1, 2023",
+    "name": "Admin",
+    "description": "Admin role with limited permissions"
+  },
+  {
+    "id": 3,
+    "created_at": "June 1, 2023",
+    "updated_at": "June 1, 2023",
+    "name": "Manager",
+    "description": "Manager role with access to team management features"
+  },
+  {
+    "id": 4,
+    "created_at": "June 1, 2023",
+    "updated_at": "June 1, 2023",
+    "name": "Editor",
+    "description": "Editor role with permissions to modify content"
+  },
+  {
+    "id": 5,
+    "created_at": "June 1, 2023",
+    "updated_at": "June 1, 2023",
+    "name": "Viewer",
+    "description": "Viewer role with read-only access"
+  },
+  {
+    "id": 6,
+    "created_at": "June 1, 2023",
+    "updated_at": "June 1, 2023",
+    "name": "Support",
+    "description": "Support role with access to customer support tools"
+  },
+  {
+    "id": 7,
+    "created_at": "June 1, 2023",
+    "updated_at": "June 1, 2023",
+    "name": "Developer",
+    "description": "Developer role with access to development tools and logs"
+  },
+  {
+    "id": 8,
+    "created_at": "June 1, 2023",
+    "updated_at": "June 1, 2023",
+    "name": "Auditor",
+    "description": "Auditor role with access to audit logs and reports"
+  },
+  {
+    "id": 9,
+    "created_at": "June 1, 2023",
+    "updated_at": "June 1, 2023",
+    "name": "Guest",
+    "description": "Guest role with very limited access"
+  },
+  {
+    "id": 10,
+    "created_at": "June 1, 2023",
+    "updated_at": "June 1, 2023",
+    "name": "HR",
+    "description": "HR role with access to employee management features"
+  }
+]

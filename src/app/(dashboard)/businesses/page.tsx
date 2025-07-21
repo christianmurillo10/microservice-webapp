@@ -54,7 +54,7 @@ export default function BusinessesPage() {
   const formRef = React.useRef<TableActionRef>(null);
   const deleteRef = React.useRef<TableActionRef>(null);
   const [page, setPage] = React.useState<number>(1);
-  const [pageSize, setPageSize] = React.useState<number>(10);
+  const [pageSize] = React.useState<number>(10);
   const { data, dataCount } = useFetchAllBusinesses();
   const { filteredData, filter, setFilter } = useFilterData<Businesses, SearchFiltersData>(data, defaultSearchData);
 

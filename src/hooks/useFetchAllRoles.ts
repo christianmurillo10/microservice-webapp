@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Businesses } from "@/entities/businesses";
-import mockBusinesses from "@/mockData/mockBusinesses.json";
+import { Roles } from "@/entities/roles";
+import mockRoles from "@/mockData/mockRoles.json";
 
-const useFetchBusinessesById = (id?: number) => {
-  const [data, setData] = useState<Businesses>();
+const useFetchAllRoles = () => {
+  const [data, setData] = useState<Roles[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState<null | Error>(null);
@@ -12,8 +12,7 @@ const useFetchBusinessesById = (id?: number) => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const result = mockBusinesses.find(val => val.id === id);
-        setData(result);
+        setData(mockRoles);
       } catch (err) {
         setIsError(true);
         setError(err as Error);
@@ -22,12 +21,10 @@ const useFetchBusinessesById = (id?: number) => {
       }
     };
 
-    if (id) {
-      fetchData();
-    }
-  }, [id]);
+    fetchData();
+  }, []);
 
-  return { data, isLoading, isError, error };
+  return { data, dataCount: data.length, isLoading, isError, error };
 };
 
-export default useFetchBusinessesById;
+export default useFetchAllRoles;

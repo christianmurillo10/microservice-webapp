@@ -48,5 +48,55 @@
     "domain": "www.company5.com",
     "preferred_timezone": "Asia/Hong Kong",
     "currency": "PHP"
+  },
+  {
+    "id": 6,
+    "created_at": "March 15, 2024",
+    "updated_at": "March 15, 2024",
+    "name": "Company 6",
+    "api_key": "key-company6",
+    "domain": "www.company6.com",
+    "preferred_timezone": "Asia/Hong Kong",
+    "currency": "PHP"
+  },
+  {
+    "id": 7,
+    "created_at": "April 10, 2024",
+    "updated_at": "April 10, 2024",
+    "name": "Company 7",
+    "api_key": "key-company7",
+    "domain": "www.company7.com",
+    "preferred_timezone": "Asia/Hong Kong",
+    "currency": "PHP"
+  },
+  {
+    "id": 8,
+    "created_at": "July 21, 2025",
+    "updated_at": "July 21, 2025",
+    "name": "Company 8",
+    "api_key": "key-company8",
+    "domain": "www.company8.com",
+    "preferred_timezone": "Asia/Hong Kong",
+    "currency": "PHP"
+  },
+  {
+    "id": 9,
+    "created_at": "February 2, 2025",
+    "updated_at": "February 2, 2025",
+    "name": "Company 9",
+    "api_key": "key-company9",
+    "domain": "www.company9.com",
+    "preferred_timezone": "Asia/Hong Kong",
+    "currency": "PHP"
+  },
+  {
+    "id": 10,
+    "created_at": "September 30, 2023",
+    "updated_at": "September 30, 2023",
+    "name": "Company 10",
+    "api_key": "key-company10",
+    "domain": "www.company10.com",
+    "preferred_timezone": "Asia/Hong Kong",
+    "currency": "PHP"
   }
 ]
