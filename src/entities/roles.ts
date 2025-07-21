@@ -1,9 +1,9 @@
 export type Roles = {
   id: number;
   name: string;
-  description?: string;
-  business_id?: number;
+  description?: string | null;
+  business_id?: number | null;
   created_at: string;
-  updated_at?: string;
-  deleted_at?: string;
+  updated_at?: string | null;
+  deleted_at?: string | null;
 };

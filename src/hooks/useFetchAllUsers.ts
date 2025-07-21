@@ -1,24 +1,18 @@
 import { useEffect, useState } from "react";
-import { Roles } from "@/entities/roles";
-import mockRoles from "@/mockData/mockRoles.json";
+import { Users } from "@/entities/users";
+import mockUsers from "@/mockData/mockUsers.json";
 
-const useFetchRolesById = (id?: number) => {
-  const [data, setData] = useState<Roles>();
+const useFetchAllUsers = () => {
+  const [data, setData] = useState<Users[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState<null | Error>(null);
 
   useEffect(() => {
-    if (!id) {
-      setIsLoading(false);
-      return;
-    }
-
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const result = mockRoles.find(val => val.id === id);
-        setData(result);
+        setData(mockUsers);
       } catch (err) {
         setIsError(true);
         setError(err as Error);
@@ -28,9 +22,9 @@ const useFetchRolesById = (id?: number) => {
     };
 
     fetchData();
-  }, [id]);
+  }, []);
 
-  return { data, isLoading, isError, error };
+  return { data, dataCount: data.length, isLoading, isError, error };
 };
 
-export default useFetchRolesById;
+export default useFetchAllUsers;

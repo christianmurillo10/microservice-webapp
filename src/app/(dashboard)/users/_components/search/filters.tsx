@@ -1,98 +1,62 @@
-"use client";
-
-import * as React from "react";
-import {
-  Button,
-  CloseButton,
-  Dialog,
-  Fieldset,
-  Portal,
-  useDisclosure
-} from "@chakra-ui/react";
+import { Button, CloseButton, Drawer, Fieldset, Portal } from "@chakra-ui/react"
 import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
-import { TableActionRef } from "@/types/common";
-import useFetchBusinessesById from "@/hooks/useFetchBusinessesById";
 import CustomInput from "@/components/forms/input";
 import CustomSelect from "@/components/forms/select";
 import mockTimezones from "@/mockData/mockTimezones.json";
 import mockCurrencies from "@/mockData/mockCurrencies.json";
+import { SearchFiltersData } from ".";
+
+type BusinessesSearchFiltersProps = {
+  onClose: () => void;
+  isOpen?: boolean;
+  defaultValues: SearchFiltersData;
+  setSearchFilters: React.Dispatch<React.SetStateAction<SearchFiltersData>>;
+};
 
 const schema = z.object({
-  name: z.string().nonempty("This field is required"),
-  domain: z.string(),
+  name: z.string(),
   preferred_timezone: z.string(),
   currency: z.string(),
 });
 
-const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
-  // State
-  const { open, onOpen, onClose } = useDisclosure();
-  const [formId, setFormId] = React.useState<number | null>(null);
-
-  // Hooks
-  const { data } = useFetchBusinessesById(formId ?? undefined);
-
-  React.useImperativeHandle(ref, () => ({
-    handleOpen(id?: string | number) {
-      if (id) {
-        setFormId(Number(id));
-      } else {
-        setFormId(null);
-      }
-
-      onOpen();
-    }
-  }));
-
-  const defaultValues = formId && data ? {
-    name: data.name,
-    domain: data.domain ?? "",
-    preferred_timezone: data.preferred_timezone ?? "",
-    currency: data.currency ?? "",
-  } : {
-    name: "",
-    domain: "",
-    preferred_timezone: "",
-    currency: "",
-  };
-
+const BusinessesSearchFilters = ({
+  onClose,
+  isOpen,
+  defaultValues,
+  setSearchFilters
+}: BusinessesSearchFiltersProps) => {
   const form = useForm({
     defaultValues,
     validators: {
       onChange: schema
     },
     onSubmit: async ({ value }) => {
-      // Do something with form data
-      console.log(value)
+      setSearchFilters(value);
     },
   });
 
-  const handleClose = () => {
-    form.reset();
-    onClose();
-  };
-
   return (
-    <Dialog.Root
-      open={open}
-      onOpenChange={handleClose}
+    <Drawer.Root
+      open={isOpen}
+      onOpenChange={onClose}
+      closeOnEscape={false}
     >
       <Portal>
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                form.handleSubmit()
-              }}
-            >
-              <Dialog.Header>
-                <Dialog.Title>{formId ? "Update" : "Create"}</Dialog.Title>
-              </Dialog.Header>
-              <Dialog.Body pb="4">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
+          }}
+        >
+          <Drawer.Backdrop />
+          <Drawer.Positioner>
+            <Drawer.Content>
+              <Drawer.Header>
+                <Drawer.Title>Search Filters</Drawer.Title>
+              </Drawer.Header>
+              <Drawer.Body>
                 <Fieldset.Root size="lg" maxW="md">
                   <Fieldset.Content>
                     <form.Field
@@ -102,23 +66,7 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                           <CustomInput
                             label="Name"
                             placeholder="Name"
-                            value={state.value}
-                            required={true}
-                            isError={state.meta.isTouched && !state.meta.isValid}
-                            errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
-                            handleChange={handleChange}
-                          />
-                        )
-                      }}
-                    />
-                    <form.Field
-                      name="domain"
-                      children={({ state, handleChange }) => {
-                        return (
-                          <CustomInput
-                            label="Domain"
-                            placeholder="Domain"
-                            value={state.value}
+                            value={state.value ?? ""}
                             isError={state.meta.isTouched && !state.meta.isValid}
                             errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
                             handleChange={handleChange}
@@ -133,7 +81,7 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                           <CustomSelect
                             label="Timezone"
                             placeholder="Select one"
-                            value={state.value}
+                            value={state.value ?? ""}
                             options={mockTimezones}
                             isError={state.meta.isTouched && !state.meta.isValid}
                             errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
@@ -149,7 +97,7 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                           <CustomSelect
                             label="Currency"
                             placeholder="Select one"
-                            value={state.value}
+                            value={state.value ?? ""}
                             options={mockCurrencies}
                             isError={state.meta.isTouched && !state.meta.isValid}
                             errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
@@ -160,21 +108,20 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                     />
                   </Fieldset.Content>
                 </Fieldset.Root>
-              </Dialog.Body>
-              <Dialog.Footer>
+              </Drawer.Body>
+              <Drawer.Footer>
                 <form.Subscribe
                   selector={(state) => [state.canSubmit, state.isSubmitting]}
                   children={([canSubmit, isSubmitting]) => (
                     <>
                       <Button
-                        type="reset"
                         variant="outline"
                         onClick={(e) => {
                           e.preventDefault()
                           form.reset()
                         }}
                       >
-                        Reset
+                        Clear
                       </Button>
                       <Button
                         type="submit"
@@ -182,21 +129,21 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                         colorPalette="blue"
                         disabled={!canSubmit}
                       >
-                        {isSubmitting ? '...' : 'Save'}
+                        {isSubmitting ? '...' : 'Search'}
                       </Button>
                     </>
                   )}
                 />
-              </Dialog.Footer>
-            </form>
-            <Dialog.CloseTrigger asChild>
-              <CloseButton size="sm" />
-            </Dialog.CloseTrigger>
-          </Dialog.Content>
-        </Dialog.Positioner>
+              </Drawer.Footer>
+              <Drawer.CloseTrigger asChild>
+                <CloseButton size="sm" />
+              </Drawer.CloseTrigger>
+            </Drawer.Content>
+          </Drawer.Positioner>
+        </form>
       </Portal>
-    </Dialog.Root >
+    </Drawer.Root >
   );
-});
+};
 
-export default DialogBusinessForm;
+export default BusinessesSearchFilters;

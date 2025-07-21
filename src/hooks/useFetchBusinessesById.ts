@@ -9,6 +9,11 @@ const useFetchBusinessesById = (id?: number) => {
   const [error, setError] = useState<null | Error>(null);
 
   useEffect(() => {
+    if (!id) {
+      setIsLoading(false);
+      return;
+    }
+
     const fetchData = async () => {
       try {
         setIsLoading(true);
@@ -22,9 +27,7 @@ const useFetchBusinessesById = (id?: number) => {
       }
     };
 
-    if (id) {
-      fetchData();
-    }
+    fetchData();
   }, [id]);
 
   return { data, isLoading, isError, error };

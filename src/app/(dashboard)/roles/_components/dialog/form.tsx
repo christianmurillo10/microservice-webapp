@@ -42,7 +42,7 @@ const DialogRoleForm = React.forwardRef<TableActionRef>((_props, ref) => {
   }));
 
   const defaultValues = formId && data ? {
-    name: data.name ?? "",
+    name: data.name,
     description: data.description ?? "",
   } : {
     name: "",

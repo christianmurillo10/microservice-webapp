@@ -12,20 +12,20 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { TableActionRef } from "@/types/common";
-import useFetchBusinessesById from "@/hooks/useFetchBusinessesById";
+import useFetchUsersById from "@/hooks/useFetchUsersById";
 
 const DialogBusinessView = React.forwardRef<TableActionRef>((_props, ref) => {
   // State
   const { open, onOpen, onClose } = useDisclosure();
-  const [viewId, setViewId] = React.useState<number | null>(null);
+  const [viewId, setViewId] = React.useState<string | null>(null);
 
   // Hooks
-  const { data, isLoading, isError } = useFetchBusinessesById(viewId ?? undefined);
+  const { data, isLoading, isError } = useFetchUsersById(viewId ?? undefined);
 
   React.useImperativeHandle(ref, () => ({
     handleOpen(id?: string | number) {
       if (id) {
-        setViewId(Number(id));
+        setViewId(String(id));
       } else {
         setViewId(null);
       }
@@ -70,20 +70,24 @@ const DialogBusinessView = React.forwardRef<TableActionRef>((_props, ref) => {
                       </DataList.ItemValue>
                     </DataList.Item>
                     <DataList.Item>
-                      <DataList.ItemLabel>Domain</DataList.ItemLabel>
-                      <DataList.ItemValue>{data?.domain}</DataList.ItemValue>
+                      <DataList.ItemLabel>Username</DataList.ItemLabel>
+                      <DataList.ItemValue>{data?.username}</DataList.ItemValue>
                     </DataList.Item>
                     <DataList.Item>
-                      <DataList.ItemLabel>API Key</DataList.ItemLabel>
-                      <DataList.ItemValue>{data?.api_key}</DataList.ItemValue>
+                      <DataList.ItemLabel>Email</DataList.ItemLabel>
+                      <DataList.ItemValue>{data?.email}</DataList.ItemValue>
                     </DataList.Item>
                     <DataList.Item>
-                      <DataList.ItemLabel>Timezone</DataList.ItemLabel>
-                      <DataList.ItemValue>{data?.preferred_timezone}</DataList.ItemValue>
+                      <DataList.ItemLabel>Active?</DataList.ItemLabel>
+                      <DataList.ItemValue>{data?.is_active ? "Yes" : "No"}</DataList.ItemValue>
                     </DataList.Item>
                     <DataList.Item>
-                      <DataList.ItemLabel>Currency</DataList.ItemLabel>
-                      <DataList.ItemValue>{data?.currency}</DataList.ItemValue>
+                      <DataList.ItemLabel>Logged?</DataList.ItemLabel>
+                      <DataList.ItemValue>{data?.is_logged ? "Yes" : "No"}</DataList.ItemValue>
+                    </DataList.Item>
+                    <DataList.Item>
+                      <DataList.ItemLabel>Last Logged</DataList.ItemLabel>
+                      <DataList.ItemValue>{data?.last_logged_at}</DataList.ItemValue>
                     </DataList.Item>
                     <DataList.Item>
                       <DataList.ItemLabel>Date Created</DataList.ItemLabel>

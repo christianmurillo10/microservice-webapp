@@ -12,31 +12,33 @@ import {
 import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
 import { TableActionRef } from "@/types/common";
-import useFetchBusinessesById from "@/hooks/useFetchBusinessesById";
+import useFetchUsersById from "@/hooks/useFetchUsersById";
 import CustomInput from "@/components/forms/input";
 import CustomSelect from "@/components/forms/select";
-import mockTimezones from "@/mockData/mockTimezones.json";
-import mockCurrencies from "@/mockData/mockCurrencies.json";
+import mockBusinesses from "@/mockData/mockBusinesses.json";
+import mockRoles from "@/mockData/mockRoles.json";
 
 const schema = z.object({
   name: z.string().nonempty("This field is required"),
-  domain: z.string(),
-  preferred_timezone: z.string(),
-  currency: z.string(),
+  username: z.string().nonempty("This field is required"),
+  email: z.email({ error: "Must be in email format" }).nonempty("This field is required"),
+  business_id: z.number(),
+  role_id: z.number({ error: "This field is required" }),
+  is_active: z.boolean(),
 });
 
 const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
   // State
   const { open, onOpen, onClose } = useDisclosure();
-  const [formId, setFormId] = React.useState<number | null>(null);
+  const [formId, setFormId] = React.useState<string | null>(null);
 
   // Hooks
-  const { data } = useFetchBusinessesById(formId ?? undefined);
+  const { data } = useFetchUsersById(formId ?? undefined);
 
   React.useImperativeHandle(ref, () => ({
     handleOpen(id?: string | number) {
       if (id) {
-        setFormId(Number(id));
+        setFormId(String(id));
       } else {
         setFormId(null);
       }
@@ -47,14 +49,18 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
 
   const defaultValues = formId && data ? {
     name: data.name,
-    domain: data.domain ?? "",
-    preferred_timezone: data.preferred_timezone ?? "",
-    currency: data.currency ?? "",
+    username: data.username,
+    email: data.email,
+    business_id: data.business_id ?? 0,
+    role_id: data.role_id,
+    is_active: data.is_active,
   } : {
     name: "",
-    domain: "",
-    preferred_timezone: "",
-    currency: "",
+    username: "",
+    email: "",
+    business_id: 0,
+    role_id: "",
+    is_active: false,
   };
 
   const form = useForm({
@@ -112,13 +118,14 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                       }}
                     />
                     <form.Field
-                      name="domain"
+                      name="username"
                       children={({ state, handleChange }) => {
                         return (
                           <CustomInput
-                            label="Domain"
-                            placeholder="Domain"
+                            label="Username"
+                            placeholder="Username"
                             value={state.value}
+                            required={true}
                             isError={state.meta.isTouched && !state.meta.isValid}
                             errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
                             handleChange={handleChange}
@@ -127,14 +134,14 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                       }}
                     />
                     <form.Field
-                      name="preferred_timezone"
+                      name="email"
                       children={({ state, handleChange }) => {
                         return (
-                          <CustomSelect
-                            label="Timezone"
-                            placeholder="Select one"
+                          <CustomInput
+                            label="Email"
+                            placeholder="Email"
                             value={state.value}
-                            options={mockTimezones}
+                            required={true}
                             isError={state.meta.isTouched && !state.meta.isValid}
                             errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
                             handleChange={handleChange}
@@ -143,17 +150,34 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                       }}
                     />
                     <form.Field
-                      name="currency"
+                      name="business_id"
                       children={({ state, handleChange }) => {
                         return (
                           <CustomSelect
-                            label="Currency"
+                            label="Business"
                             placeholder="Select one"
                             value={state.value}
-                            options={mockCurrencies}
+                            options={mockBusinesses}
                             isError={state.meta.isTouched && !state.meta.isValid}
                             errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
-                            handleChange={handleChange}
+                            handleChange={(value) => handleChange(Number(value))}
+                          />
+                        )
+                      }}
+                    />
+                    <form.Field
+                      name="role_id"
+                      children={({ state, handleChange }) => {
+                        return (
+                          <CustomSelect
+                            label="Roles"
+                            placeholder="Select one"
+                            value={state.value}
+                            required={true}
+                            options={mockRoles}
+                            isError={state.meta.isTouched && !state.meta.isValid}
+                            errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
+                            handleChange={(value) => handleChange(value ? Number(value) : "")}
                           />
                         )
                       }}

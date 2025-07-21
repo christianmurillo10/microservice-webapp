@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Roles } from "@/entities/roles";
-import mockRoles from "@/mockData/mockRoles.json";
+import { Users } from "@/entities/users";
+import mockUsers from "@/mockData/mockUsers.json";
 
-const useFetchRolesById = (id?: number) => {
-  const [data, setData] = useState<Roles>();
+const useFetchUsersById = (id?: string) => {
+  const [data, setData] = useState<Users>();
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState<null | Error>(null);
@@ -17,7 +17,7 @@ const useFetchRolesById = (id?: number) => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const result = mockRoles.find(val => val.id === id);
+        const result = mockUsers.find(val => val.id === id);
         setData(result);
       } catch (err) {
         setIsError(true);
@@ -33,4 +33,4 @@ const useFetchRolesById = (id?: number) => {
   return { data, isLoading, isError, error };
 };
 
-export default useFetchRolesById;
+export default useFetchUsersById;

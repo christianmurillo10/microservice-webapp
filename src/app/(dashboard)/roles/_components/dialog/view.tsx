@@ -25,7 +25,7 @@ const DialogRoleView = React.forwardRef<TableActionRef>((_props, ref) => {
       if (id) {
         setViewId(Number(id));
       } else {
-        setViewId(Number(null));
+        setViewId(null);
       }
 
       onOpen();
