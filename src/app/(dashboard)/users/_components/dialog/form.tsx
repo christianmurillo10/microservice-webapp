@@ -23,7 +23,7 @@ const schema = z.object({
   username: z.string().nonempty("This field is required"),
   email: z.email({ error: "Must be in email format" }).nonempty("This field is required"),
   business_id: z.number(),
-  role_id: z.number({ error: "This field is required" }),
+  role_id: z.number().refine((val) => val > 0, { message: "This field is required" }),
   is_active: z.boolean(),
 });
 
@@ -59,7 +59,7 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
     username: "",
     email: "",
     business_id: 0,
-    role_id: "",
+    role_id: 0,
     is_active: false,
   };
 
@@ -177,7 +177,7 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
                             options={mockRoles}
                             isError={state.meta.isTouched && !state.meta.isValid}
                             errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
-                            handleChange={(value) => handleChange(value ? Number(value) : "")}
+                            handleChange={(value) => handleChange(Number(value))}
                           />
                         )
                       }}
