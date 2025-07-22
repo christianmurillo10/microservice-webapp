@@ -3,7 +3,7 @@
 import * as React from "react";
 import { CloseButton, Group, IconButton, Input, InputGroup, useDisclosure } from "@chakra-ui/react";
 import { ListFilterIcon, Search } from "lucide-react";
-import DrawerSearchFilter from "@/app/(dashboard)/businesses/_components/search/filters";
+import DrawerSearchFilter from "./filters";
 import useDebounce from "@/hooks/useDebounce";
 
 export type SearchFiltersData = {

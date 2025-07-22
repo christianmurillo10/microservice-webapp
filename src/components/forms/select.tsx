@@ -9,7 +9,7 @@ type CustomSelectProps = {
   required?: boolean;
   options: Record<string, any>[];
   isError: boolean;
-  handleChange: (value: string | number) => void;
+  handleChange: (value: string) => void;
   errorMessage: string;
 };
 

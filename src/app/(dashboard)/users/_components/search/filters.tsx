@@ -3,11 +3,11 @@ import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
 import CustomInput from "@/components/forms/input";
 import CustomSelect from "@/components/forms/select";
-import mockTimezones from "@/mockData/mockTimezones.json";
-import mockCurrencies from "@/mockData/mockCurrencies.json";
 import { SearchFiltersData } from ".";
+import mockBusinesses from "@/mockData/mockBusinesses.json";
+import mockRoles from "@/mockData/mockRoles.json";
 
-type BusinessesSearchFiltersProps = {
+type UsersSearchFiltersProps = {
   onClose: () => void;
   isOpen?: boolean;
   defaultValues: SearchFiltersData;
@@ -16,16 +16,19 @@ type BusinessesSearchFiltersProps = {
 
 const schema = z.object({
   name: z.string(),
-  preferred_timezone: z.string(),
-  currency: z.string(),
+  username: z.string(),
+  email: z.string(),
+  business_id: z.number(),
+  role_id: z.number(),
+  is_active: z.boolean(),
 });
 
-const BusinessesSearchFilters = ({
+const UsersSearchFilters = ({
   onClose,
   isOpen,
   defaultValues,
   setSearchFilters
-}: BusinessesSearchFiltersProps) => {
+}: UsersSearchFiltersProps) => {
   const form = useForm({
     defaultValues,
     validators: {
@@ -66,7 +69,7 @@ const BusinessesSearchFilters = ({
                           <CustomInput
                             label="Name"
                             placeholder="Name"
-                            value={state.value ?? ""}
+                            value={state.value || ""}
                             isError={state.meta.isTouched && !state.meta.isValid}
                             errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
                             handleChange={handleChange}
@@ -75,14 +78,13 @@ const BusinessesSearchFilters = ({
                       }}
                     />
                     <form.Field
-                      name="preferred_timezone"
+                      name="username"
                       children={({ state, handleChange }) => {
                         return (
-                          <CustomSelect
-                            label="Timezone"
-                            placeholder="Select one"
-                            value={state.value ?? ""}
-                            options={mockTimezones}
+                          <CustomInput
+                            label="Username"
+                            placeholder="Username"
+                            value={state.value || ""}
                             isError={state.meta.isTouched && !state.meta.isValid}
                             errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
                             handleChange={handleChange}
@@ -91,17 +93,48 @@ const BusinessesSearchFilters = ({
                       }}
                     />
                     <form.Field
-                      name="currency"
+                      name="email"
                       children={({ state, handleChange }) => {
                         return (
-                          <CustomSelect
-                            label="Currency"
-                            placeholder="Select one"
-                            value={state.value ?? ""}
-                            options={mockCurrencies}
+                          <CustomInput
+                            label="Email"
+                            placeholder="Email"
+                            value={state.value || ""}
                             isError={state.meta.isTouched && !state.meta.isValid}
                             errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
                             handleChange={handleChange}
+                          />
+                        )
+                      }}
+                    />
+                    <form.Field
+                      name="business_id"
+                      children={({ state, handleChange }) => {
+                        return (
+                          <CustomSelect
+                            label="Business"
+                            placeholder="Select one"
+                            value={state.value || 0}
+                            options={mockBusinesses}
+                            isError={state.meta.isTouched && !state.meta.isValid}
+                            errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
+                            handleChange={(value) => handleChange(Number(value))}
+                          />
+                        )
+                      }}
+                    />
+                    <form.Field
+                      name="role_id"
+                      children={({ state, handleChange }) => {
+                        return (
+                          <CustomSelect
+                            label="Roles"
+                            placeholder="Select one"
+                            value={state.value || 0}
+                            options={mockRoles}
+                            isError={state.meta.isTouched && !state.meta.isValid}
+                            errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
+                            handleChange={(value) => handleChange(Number(value))}
                           />
                         )
                       }}
@@ -146,4 +179,4 @@ const BusinessesSearchFilters = ({
   );
 };
 
-export default BusinessesSearchFilters;
+export default UsersSearchFilters;

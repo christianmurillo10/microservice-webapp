@@ -3,13 +3,16 @@
 import * as React from "react";
 import { CloseButton, Group, IconButton, Input, InputGroup, useDisclosure } from "@chakra-ui/react";
 import { ListFilterIcon, Search } from "lucide-react";
-import DrawerSearchFilter from "@/app/(dashboard)/businesses/_components/search/filters";
+import DrawerSearchFilter from "./filters";
 import useDebounce from "@/hooks/useDebounce";
 
 export type SearchFiltersData = {
   name?: string,
-  preferred_timezone?: string,
-  currency?: string,
+  username?: string,
+  email?: string,
+  business_id?: number,
+  role_id?: number,
+  is_active?: boolean,
 };
 
 type BusinessesSearchProps = {
@@ -19,8 +22,11 @@ type BusinessesSearchProps = {
 
 export const defaultSearchData: SearchFiltersData = {
   name: "",
-  preferred_timezone: "",
-  currency: "",
+  username: "",
+  email: "",
+  business_id: 0,
+  role_id: 0,
+  is_active: false,
 };
 
 const BusinessesSearch = ({

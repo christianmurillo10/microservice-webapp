@@ -61,7 +61,7 @@ const RolesSearchFilters = ({
                           <CustomInput
                             label="Name"
                             placeholder="Name"
-                            value={state.value ?? ""}
+                            value={state.value || ""}
                             isError={state.meta.isTouched && !state.meta.isValid}
                             errorMessage={state.meta.errors.map((err) => err && err.message).join(',')}
                             handleChange={handleChange}
