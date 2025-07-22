@@ -27,7 +27,7 @@ const schema = z.object({
   is_active: z.boolean(),
 });
 
-const DialogUserForm = React.forwardRef<TableActionRef>((_props, ref) => {
+const UserDialogForm = React.forwardRef<TableActionRef>((_props, ref) => {
   // State
   const { open, onOpen, onClose } = useDisclosure();
   const [formId, setFormId] = React.useState<string | null>(null);
@@ -223,4 +223,4 @@ const DialogUserForm = React.forwardRef<TableActionRef>((_props, ref) => {
   );
 });
 
-export default DialogUserForm;
+export default UserDialogForm;

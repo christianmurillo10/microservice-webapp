@@ -14,9 +14,9 @@ import { DataTableColumn, TableActionRef } from "@/types/common";
 import BasePageHeader from "@/components/common/page-header";
 import BaseDataTable from "@/components/common/dataTable";
 import UsersSearch, { defaultSearchData, SearchFiltersData } from "./_components/search";
-import DialogUserView from "./_components/dialog/view";
-import DialogUserForm from "./_components/dialog/form";
-import DialogUserDelete from "./_components/dialog/delete";
+import UserDialogView from "./_components/dialog/view";
+import UserDialogForm from "./_components/dialog/form";
+import UserDialogDelete from "./_components/dialog/delete";
 import useFetchAllUsers from "@/hooks/useFetchAllUsers";
 import useFilterData from "@/hooks/useFilterData";
 
@@ -120,9 +120,9 @@ export default function UsersPage() {
             />
           </Card.Body>
         </Card.Root>
-        <DialogUserView ref={viewRef} />
-        <DialogUserForm ref={formRef} />
-        <DialogUserDelete ref={deleteRef} />
+        <UserDialogView ref={viewRef} />
+        <UserDialogForm ref={formRef} />
+        <UserDialogDelete ref={deleteRef} />
       </GridItem>
     </Grid>
   );
