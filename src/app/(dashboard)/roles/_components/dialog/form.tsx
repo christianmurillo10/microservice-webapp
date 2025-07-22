@@ -21,7 +21,7 @@ const schema = z.object({
   description: z.string(),
 });
 
-const DialogRoleForm = React.forwardRef<TableActionRef>((_props, ref) => {
+const RoleDialogForm = React.forwardRef<TableActionRef>((_props, ref) => {
   // State
   const { open, onOpen, onClose } = useDisclosure();
   const [formId, setFormId] = React.useState<number | null>(null);
@@ -159,4 +159,4 @@ const DialogRoleForm = React.forwardRef<TableActionRef>((_props, ref) => {
   );
 });
 
-export default DialogRoleForm;
+export default RoleDialogForm;

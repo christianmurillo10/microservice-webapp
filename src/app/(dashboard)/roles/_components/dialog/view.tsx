@@ -12,7 +12,7 @@ import {
 import { TableActionRef } from "@/types/common";
 import useFetchRolesById from "@/hooks/useFetchRolesById";
 
-const DialogRoleView = React.forwardRef<TableActionRef>((_props, ref) => {
+const RoleDialogView = React.forwardRef<TableActionRef>((_props, ref) => {
   // State
   const { open, onOpen, onClose } = useDisclosure();
   const [viewId, setViewId] = React.useState<number | null>(null);
@@ -86,4 +86,4 @@ const DialogRoleView = React.forwardRef<TableActionRef>((_props, ref) => {
   );
 });
 
-export default DialogRoleView;
+export default RoleDialogView;

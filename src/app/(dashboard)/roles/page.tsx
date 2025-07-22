@@ -14,9 +14,9 @@ import { DataTableColumn, TableActionRef } from "@/types/common";
 import BasePageHeader from "@/components/common/page-header";
 import BaseDataTable from "@/components/common/dataTable";
 import RolesSearch, { defaultSearchData, SearchFiltersData } from "./_components/search";
-import DialogRolesView from "./_components/dialog/view";
-import DialogRolesForm from "./_components/dialog/form";
-import DialogRolesDelete from "./_components/dialog/delete";
+import RoleDialogView from "./_components/dialog/view";
+import RoleDialogForm from "./_components/dialog/form";
+import RoleDialogDelete from "./_components/dialog/delete";
 import useFetchAllRoles from "@/hooks/useFetchAllRoles";
 import useFilterData from "@/hooks/useFilterData";
 
@@ -112,9 +112,9 @@ export default function RolesPage() {
             />
           </Card.Body>
         </Card.Root>
-        <DialogRolesView ref={viewRef} />
-        <DialogRolesForm ref={formRef} />
-        <DialogRolesDelete ref={deleteRef} />
+        <RoleDialogView ref={viewRef} />
+        <RoleDialogForm ref={formRef} />
+        <RoleDialogDelete ref={deleteRef} />
       </GridItem>
     </Grid>
   );
