@@ -14,9 +14,9 @@ import { DataTableColumn, TableActionRef } from "@/types/common";
 import BasePageHeader from "@/components/common/page-header";
 import BaseDataTable from "@/components/common/dataTable";
 import BusinessesSearch, { defaultSearchData, SearchFiltersData } from "./_components/search";
-import DialogBusinessView from "./_components/dialog/view";
-import DialogBusinessForm from "./_components/dialog/form";
-import DialogBusinessDelete from "./_components/dialog/delete";
+import BusinessDialogView from "./_components/dialog/view";
+import BusinessDialogForm from "./_components/dialog/form";
+import BusinessDialogDelete from "./_components/dialog/delete";
 import useFetchAllBusinesses from "@/hooks/useFetchAllBusinesses";
 import useFilterData from "@/hooks/useFilterData";
 
@@ -112,9 +112,9 @@ export default function BusinessesPage() {
             />
           </Card.Body>
         </Card.Root>
-        <DialogBusinessView ref={viewRef} />
-        <DialogBusinessForm ref={formRef} />
-        <DialogBusinessDelete ref={deleteRef} />
+        <BusinessDialogView ref={viewRef} />
+        <BusinessDialogForm ref={formRef} />
+        <BusinessDialogDelete ref={deleteRef} />
       </GridItem>
     </Grid>
   );

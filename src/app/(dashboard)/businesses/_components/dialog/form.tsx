@@ -25,7 +25,7 @@ const schema = z.object({
   currency: z.string(),
 });
 
-const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
+const BusinessDialogForm = React.forwardRef<TableActionRef>((_props, ref) => {
   // State
   const { open, onOpen, onClose } = useDisclosure();
   const [formId, setFormId] = React.useState<number | null>(null);
@@ -199,4 +199,4 @@ const DialogBusinessForm = React.forwardRef<TableActionRef>((_props, ref) => {
   );
 });
 
-export default DialogBusinessForm;
+export default BusinessDialogForm;

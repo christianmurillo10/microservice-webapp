@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { TableActionRef } from "@/types/common";
 
-const DialogBusinessDelete = React.forwardRef<TableActionRef>((_props, ref) => {
+const BusinessDialogDelete = React.forwardRef<TableActionRef>((_props, ref) => {
   // State
   const { open, onOpen, onClose } = useDisclosure();
   const [deleteId, setDeleteId] = React.useState<number | null>(null);
@@ -68,4 +68,4 @@ const DialogBusinessDelete = React.forwardRef<TableActionRef>((_props, ref) => {
   );
 });
 
-export default DialogBusinessDelete;
+export default BusinessDialogDelete;

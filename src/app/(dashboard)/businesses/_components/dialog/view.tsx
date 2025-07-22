@@ -14,7 +14,7 @@ import {
 import { TableActionRef } from "@/types/common";
 import useFetchBusinessesById from "@/hooks/useFetchBusinessesById";
 
-const DialogBusinessView = React.forwardRef<TableActionRef>((_props, ref) => {
+const BusinessDialogView = React.forwardRef<TableActionRef>((_props, ref) => {
   // State
   const { open, onOpen, onClose } = useDisclosure();
   const [viewId, setViewId] = React.useState<number | null>(null);
@@ -107,4 +107,4 @@ const DialogBusinessView = React.forwardRef<TableActionRef>((_props, ref) => {
   );
 });
 
-export default DialogBusinessView;
+export default BusinessDialogView;
